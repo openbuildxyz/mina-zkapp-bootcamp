@@ -2,14 +2,19 @@
 
 **Mina Protocol** 携手 **OpenBuild** 推出为零知识证明开发者设计的 Bootcamp，让开发者可以从零开始学习在 Mina Protocol 构建 ZK 驱动的应用（zkApp）。无论你是否接触过 ZK 技术，只要具备前端基础知识，便能在指导下顺利掌握 zkApp 开发要领，成为区块链领域中最新创新的见证者和实践者！
 
-本次训练营采用“Learn to Earn”模式，提供全免费的优质课程和丰富的实战任务，由 Mina 和 OpenBuild 支持 2000U 的学习激励，帮助更多的 web2 开发者进入 web3，同时从零开始一步步学习掌握 zkApp 的开发。学习结束后可以组队参与 Mina 生态黑客松，赢取 3000U 的黑客松奖励。
+本次训练营采用“Learn to Earn”模式，提供全免费的优质课程和丰富的实战任务，**由 Mina 和 OpenBuild 支持 2000U 的学习激励，帮助更多的 web2 开发者进入 web3，同时从零开始一步步学习掌握 zkApp 的开发。学习结束后可以组队参与 Mina 生态黑客松，赢取 3000U 的黑客松奖励。**
 
 
 ### 参与方式
 
 #### 报名
 
-参加训练营需要先[报名](https://openbuild.xyz/learn/challenges/2051400317)，完成报名后联系微信号 `hahalzr0118` 加入交流群。学习 zkApp 开发需要有一定的 `TypeScript` 基础，可以参考整理的[学习资源](#学习资源)。
+参加训练营需要先[报名](https://openbuild.xyz/learn/challenges/2051400317)，完成报名后联系小助手微信 `hahalzr0118` 加入交流群。
+
+
+#### 学习准备
+
+课程不需要具备 ZK 知识就可以学习，只需要有一定的 `TypeScript` 基础，可以参考[学习资源](#学习资源)进行学习，有其他问题请联系小助手或在交流群沟通。
 
 
 ### 课程大纲
@@ -49,15 +54,16 @@
 
 #### TypeScript 学习资料
 
-- [TypeScript入门到进阶](https://github.com/mqyqingfeng/learn-typescript)
-- [TypeScript零基础入门到精通](https://www.bilibili.com/video/BV1PuDfY6EB7)
+1. [TypeScript入门到进阶](https://github.com/mqyqingfeng/learn-typescript)
+2. [TypeScript零基础入门到精通](https://www.bilibili.com/video/BV1PuDfY6EB7)
 
 #### Mina 学习资料
 
-- 技术文档：https://docs.minaprotocol.com/
-- zkRollup框架 - Protokit：https://protokit.dev/docs/what-is-protokit
+1. [mina 技术文档](https://docs.minaprotocol.com/)
+2. [zkRollup框架-Protokit](https://protokit.dev/docs/what-is-protokit)
 
 #### ZK 学习资料
 
-- 零知识证明入门教程：https://github.com/WTFAcademy/WTF-zk
-- 零知识证明系列课程：https://zkshanghai.xyz/syllabus.html
+1. [零知识证明入门教程](https://github.com/WTFAcademy/WTF-zk)
+2. [零知识证明系列课程](https://zkshanghai.xyz/syllabus.html)
+3. [探索零知识证明](https://github.com/sec-bit/learning-zkp/tree/master)
