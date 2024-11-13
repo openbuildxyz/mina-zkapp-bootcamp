@@ -1,6 +1,6 @@
 ### Mina x OpenBuild zkApp 训练营
 
-**Mina Protocol** 携手 **OpenBuild** 推出为零知识证明开发者设计的 Bootcamp，让开发者可以从零开始学习在 Mina Protocol 构建 ZK 驱动的应用（zkApp）。无论你是否接触过 ZK 技术，只要具备前端基础知识，便能在指导下顺利掌握 zkApp 开发要领，成为区块链领域中最新创新的见证者和实践者！
+**Mina Protocol** 携手 **OpenBuild** 推出为零知识证明开发者设计的 Bootcamp，**助力开发者可以从零开始学习在 Mina Protocol 构建 ZK 驱动的应用（zkApp）**。无论你是否接触过 ZK 技术，只要具备前端基础知识，便能在指导下顺利掌握 zkApp 开发要领，成为区块链领域中最新创新的见证者和实践者！
 
 本次训练营采用“Learn to Earn”模式，提供全免费的优质课程和丰富的实战任务，**由 Mina 和 OpenBuild 支持 2000U 的学习激励，帮助更多的 web2 开发者进入 web3，同时从零开始一步步学习掌握 zkApp 的开发。学习结束后可以组队参与 Mina 生态黑客松，赢取 3000U 的黑客松奖励。**
 
@@ -48,6 +48,18 @@
 **第五章：Protokit 框架探索**
 1. 《Protokit 基础概念讲解》
 2. 《Protokit 实操案例》
+
+
+### 任务
+
+| 任务 | 名称 | 奖励 |
+|-------|-------|-------|
+| [task1](./task/task1.md) | 创建Auro wallet账户，完成水龙头领水 | 2u |
+| [task2](./task/task2.md) | 设计一个简单的投票统计器 | 5u |
+| [task3](./task/task3.md) | 设计一个众筹合约，时间窗口关闭后被投资人方可提款 | 5u |
+| [task4](./task/task4.md) | 设计一个众筹合约，众筹资金逐步释放 | 2u |
+| [task5](./task/task5.md) | 发行你自己的 token，然后设计一个众筹合约 | 5u |
+| [task6](./task/task6.md) | 运行一个 appchain | 3u |
 
 
 ### 学习资源
