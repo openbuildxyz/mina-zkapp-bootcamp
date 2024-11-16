@@ -40,10 +40,10 @@
 ### 课程大纲
 
 **第一章：Mina 协议基础**
-1. 《开篇介绍 Mina 和开发者 Grant 计划》
-2. 《零知识证明入门》
-3. 《Mina 22kb 原理》
-4. 《Mina 开发者资源》
+1. 《开篇介绍 Mina 和开发者 Grant 计划》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576740)
+2. 《零知识证明入门》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576760)
+3. 《Mina 22kb 原理》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576916)
+4. 《Mina 开发者资源》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731577075)
 
 **第二章：o1JS 开发框架**
 1. 《o1JS 简介》
