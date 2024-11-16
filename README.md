@@ -1,4 +1,4 @@
-### Mina x OpenBuild zkApp 训练营
+# Mina x OpenBuild zkApp 训练营
 
 **Mina Protocol** 携手 **OpenBuild** 推出为零知识证明开发者设计的 Bootcamp，**助力开发者可以从零开始学习在 Mina Protocol 构建 ZK 驱动的应用（zkApp）**。无论你是否接触过 ZK 技术，只要具备前端基础知识，便能在指导下顺利掌握 zkApp 开发要领，成为区块链领域中最新创新的见证者和实践者！
 
