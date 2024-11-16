@@ -8,5 +8,5 @@
 - Mina 钱包地址：B62qrDKrcdXZuks4cccyCtw1b4CBbrcpYFoEQs85pLVmRVUqwAFcakx
 
 #### 自我介绍
-10歲開始寫code，業餘ZK技術愛好者，熱愛學習。
+業餘ZK技術愛好者，熱愛學習。
 * 小弟寫的ZK文章分享: https://ithelp.ithome.com.tw/articles/10351538
