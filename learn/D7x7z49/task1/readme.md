@@ -13,6 +13,7 @@
 3. 下载安装 [Auro wallet](https://www.aurowallet.com/download/)，创建账户，并完成[领水](https://faucet.minaprotocol.com/)
 
 > ![alt text](task1-receive.png)
-> tx hash: 5JukfB3Eq34sJ6yajpetxHjduWvJ9NwTYSCiDoxzQPUNM79Fw4SY
+>
+> - tx hash: 5JukfB3Eq34sJ6yajpetxHjduWvJ9NwTYSCiDoxzQPUNM79Fw4SY
 
 
