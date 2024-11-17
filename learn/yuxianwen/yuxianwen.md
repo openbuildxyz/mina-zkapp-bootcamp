@@ -5,7 +5,7 @@
 
 - github 用户名：yuxianwen
 - OpenBuild 注册邮箱：yuxianweng@gmail.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qny5szDPyzTBeH2UR8ohEpZ9jRduP3wHbtKSBmQFa5Tqu2fTLDMg
 
 #### 自我介绍
 
