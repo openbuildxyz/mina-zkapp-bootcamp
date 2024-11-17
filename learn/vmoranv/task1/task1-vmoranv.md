@@ -18,4 +18,4 @@ ZK-SNARKs:证明者使用初始信息生成一个证据证明了某个声明是�
 
 # 领水`tx hash`:
 
-2mzbV7WevxLuchs2dAMY4vQBS6XttnCUF8Hvks4XNBQ5qiSGGBQe
+5JuLr2z4kd7AFLByGaP4Tr6MrPf4HSoC7yNfdmv8VRxfDU6w5nE8
