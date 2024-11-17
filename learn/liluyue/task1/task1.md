@@ -75,6 +75,6 @@ Mina 保持了去中心化，允许更多用户运行完整节点而无需昂贵
 
 请提交回答，钱包账户截图和领水 `tx hash`。
 ![账户截图](28bc8b768b66f6d76566d36e784ff511.jpg)
-tx hash: 5Ju9Vr7KJAVrbsrJ2XFFBmEaawRr3MVeLS59dNq1zbMXRCBRBr9a
+tx hash:5Ju9Vr7KJAVrbsrJ2XFFBmEaawRr3MVeLS59dNq1zbMXRCBRBr9a
 
 
