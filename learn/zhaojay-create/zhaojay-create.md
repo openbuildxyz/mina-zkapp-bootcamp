@@ -64,3 +64,25 @@ circuit(p1) => p2
 p2 合法,说明 p1 合法,p1 合法,说明 p0 合法.
 
 生成一个新的证明,会把上一次的证明作为参数传递进去,减少了计算量.
+
+##### 构建新区块过程,生成证明
+
+传统区块链的打包
+
+1. 选择一个 block producer
+2. 创建一个新的 block
+   - 验证每一个交易
+   - 根据已经验证交易的 set,和前一个区块的 hash 创建一个新的块.
+3. 打包新的块
+4. 其他人来验证
+
+mina 跟 POS 区块链的打包步骤一样,多了几个步骤
+mina 打包
+
+1. 选择一个 block producer
+2. 创建一个新的 block
+   - 验证每一个交易 --> 生成 txBatchProof 交易证明
+   - 根据已经验证交易的 set,和前一个区块的 hash 创建一个新的块 --> 生成区块证明 blockProof_i(包括验证 txBatchProof)
+   - 利用 blockProof_i 和 ChainProof_i-1 生成 ChainProof_i (ChainProof_i 会证明,i 和 i 之前的块是合法的)
+3. 打包新的块
+4. 其他人来验证
