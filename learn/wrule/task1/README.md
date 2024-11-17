@@ -1,6 +1,6 @@
 # Mina 协议技术解析
 
-## 证明系统概述
+## 概述Mina所采用的证明系统(包括名称、特点)
 
 Mina采用了Kimchi - 一种专为高性能区块链定制的zk-SNARKs实现。通过巧妙运用递归特性，Kimchi让Mina成为第一个真正实现轻量级的区块链。
 
@@ -36,7 +36,7 @@ Mina采用了Kimchi - 一种专为高性能区块链定制的zk-SNARKs实现。�
 - 针对区块链场景优化的证明生成和验证
 - 满足高并发环境下的性能需求
 
-## 递归零知识证明在共识中的应用
+## 概述递归零知识证明在 Mina 共识过程中的应用
 
 ### 状态压缩
 - 通过递归证明将整条链压缩至22KB固定大小
@@ -55,9 +55,9 @@ Mina采用了Kimchi - 一种专为高性能区块链定制的zk-SNARKs实现。�
 - 轻量化设计让更多用户可运行完整节点
 - 网络负载不随链增长而显著提升
 
-## Auro钱包配置记录
+## 下载安装 Auro wallet，创建账户，并完成领水
 
 ![Auro Wallet](./task1.jpg)
 
-## 交易哈希
+## Transaction Hash
 5Jv3PfsdaSVUUddgE7bsMtsshZJFw7NacJsU3QaxaNNxHFYPeQaW
