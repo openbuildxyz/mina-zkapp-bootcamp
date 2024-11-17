@@ -31,7 +31,7 @@
 本次课程以一周学习一章的进度进行，一章对应1-2个任务，任务列表看[这里](#任务)；以提交 `task1` 为例：
 
 1. 在 `learn/YourName` 文件夹中创建 `task1` 文件夹
-2. 在 `task1` 文件夹中存放任务文件。
+2. 在 `task1` 文件夹中存放任务文件，可以新建 `readme.md` 整理任务内容。（鼓励提交学习笔记和心得）
 3. 提交 `PR` 到本仓库，等待合并后完成 `task1`。
 
 <br>
@@ -39,7 +39,7 @@
 
 ### 课程大纲
 
-**第一章：Mina 协议基础**
+**第一章：Mina 协议基础** |  [课件PPT](http://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter1.pptx)
 1. 《开篇介绍 Mina 和开发者 Grant 计划》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576740)
 2. 《零知识证明入门》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576760)
 3. 《Mina 22kb 原理》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576916)
