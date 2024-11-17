@@ -5,7 +5,7 @@
 
 - github 用户名：NeilYeTAT
 - OpenBuild 注册邮箱：nearjilt@gmail.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qnZD6ULT1PfvAKdy9sXQM3eKyZKXm3LmpmvoUCCWscVfGLe4vvja
 
 #### 自我介绍
 
