@@ -2,7 +2,7 @@
 
 #### 个人信息
 
-- github 用户名：liluyue
+- github 用户名：LeoLiu
 - OpenBuild 注册邮箱：hn_liut@126.com
 - Mina 钱包地址：B62qkP1T7Z5mDWYc8ULNAwN1jdwsaioQvr4YNVmmf1TGPPK6ve3cG5s
 
