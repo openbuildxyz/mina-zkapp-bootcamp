@@ -75,18 +75,5 @@ Mina Protocol使用的是zk-SNARK（零知识简洁非交互式知识论证）�
 - 一致性维护
 - 历史可验证
   这种机制使 Mina 能够保持轻量级的区块链结构，同时确保安全性和可验证性。
-#### 个人信息
 
-- github 用户名：junjunyouli
-- OpenBuild 注册邮箱：767012079@qq.com
-- Mina 钱包地址：B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
-
-  tx hash: B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
-
-    ![alt text](1.jpg)
-#### 自我介绍
-
-- Hello, there
-- I am a frontend developer with the React stack and solidity stack.
-- Since I have acquired a basic understanding of zero-knowledge proofs from other lessons, I firmly believe it will become even more promising in the future！
 
