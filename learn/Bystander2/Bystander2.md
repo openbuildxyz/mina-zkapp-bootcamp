@@ -5,7 +5,7 @@
 
 - github 用户名：Bystander2
 - OpenBuild 注册邮箱：sakurasoga7@gmail.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qntCxnwWgmKoHV17UBaYeUZF7MeEkkiMq7gnXq9Xa9qXV93REN5Z
 
 #### 自我介绍
 
