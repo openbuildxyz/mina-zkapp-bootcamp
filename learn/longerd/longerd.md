@@ -4,7 +4,7 @@
 
 - github 用户名：longerd
 - OpenBuild 注册邮箱：longerfree.dai@gmail.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qm2RP4RoVr3QQfMnqY6Ybz7EEddXAHyPAkettYXxnnSvR3L2cHde
 
 #### 自我介绍
 
