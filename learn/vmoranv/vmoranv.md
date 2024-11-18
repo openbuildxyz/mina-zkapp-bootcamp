@@ -5,7 +5,7 @@
 
 - github 用户名：vmoranv
 - OpenBuild 注册邮箱：1761886648@qq.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qpkpgkzCsy3JHMpV94DPgKGSWVfrtXwQWRe6b8yXoZ73XbTkrxKj
 
 #### 自我介绍
 

@@ -39,7 +39,7 @@
 
 ### 课程大纲
 
-**第一章：Mina 协议基础**
+**第一章：Mina 协议基础** |  [课件PPT](http://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter1.pptx)
 1. 《开篇介绍 Mina 和开发者 Grant 计划》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576740)
 2. 《零知识证明入门》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576760)
 3. 《Mina 22kb 原理》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576916)
