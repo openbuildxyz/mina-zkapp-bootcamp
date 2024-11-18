@@ -2,12 +2,8 @@
 
 - github 用户名：junjunyouli
 - OpenBuild 注册邮箱：767012079@qq.com
-
 - Mina 钱包地址：B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
 
-  tx hash: B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
-
-    ![alt text](./task1/1.jpg)
 #### 自我介绍
 
 - Hello, there

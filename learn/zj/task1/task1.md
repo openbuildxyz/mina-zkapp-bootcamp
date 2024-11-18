@@ -77,3 +77,11 @@ Mina Protocol使用的是zk-SNARK（零知识简洁非交互式知识论证）�
   这种机制使 Mina 能够保持轻量级的区块链结构，同时确保安全性和可验证性。
 
 
+
+
+
+#### 下载安装 Auro wallet，创建账户，并完成领水
+
+ - tx hash: B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
+
+![alt text](1.jpg)
