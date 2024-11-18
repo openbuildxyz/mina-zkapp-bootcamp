@@ -5,7 +5,7 @@
 
 - github 用户名：WenHaoHub
 - OpenBuild 注册邮箱：869213720@qq.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qpd7oZMK5DhboEoFzKvGuEg44sc1RwikugRepjzFwisc58TEPRNp
 
 #### 自我介绍
 
