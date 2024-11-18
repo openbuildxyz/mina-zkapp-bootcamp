@@ -1,0 +1,92 @@
+
+### task1：创建 auro wallet 账户，完成水龙头领水
+
+# Mina zkApp 训练营
+   
+#### 1.概述 Mina 所采用的证明系统(包括名称、特点)
+Mina Protocol使用的是zk-SNARK（零知识简洁非交互式知识论证）具体来说，Mina使用的是名为Pickles的zk-SNARK这是一种能够在不受信任初始化的情况下进行部署并进行递归组合的SNARK
+##### Mina 采用的是 Recursive SNARK（递归零知识证明）系统：
+
+1. 递归性
+
+- 可以证明其他 SNARK 的有效性
+- 支持证明的链式组合
+- 能够压缩多个证明为单个证明
+
+2. 可组合性
+
+- 多个证明可以组合成一个证明
+- 支持增量式验证
+- 允许并行处理
+
+3. 固定大小
+
+- 无论计算量多大，证明大小保持不变
+- 验证时间恒定
+- 存储效率高
+
+#### 2.概述递归零知识证明在 Mina 共识过程中的应用
+
+##### 1. 区块链状态压缩
+
+###### 1.1 SNARK Worker
+
+- 生成区块证明
+- 验证历史交易
+- 压缩链状态
+
+###### 1.2 状态转换
+
+- 旧状态 → 新状态的证明
+- 保持固定大小（22kb）
+- 实时更新
+
+##### 2. 共识验证流程
+
+###### 2.1 区块生产
+
+- 收集交易
+- 生成区块证明
+- 广播新区块
+
+###### 2.2 验证过程
+
+- 验证当前证明
+- 确认状态转换
+- 达成共识
+
+##### 3. 具体应用
+
+###### 3.1 区块处理
+
+- 交易验证
+- 状态更新
+- 证明生成
+
+###### 3.2 链同步
+
+- 快速同步
+- 轻客户端支持
+- 状态验证
+
+###### 3.3 安全保证
+
+- 防篡改
+- 一致性维护
+- 历史可验证
+  这种机制使 Mina 能够保持轻量级的区块链结构，同时确保安全性和可验证性。
+#### 个人信息
+
+- github 用户名：junjunyouli
+- OpenBuild 注册邮箱：767012079@qq.com
+- Mina 钱包地址：B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
+
+  tx hash: B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
+
+    ![alt text](1.jpg)
+#### 自我介绍
+
+- Hello, there
+- I am a frontend developer with the React stack and solidity stack.
+- Since I have acquired a basic understanding of zero-knowledge proofs from other lessons, I firmly believe it will become even more promising in the future！
+
