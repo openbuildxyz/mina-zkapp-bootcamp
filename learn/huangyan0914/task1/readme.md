@@ -25,3 +25,5 @@
   5Ju7Lrid6jbTQ89RfiHYr3agP2rmMDhHnu2wQ38LnGMjh42nZRKK
 
 - 钱包账户截图
+
+  ![image](https://github.com/user-attachments/assets/7f4421cf-a270-47b0-9583-72955bf5c207)
