@@ -51,5 +51,5 @@ Mina 使用递归零知识证明主要是为了实现两个核心目标：
 
 请提交回答，钱包账户截图和领水 `tx hash`。
 
-- tx: 5JuFhPHmXhDezYSRTH5FVmQ1r4gKcjVQENDKtXHgcwEEhHLf5LFk
+- tx: [5JuFhPHmXhDezYSRTH5FVmQ1r4gKcjVQENDKtXHgcwEEhHLf5LFk](https://minascan.io/devnet/tx/5JuFhPHmXhDezYSRTH5FVmQ1r4gKcjVQENDKtXHgcwEEhHLf5LFk/txInfo)
 
