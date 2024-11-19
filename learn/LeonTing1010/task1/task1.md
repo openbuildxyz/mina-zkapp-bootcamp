@@ -18,6 +18,7 @@
 
 请提交回答，钱包账户截图和领水 `tx hash`。
 https://minascan.io/devnet/tx/5JvDpFxqSWYhchjzXZM2TMxwhqWhA4EVUT6wokjEd5xCLosJRAKf
+<img width="370" alt="Screen Shot 2024-11-19 at 10 55 19" src="https://github.com/user-attachments/assets/0e4eb4c5-1d11-4498-9b94-91738e319329">
 
 
 
