@@ -4,7 +4,7 @@
 
 -   github 用户名：linghuccc
 -   OpenBuild 注册邮箱：ric.li.c@hotmail.com
--   Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+-   Mina 钱包地址：B62qjJaXMmZgaNecUUrDZ384uDQGYAAoTRTX7CAQ1YrBT6yo3gbzCCJ
 
 #### 自我介绍
 
