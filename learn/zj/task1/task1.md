@@ -82,6 +82,6 @@ Mina Protocol使用的是zk-SNARK（零知识简洁非交互式知识论证）�
 
 #### 下载安装 Auro wallet，创建账户，并完成领水
 
- - tx hash: B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ
+ - tx hash: 5JtmkBj6oW7t47LAATBzjppswsPMBHPGH5wDSbXfVyY2X6HeQcXM
 
 ![alt text](1.jpg)
