@@ -4,7 +4,7 @@
 
 - github 用户名：chinalongyu
 - OpenBuild 注册邮箱：825616753@qq.com
-- Mina 钱包地址：
+- Mina 钱包地址：B62qkt24qwKeJa4AMYqkdnRz2Cc49DW6XrUk5eyFeyATR1QoykiMcbC
 
 #### 自我介绍
 
