@@ -19,7 +19,7 @@
 
 #### 自我介绍
 
-- Web3 learner
+- Stay hungry, stay foolish. 
 
 ### Mina 所采用的证明系统
 
