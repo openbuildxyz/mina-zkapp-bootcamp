@@ -7,3 +7,8 @@
 2. 概述递归零知识证明在 Mina 共识过程中的应用
 
 将整条区块链的完整性和有效性都被压缩到一个小型 zk-SNARK 证明中;节点同步快, 毕竟只有 22kb, 下载和验证速度都比较快;门槛低, 也就让更多人更容易参与, 大大降低了中心化的程度.
+
+钱包账户截图: ![](./wallet.jpg)
+
+领水 `tx hash`:
+[5Juw2WAEW3oBCRhtvxLtxu9mD1DgaGTQZHBAuxg9EPRdUm6mks6G](https://minascan.io/devnet/tx/5Juw2WAEW3oBCRhtvxLtxu9mD1DgaGTQZHBAuxg9EPRdUm6mks6G)
