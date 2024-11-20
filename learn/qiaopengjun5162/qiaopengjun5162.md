@@ -3,7 +3,7 @@
 #### 个人信息
 
 - github 用户名：qiaopengjun5162
-- OpenBuild 注册邮箱：
+- OpenBuild 注册邮箱：<qiaopengjun0@gmail.com>
 - Mina 钱包地址： B62qpC93nMg6Xd9bmW2GRS216xLes3ACrtpo1ykm3A2Xhsm5wQBX7gp
 
 #### 自我介绍
