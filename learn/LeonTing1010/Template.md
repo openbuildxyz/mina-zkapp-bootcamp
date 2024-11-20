@@ -5,7 +5,7 @@
 
 - github 用户名：LeonTing1010
 - OpenBuild 注册邮箱：zhongchang.ding@gmail.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qpc7dLZF5w4BTdBqL1MxQVN6BByemQouBevh9hCPc4jRKhLRQfrp
 
 #### 自我介绍
 
