@@ -19,5 +19,5 @@ Mina建立了一个证明系统，叫做Pickles。包含两个SNARKs，Tick SNAR
 
 ## 下载安装 Auro wallet，创建账户，并完成领水
 
-**Tx Hash**: `2mzbV7WevxLuchs2dAMY4vQBS6XttnCUF8Hvks4XNBQ5qiSGG`                      
+**Tx Hash**: `5JtkSeFQ2Dn4KLH4yGZf44Vdb8F6bM29L834ShXmejM5iqDZoswxSGG`                      
 **钱包截图**: <img width="300" src='./account.png' />
