@@ -14,6 +14,6 @@
 
 > ![alt text](task1.png)
 >
-> [tx hash: 5JukfB3Eq34sJ6yajpetxHjduWvJ9NwTYSCiDoxzQPUNM79Fw4SY](https://minascan.io/devnet/tx/5JvKKyRtUKaCfLvz96GnwWtDzNnud75Z4RL5yK59qtpzFqNQgazD)
+> [tx hash: 5JvKKyRtUKaCfLvz96GnwWtDzNnud75Z4RL5yK59qtpzFqNQgazD](https://minascan.io/devnet/tx/5JvKKyRtUKaCfLvz96GnwWtDzNnud75Z4RL5yK59qtpzFqNQgazD)
 
 
