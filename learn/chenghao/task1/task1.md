@@ -8,4 +8,9 @@ Mina 采用的证明系统主要为 **递归零知识证明** (Recursive Zero-Kn
 
 新区块的生成与证明 链的压缩验证 共识过程的轻量化
 
+钱包地址：B62qn4aindB6rmZRRQYsPEkyYtUpe3Rm2XX8zmUVHtmDNT24HKHodDa
+交易 hash
+5Jup22h9p4GGsax7j1FKvuzWkN2X8FgWYn5dy99Tg3k7eYVHvxJT
+
+
 ![1732067712519](images/task1/1732067712519.png)
