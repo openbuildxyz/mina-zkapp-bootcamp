@@ -23,6 +23,10 @@
 
 完成报名后联系小助手微信 `hahalzr0118` 加入交流群。课程不需要具备 ZK 知识就可以学习，只需要有一定的 `TypeScript` 基础，可以参考[学习资源](#学习资源)进行学习，有其他问题请联系小助手或在交流群沟通。
 
+Auro Wallet 下载：https://www.aurowallet.com/download/  
+Mina 水龙头：https://faucet.minaprotocol.com/  
+Mina 区块链浏览器：https://minascan.io/devnet/home
+
 <br>
 
 
@@ -39,7 +43,7 @@
 
 ### 课程大纲
 
-**第一章：Mina 协议基础** |  [课件PPT](http://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter1.pptx)
+**第一章：Mina 协议基础** |  [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter1.pptx)
 1. 《开篇介绍 Mina 和开发者 Grant 计划》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576740)
 2. 《零知识证明入门》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576760)
 3. 《Mina 22kb 原理》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576916)
