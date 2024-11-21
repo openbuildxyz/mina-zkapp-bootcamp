@@ -90,6 +90,13 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 
 <br>
 
+### 📢 Mina 学习激励活动！
+
+参与技术讨论、撰写技术文章、社交分享，即有机会赢取 MINA 奖励！🎉  [立即参与](https://github.com/openbuildxyz/mina-zkapp-bootcamp/discussions/154)
+
+
+<br>
+
 ### 学习资源
 
 #### TypeScript 学习资料
