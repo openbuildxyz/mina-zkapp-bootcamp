@@ -24,4 +24,4 @@
 
 - ![钱包账户截图](./account.png)
 - ![取水截图](./mina-faucet.png)
-- txhash: [3NKWCNqihQvL1f7Qu9xQjJFAEKG43SaRV1MCVZ88QC8Lo5wK4uNi](https://minascan.io/devnet/tx/5Jv65EHzavvDRqSHD6NBx1wEUnQRg3zgDFqaLvvNKc35eHzSxxst)
+- txhash: [5Jv65EHzavvDRqSHD6NBx1wEUnQRg3zgDFqaLvvNKc35eHzSxxst](https://minascan.io/devnet/tx/5Jv65EHzavvDRqSHD6NBx1wEUnQRg3zgDFqaLvvNKc35eHzSxxst)
