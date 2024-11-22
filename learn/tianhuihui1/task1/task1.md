@@ -46,5 +46,5 @@ POS-Chain's 共识
 
 **tx hash**: 5JuTAQhvaKLQov2qFZ5cfhKNzAurKKYyHC7e6yBvgEVAJaPHcw1x
 
-    ![alt text](1122.png)
+![alt text](1122.png)
 
