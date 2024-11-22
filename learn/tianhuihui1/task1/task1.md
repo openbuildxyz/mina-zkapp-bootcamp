@@ -23,8 +23,6 @@ Mina 的共识机制使用的是 **Ouroboros Samisika**，一种基于权益证�
 
 通过这种方式，Mina 在确保去中心化和安全性的同时，克服了传统区块链面临的扩展性问题，实现了极为轻量且高效的区块链系统。
 
-![alt text](WX20241118-222535@2x.png)
-
 
 #### 3. 下载安装 [Auro wallet](https://www.aurowallet.com/download/)，创建账户，并完成[领水](https://faucet.minaprotocol.com/)
 
