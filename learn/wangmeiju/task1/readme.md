@@ -15,7 +15,5 @@ Mina 使用的是零知识证明系统，具体为 zk-SNARKs（Zero-Knowledge Su
 - **去中心化**：资源较少的设备也能轻松参与区块验证过程，提高了网络的去中心化程度。
 
 ## 截图
-
 ![截图](image.png)
-
 `tx hash`: 5JuRPoTBEWtD3FCEjyncq4Pd8GzqNFxBcZP2ixUMqXX3kj63KSqT
