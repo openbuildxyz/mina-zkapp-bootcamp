@@ -5,8 +5,8 @@
 
 - github 用户名：S-N-O-R-L-A-X
 - OpenBuild 注册邮箱：snorlax.xu@outlook.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qk1Yeyy6wxVLKVrZigcPKnJayW1p8iJ4h7arTQtrwL3Nb6y7LPip
 
 #### 自我介绍
 
-Hi! I am S-N-O-R-L-A-X. 
+Hi! I am S-N-O-R-L-A-X, a noob in web3.
