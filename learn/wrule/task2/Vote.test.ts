@@ -188,4 +188,20 @@ describe('Vote', () => {
     const currentRoot = zkApp.getMemberRoot();
     expect(currentRoot).toEqual(tree.getRoot());
   });
+
+  it('merkle tree root update and access by others', async () => {
+    await localDeploy();
+    const tree = new MerkleMap();
+    members.forEach((member) => {
+      tree.set(member.hashKey, Field(1));
+    });
+    const user = members[0];
+    await expect(async () => {
+      const txnRootUpdate = await Mina.transaction(user.account, async () => {
+        await zkApp.updateMemberRoot(tree.getRoot());
+      });
+      await txnRootUpdate.prove();
+      await txnRootUpdate.sign([user.key, zkAppPrivateKey]).send();
+    }).rejects.toThrow('Only deployer can perform this action');
+  });
 });
