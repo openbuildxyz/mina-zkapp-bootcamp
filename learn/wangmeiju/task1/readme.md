@@ -18,4 +18,4 @@ Mina 使用的是零知识证明系统，具体为 zk-SNARKs（Zero-Knowledge Su
 
 ![截图](image.png)
 
-`tx hash`: 5JvH6nnbaxHz6SE2kp2pmAtMRGYXYfe4aUbxs7yuXwU3QJzMamwW
+`tx hash`: 5JuRPoTBEWtD3FCEjyncq4Pd8GzqNFxBcZP2ixUMqXX3kj63KSqT
