@@ -50,10 +50,10 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 4. 《Mina 开发者资源》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731577075)
 
 **第二章：o1JS 开发框架**
-1. 《o1JS 简介》
-2. 《使用 zkapp-cli 初始化工程》
-3. 《DSL 语法讲解》
-4. 《Demo 案例讲解》
+1. 《o1JS 简介》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289285)
+2. 《使用 zkapp-cli 初始化工程》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289385)
+3. 《DSL 语法讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289429)
+4. 《Demo 案例讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289481)
 
 **第三章：zkApp 基础开发**
 1. 《zkApp 基础概念与实操》
