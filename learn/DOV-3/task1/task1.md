@@ -17,4 +17,3 @@ Mina使用的是递归零知识证明 - zk SNARKs。
 4.参与者仅需下载和验证单个递归证明，降低了用户的硬件要求。
 
 tx hash:B62qrBYFpTVKKt4976JyPJvTBB3kCjScAc1Be9yyAgSM92AyEjDbJcp
-
