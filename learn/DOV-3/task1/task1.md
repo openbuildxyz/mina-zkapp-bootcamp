@@ -15,6 +15,7 @@ Mina使用的是递归零知识证明 - zk SNARKs。
 3.证明计算和状态的正确，但无需泄露计算的输入细节
 
 4.参与者仅需下载和验证单个递归证明，降低了用户的硬件要求。
-https://github.com/DOV-3/mina-zkapp-bootcamp/blob/main/learn/DOV-3/task1/Snipaste_2024-11-24_20-51-42.png
+![image](https://github.com/DOV-3/mina-zkapp-bootcamp/blob/main/learn/DOV-3/task1/Snipaste_2024-11-24_20-51-42.png)
+
 
 tx hash:B62qrBYFpTVKKt4976JyPJvTBB3kCjScAc1Be9yyAgSM92AyEjDbJcp
