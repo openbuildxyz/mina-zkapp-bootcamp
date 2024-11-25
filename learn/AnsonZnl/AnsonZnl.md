@@ -5,7 +5,7 @@
 
 - github 用户名：AnsonZnl
 - OpenBuild 注册邮箱：1160030724@qq.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qjoDym4qSu5YYLvmPTKePePpkGeXmPZAwwjHUpQNeP1hoFVJoB7a
 
 ## 自我介绍
 
