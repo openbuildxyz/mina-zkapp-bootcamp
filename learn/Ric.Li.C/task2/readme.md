@@ -7,5 +7,6 @@
 
 ### 作业
 
--   **测试执行脚本**: [voting-counter.ts](voting-counter.ts)
--   **测试运行截图**: ![Screenshot](task2.png)
+-   测试执行脚本: [voting-counter.ts](voting-counter.ts)
+
+-   测试运行截图: ![Screenshot](task2.png)
