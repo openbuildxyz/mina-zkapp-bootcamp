@@ -101,6 +101,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 | tianhuihui1   | 发表技术文章 | [零基础开始学 Mina（一）](https://learnblockchain.cn/article/9990)                          | [1.5 MINA](https://minascan.io/mainnet/tx/5JubrFYmsmNcCoeK1xtxoSAbnd1P3u4PsuCiGwu5tLnzidEXnbfa)   |
 | lispking      | 发表技术文章 | [Kimchi：Mina 证明系统的最新更新](https://learnblockchain.cn/article/10013)                 | [1.3 MINA](https://minascan.io/mainnet/tx/5JuZN4QWTrtxQxY66sEjQrD6ZJcMhnsvvuYWX3aasBG2ABovUsqX)   |
 | lispking      | 发表技术文章 | [重新介绍 Mina：利用“万物证明”构建（真实）物联网](https://learnblockchain.cn/article/10031) | [1.3 MINA](https://minascan.io/mainnet/tx/5JupvnywULNVrmAanLE5yL4Qo8jsgaFnth5pLgonT93d3XwLkYU8)   |
+| lispking      | 发表技术文章 | [Mina协议上的零知识机器学习](https://mp.weixin.qq.com/s/vAaYppVCfg19mj5w86NCuA)             | [1.4 MINA](https://minascan.io/mainnet/tx/5JtiynKbPqh34UxQCueYgzgRVNcUQtaWY4bsJHZrkNbgpiLpS3uf)   |
 
 <br>
 
