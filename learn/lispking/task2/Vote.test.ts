@@ -3,7 +3,7 @@ import { Vote } from './Vote';
 
 let proofsEnabled = false;
 
-interface User {
+interface TeamMember {
   key: PrivateKey;
   account: Mina.TestPublicKey;
   hash: Field;
@@ -13,9 +13,9 @@ describe('Vote', () => {
   let deployerAccount: Mina.TestPublicKey,
     deployerKey: PrivateKey,
     invalidAccount: Mina.TestPublicKey,
-    memberRoot: MerkleMap = new MerkleMap(),
-    teamMembers: User[] = [],
-    invalidUser: User,
+    teamRoot: MerkleMap = new MerkleMap(),
+    teamMembers: TeamMember[] = [],
+    invalidUser: TeamMember,
     zkAppAddress: PublicKey,
     zkAppPrivateKey: PrivateKey,
     zkApp: Vote;
@@ -37,14 +37,7 @@ describe('Vote', () => {
       hash: Poseidon.hash(invalidAccount.toFields()),
     };
 
-    Local.testAccounts.slice(2, 10).forEach((item, index) => {
-      teamMembers[index] = {
-        key: item.key,
-        account: item,
-        hash: Poseidon.hash(item.toFields()),
-      };
-      memberRoot.set(teamMembers[index].hash, Field(1));
-    });
+    initTeamRoot(Local.testAccounts.slice(2, 10));
 
     zkAppPrivateKey = PrivateKey.random();
     zkAppAddress = zkAppPrivateKey.toPublicKey();
@@ -52,6 +45,17 @@ describe('Vote', () => {
 
     await localDeploy();
   });
+
+  function initTeamRoot(accounts: Mina.TestPublicKey[]) {
+    accounts.forEach((item, index) => {
+      teamMembers[index] = {
+        key: item.key,
+        account: item,
+        hash: Poseidon.hash(item.toFields()),
+      };
+      teamRoot.set(teamMembers[index].hash, Field(1));
+    });
+  }
 
   async function localDeploy() {
     const txn = await Mina.transaction(deployerAccount, async () => {
@@ -63,47 +67,47 @@ describe('Vote', () => {
     await txn.sign([deployerKey, zkAppPrivateKey]).send();
 
     const txnInit = await Mina.transaction(deployerAccount, async () => {
-      await zkApp.setTeamMembers(memberRoot.getRoot());
+      await zkApp.setTeamMembers(teamRoot.getRoot());
     });
     await txnInit.prove();
     await txnInit.sign([deployerKey, zkAppPrivateKey]).send();
   }
 
   it('approve vote', async () => {
-    const user = teamMembers[Math.floor(Math.random() * teamMembers.length)];
-  
-    const oldVoteCount = zkApp.getVoteCount();  
-    const txn = await Mina.transaction(user.account, async () => {
-      await zkApp.approveVote(memberRoot.getWitness(user.hash));
+    for (const user of teamMembers) {
+      const oldVoteCount = zkApp.getVoteCount();  
+      const txn = await Mina.transaction(user.account, async () => {
+      await zkApp.approveVote(teamRoot.getWitness(user.hash));
     });
-    await txn.prove();  
-    await txn.sign([user.key]).send();
+      await txn.prove();  
+      await txn.sign([user.key]).send();
 
-    const newVoteCount = zkApp.getVoteCount();  
-    expect([newVoteCount.approve, newVoteCount.reject])
-      .toEqual([oldVoteCount.approve.add(Field(1)), oldVoteCount.reject]);
+      const newVoteCount = zkApp.getVoteCount();  
+      expect([newVoteCount.approve, newVoteCount.reject])
+        .toEqual([oldVoteCount.approve.add(Field(1)), oldVoteCount.reject]);
+    }
   });
 
   it('reject vote', async () => {
-    const user = teamMembers[Math.floor(Math.random() * teamMembers.length)];
-  
-    const oldVoteCount = zkApp.getVoteCount();
+    for (const user of teamMembers) {
+      const oldVoteCount = zkApp.getVoteCount();
 
-    const txn = await Mina.transaction(user.account, async () => {
-      await zkApp.rejectVote(memberRoot.getWitness(user.hash));
-    });
-    await txn.prove();  
-    await txn.sign([user.key]).send();
+      const txn = await Mina.transaction(user.account, async () => {
+        await zkApp.rejectVote(teamRoot.getWitness(user.hash));
+      });
+      await txn.prove();  
+      await txn.sign([user.key]).send();
 
-    const newVoteCount = zkApp.getVoteCount();  
-    expect([newVoteCount.approve, newVoteCount.reject])
-      .toEqual([oldVoteCount.approve, oldVoteCount.reject.add(Field(1))]);
+      const newVoteCount = zkApp.getVoteCount();  
+      expect([newVoteCount.approve, newVoteCount.reject])
+        .toEqual([oldVoteCount.approve, oldVoteCount.reject.add(Field(1))]);
+    }
   });
 
   it('invalid member', async () => {  
     expect(async () => {
       await Mina.transaction(invalidUser.account, async () => {
-        await zkApp.approveVote(memberRoot.getWitness(invalidUser.hash));
+        await zkApp.approveVote(teamRoot.getWitness(invalidUser.hash));
       });
     }).rejects;
   });
