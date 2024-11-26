@@ -11,6 +11,12 @@
 
 
 ## 1. task1
+1. 概述Mina所采用的证明系统(包括名称、特点)
+zkSNARK家族的PLONK的一个变种,特点是在简化trusted setup基础上干脆去掉了trusted setup进一步大大简化zkp; 是个recursive的zkp, 通用zkp, 证明的体积小(small proof size).
+2. 概述递归零知识证明在 Mina 共识过程中的应用
+区块链领域用于zkRollup方式的扩容, 工作量集中在证明阶段,而通验证过程很快,从而实现主链上计算的压缩.
+3. 下载安装 Auro wallet，创建账户，并完成领水
 - tx hash: 5JufW5x2fbBBwxNanxtGaExtAXsby8fQoLARJzGEx7ajw7U7uTpT
 ![alt "2024/11/23 23:05"](auro_wallet_with_faucet_coin.png)  
 
+<br>
