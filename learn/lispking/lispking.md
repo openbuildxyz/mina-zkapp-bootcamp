@@ -5,7 +5,7 @@
 
 - github 用户名：lispking
 - OpenBuild 注册邮箱：lispking@qq.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qmr9d5bUxBm3S4F9tzrGN1bNdnBEAkdqFhFvJiw5X3oeQZeZMZYP
 
 #### 自我介绍
 
