@@ -8,4 +8,4 @@
 
 #### 自我介绍
 
-    Ric Li C, 家庭主夫，天天在家带 2 个女儿，自学了 Solidity，NextJS，TypeScript，前一段时间在 BSC 链上，发行了个人的半慈善性质的 NFT 项目：[MAS Awareness](http://mas-awareness.top)。
+Ric Li C, 家庭主夫，天天在家带 2 个女儿，自学了 Solidity，NextJS，TypeScript，前一段时间在 BSC 链上，发行了个人的半慈善性质的 NFT 项目：[MAS Awareness](http://mas-awareness.top)。
