@@ -77,7 +77,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 
 ### 任务
 
-任务奖励以 RMB 等值的 `$MINA` 发放到你提交的 Mina 钱包地址中。
+任务奖励以 RMB 等值的 `$MINA` 发放到你提交的 Mina 钱包地址中。 🎉 奖励发放情况看[这里](./reward)。
 
 | 任务 | 阶段 | 名称 | 奖励 | 状态 |
 |-------|-------|-------|-------|-------|
@@ -94,6 +94,13 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 
 参与技术讨论、撰写技术文章、社交分享，即有机会赢取 MINA 奖励！🎉  [立即参与](https://github.com/openbuildxyz/mina-zkapp-bootcamp/discussions/154)
 
+
+| 用户名        | 奖励类型     |                     链接                                                                    | 奖励                                                                                              |
+|---------------|--------------|---------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| MartinYeung5  | 发表技术文章 | [探索Mina的獨特架構和zkApp應用例子](https://learnblockchain.cn/article/10009)               | [1.5 MINA](https://minascan.io/mainnet/tx/5Ju9kL8RD53QfyUG7T31yhd1vEfrcDfwY7g5ZNSupmtjZnFY2do3)   |
+| tianhuihui1   | 发表技术文章 | [零基础开始学 Mina（一）](https://learnblockchain.cn/article/9990)                          | [1.5 MINA](https://minascan.io/mainnet/tx/5JubrFYmsmNcCoeK1xtxoSAbnd1P3u4PsuCiGwu5tLnzidEXnbfa)   |
+| lispking      | 发表技术文章 | [Kimchi：Mina 证明系统的最新更新](https://learnblockchain.cn/article/10013)                 | [1.3 MINA](https://minascan.io/mainnet/tx/5JuZN4QWTrtxQxY66sEjQrD6ZJcMhnsvvuYWX3aasBG2ABovUsqX)   |
+| lispking      | 发表技术文章 | [重新介绍 Mina：利用“万物证明”构建（真实）物联网](https://learnblockchain.cn/article/10031) | [1.3 MINA](https://minascan.io/mainnet/tx/5JupvnywULNVrmAanLE5yL4Qo8jsgaFnth5pLgonT93d3XwLkYU8)   |
 
 <br>
 
