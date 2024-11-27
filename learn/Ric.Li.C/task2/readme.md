@@ -7,6 +7,8 @@
 
 ### 作业
 
--   测试执行脚本: [vote-counter.ts](vote-counter.ts)
+-   测试执行脚本(简单验证): [vote-counter_simple.ts](vote-counter_simple.ts)
+
+-   测试执行脚本(默克尔树验证): [vote-counter_merkle.ts](vote-counter_merkle.ts)
 
 -   测试运行截图: ![Screenshot](task2.png)
