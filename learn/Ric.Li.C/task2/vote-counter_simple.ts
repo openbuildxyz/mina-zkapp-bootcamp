@@ -2,7 +2,7 @@ import {
   Struct,
   SelfProof,
   Bool,
-  Field,
+  UInt32,
   ZkProgram,
   verify,
   Proof,
@@ -13,19 +13,11 @@ import {
 
 // Define the set of valid addresses (hashed public keys).
 const validAddresses = [
-  PublicKey.fromBase58(
-    'B62qjJaXMmZgaNecUUrDZ384uDQGYAAoTRTX7CAQ1YrBT6yo3gbzCCJ'
-  ),
-  PublicKey.fromBase58(
-    'B62qmWgnatsvVwkL1iGHuE2BhNF8piikGz6zssM3espTZaaAKqnVvCU'
-  ),
-  PublicKey.fromBase58(
-    'B62qpR2vB3fNGXE4a5ACiCvcX9rKaLgUnQGT993xrCSi1BjwiPm9fM5'
-  ),
-  PublicKey.fromBase58(
-    'B62qkrx1iS5TtGZoGjFzepEbgkqnHwJ2KU8dFRKwqhDWaxYzp6Vf3Fu'
-  ),
-];
+  'B62qjJaXMmZgaNecUUrDZ384uDQGYAAoTRTX7CAQ1YrBT6yo3gbzCCJ',
+  'B62qmWgnatsvVwkL1iGHuE2BhNF8piikGz6zssM3espTZaaAKqnVvCU',
+  'B62qpR2vB3fNGXE4a5ACiCvcX9rKaLgUnQGT993xrCSi1BjwiPm9fM5',
+  'B62qkrx1iS5TtGZoGjFzepEbgkqnHwJ2KU8dFRKwqhDWaxYzp6Vf3Fu',
+].map(PublicKey.fromBase58);
 
 const invalidAddress = PublicKey.fromBase58(
   'B62qpdHdu7MA3B7Yh5Fg1uLjp2dKohkHcoGA7HFP3G9uuhYQBxUBZga'
@@ -42,8 +34,8 @@ class VoteRecord extends Struct({
 }) {}
 
 class VoteCount extends Struct({
-  approveCount: Field,
-  disapproveCount: Field,
+  approveCount: UInt32,
+  disapproveCount: UInt32,
 }) {}
 
 /**
@@ -58,7 +50,7 @@ let MyProgram = ZkProgram({
     resetCounter: {
       privateInputs: [],
       async method() {
-        return { approveCount: new Field(0), disapproveCount: new Field(0) };
+        return { approveCount: new UInt32(0), disapproveCount: new UInt32(0) };
       },
     },
 
@@ -71,8 +63,8 @@ let MyProgram = ZkProgram({
         earlierProof.verify();
 
         // Check if the voter address is valid.
-        let userAddress = publicInput.voterAddress;
-        let isValidAddress = Provable.if(
+        const userAddress = publicInput.voterAddress;
+        const isValidAddress = Provable.if(
           userAddress
             .equals(validAddresses[0])
             .or(userAddress.equals(validAddresses[1]))
@@ -81,24 +73,24 @@ let MyProgram = ZkProgram({
           Bool(true),
           Bool(false)
         );
-        isValidAddress.assertTrue('not valid voter');
+        isValidAddress.assertTrue('Voter address is not in the allowed list');
 
         // Get the current approval number from earlier proof.
-        let approveCount = earlierProof.publicOutput.approveCount;
-        let disapproveCount = earlierProof.publicOutput.disapproveCount;
+        const approveCount = earlierProof.publicOutput.approveCount;
+        const disapproveCount = earlierProof.publicOutput.disapproveCount;
         Provable.asProver(() => {
           console.log('approveCount:', approveCount.toString());
           console.log('disapproveCount:', disapproveCount.toString());
         });
 
         // If the vote is true, increase approval number by 1; else increase disapproval number by 1.
-        let newApproveCount = Provable.if(
+        const newApproveCount = Provable.if(
           publicInput.voteChoice,
           approveCount.add(1),
           approveCount
         );
 
-        let newDisapproveCount = Provable.if(
+        const newDisapproveCount = Provable.if(
           publicInput.voteChoice,
           disapproveCount,
           disapproveCount.add(1)
@@ -140,11 +132,11 @@ console.log(
 
 console.log('proving initial state...');
 console.time('MyProgram.resetCounter time cost ');
-let input = new VoteRecord({
+const initialInput = new VoteRecord({
   voterAddress: validAddresses[0],
   voteChoice: Bool(true),
 });
-let proof = await MyProgram.resetCounter(input);
+let proof = await MyProgram.resetCounter(initialInput);
 console.timeEnd('MyProgram.resetCounter time cost ');
 proof = await testJsonRoundtrip(MyProof, proof);
 
@@ -174,11 +166,11 @@ console.log(
 
 // Step 1: Input {validAddresses[0], true}
 console.log('proving step 1...');
-let VoteRecord1 = new VoteRecord({
+const voteRecord1 = new VoteRecord({
   voterAddress: validAddresses[0],
   voteChoice: Bool(true),
 });
-proof = await MyProgram.count(VoteRecord1, proof);
+proof = await MyProgram.count(voteRecord1, proof);
 console.log('verifying step 1...');
 ok = await verify(proof.toJSON(), verificationKey);
 console.log(
@@ -201,11 +193,11 @@ console.log(
 
 // Step 2: Input {validAddresses[1], false}
 console.log('proving step 2...');
-let VoteRecord2 = new VoteRecord({
+const voteRecord2 = new VoteRecord({
   voterAddress: validAddresses[1],
   voteChoice: Bool(false),
 });
-proof = await MyProgram.count(VoteRecord2, proof);
+proof = await MyProgram.count(voteRecord2, proof);
 console.log('verifying step 2...');
 ok = await verify(proof.toJSON(), verificationKey);
 console.log(
@@ -228,11 +220,11 @@ console.log(
 
 // Step 3: Input {validAddresses[2], true}
 console.log('proving step 3...');
-let VoteRecord3 = new VoteRecord({
+const voteRecord3 = new VoteRecord({
   voterAddress: validAddresses[2],
   voteChoice: Bool(true),
 });
-proof = await MyProgram.count(VoteRecord3, proof);
+proof = await MyProgram.count(voteRecord3, proof);
 console.log('verifying step 3...');
 ok = await verify(proof.toJSON(), verificationKey);
 console.log(
@@ -255,7 +247,7 @@ console.log(
 
 // Step 4: Reset Counter
 console.log('proving step 4...');
-let resetInput = new VoteRecord({
+const resetInput = new VoteRecord({
   voterAddress: validAddresses[3],
   voteChoice: Bool(false),
 });
@@ -282,11 +274,11 @@ console.log(
 
 // Step 5: Input {validAddresses[3], false}
 console.log('proving step 5...');
-let VoteRecord5 = new VoteRecord({
+const voteRecord5 = new VoteRecord({
   voterAddress: validAddresses[3],
   voteChoice: Bool(false),
 });
-proof = await MyProgram.count(VoteRecord5, proof);
+proof = await MyProgram.count(voteRecord5, proof);
 console.log('verifying step 5...');
 ok = await verify(proof.toJSON(), verificationKey);
 console.log(
@@ -308,28 +300,29 @@ console.log(
 );
 
 // Step 6: Input {invalid address, true}
-console.log('proving step 6...');
-let VoteRecord6 = new VoteRecord({
+console.log('verifying step 6...');
+const voteRecord6 = new VoteRecord({
   voterAddress: invalidAddress,
   voteChoice: Bool(true),
 });
-proof = await MyProgram.count(VoteRecord6, proof);
-console.log('verifying step 6...');
-ok = await verify(proof.toJSON(), verificationKey);
-console.log(
-  'step 6 approve count is',
-  proof.publicOutput.approveCount.toString()
-);
-console.log(
-  'step 6 disapprove count is',
-  proof.publicOutput.disapproveCount.toString()
-);
-console.log(
-  'step 6 ok?',
-  ok &&
-    proof.publicOutput.approveCount.toString() === '0' &&
-    proof.publicOutput.disapproveCount.toString() === '1'
-);
+
+try {
+  proof = await MyProgram.count(voteRecord6, proof);
+  throw new Error('Expected revert but did not happen.');
+} catch (error) {
+  // console.log('Caught error:', error); // Log the entire error object
+
+  if (error instanceof Error) {
+    // console.log('Error message:', error.message); // Log the error message separately
+    if (error.message.includes('Voter address is not in the allowed list')) {
+      console.log('step 6 is ok');
+    } else {
+      console.error('Unexpected error message:', error.message);
+    }
+  } else {
+    console.error('Unexpected error type:', error);
+  }
+}
 
 /**
  * Helper function

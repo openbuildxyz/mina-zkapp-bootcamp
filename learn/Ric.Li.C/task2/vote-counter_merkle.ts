@@ -297,13 +297,13 @@ console.log(
 console.log('proving step 5...');
 
 // Generate a Merkle proof for a voter address
-const voterIndex4 = 3;
-const voteRecord4 = new VoteRecord({
-  voterAddress: validAddresses[voterIndex4],
-  merkleProof: new MyMerkleWitness(merkleTree.getWitness(BigInt(voterIndex4))),
+const voterIndex5 = 3;
+const voteRecord5 = new VoteRecord({
+  voterAddress: validAddresses[voterIndex5],
+  merkleProof: new MyMerkleWitness(merkleTree.getWitness(BigInt(voterIndex5))),
   voteChoice: Bool(false),
 });
-proof = await MyProgram.count(voteRecord4, proof);
+proof = await MyProgram.count(voteRecord5, proof);
 console.log('verifying step 5...');
 ok = await verify(proof.toJSON(), verificationKey);
 console.log(
@@ -325,13 +325,30 @@ console.log(
 );
 
 // Step 6: Input {invalid address, true}
-console.log('proving step 6...');
-const voteRecord5 = new VoteRecord({
+console.log('verifying step 6...');
+const voteRecord6 = new VoteRecord({
   voterAddress: invalidAddress,
-  merkleProof: new MyMerkleWitness(merkleTree.getWitness(BigInt(voterIndex4))),
+  merkleProof: new MyMerkleWitness(merkleTree.getWitness(BigInt(voterIndex5))),
   voteChoice: Bool(true),
 });
-proof = await MyProgram.count(voteRecord5, proof);
+
+try {
+  proof = await MyProgram.count(voteRecord6, proof);
+  throw new Error('Expected revert but did not happen.');
+} catch (error) {
+  // console.log('Caught error:', error); // Log the entire error object
+
+  if (error instanceof Error) {
+    // console.log('Error message:', error.message); // Log the error message separately
+    if (error.message.includes('Voter address is not in the allowed list')) {
+      console.log('step 6 is ok');
+    } else {
+      console.error('Unexpected error message:', error.message);
+    }
+  } else {
+    console.error('Unexpected error type:', error);
+  }
+}
 
 /**
  * Helper function
