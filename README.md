@@ -49,7 +49,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 3. 《Mina 22kb 原理》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576916)
 4. 《Mina 开发者资源》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731577075)
 
-**第二章：o1JS 开发框架**
+**第二章：o1JS 开发框架** |  [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter2.pptx)
 1. 《o1JS 简介》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289285)
 2. 《使用 zkapp-cli 初始化工程》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289385)
 3. 《DSL 语法讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289429)
