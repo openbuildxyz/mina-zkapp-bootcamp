@@ -11,3 +11,5 @@
 - 用户账户
 
 **领水：**`tx hash`：5JuGsep9MpPVBwYnwdJcNiUiDT26xvtogHGSrQG1ZRHuUXAVq12H
+
+钱包地址： ![](./wallet.png)
