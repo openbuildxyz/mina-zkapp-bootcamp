@@ -1,4 +1,14 @@
-import { AccountUpdate, Field, Mina, Bool, PrivateKey, PublicKey } from 'o1js';
+import {
+  AccountUpdate,
+  Field,
+  Mina,
+  Bool,
+  PrivateKey,
+  PublicKey,
+  MerkleMap,
+  Poseidon,
+  MerkleMapWitness,
+} from 'o1js';
 import { Vote } from './Vote';
 
 let proofsEnabled = false;
@@ -12,7 +22,12 @@ describe('Vote', () => {
     twoTestKey: PrivateKey,
     zkAppAddress: PublicKey,
     zkAppPrivateKey: PrivateKey,
-    zkApp: Vote;
+    zkApp: Vote,
+    oneWitness: MerkleMapWitness,
+    twoWitness: MerkleMapWitness,
+    oneAddressToField: Field,
+    twoAddressToField: Field,
+    memberMap = new MerkleMap();
 
   beforeAll(async () => {
     if (proofsEnabled) await Vote.compile();
@@ -25,6 +40,15 @@ describe('Vote', () => {
     deployerKey = deployerAccount.key;
     oneTestKey = oneTestAccount.key;
     twoTestKey = twoTestAccount.key;
+
+    oneAddressToField = Poseidon.hash(oneTestAccount.toFields());
+    oneWitness = memberMap.getWitness(oneAddressToField);
+    memberMap.set(oneAddressToField, Field(1));
+
+    twoAddressToField = Poseidon.hash(twoTestAccount.toFields());
+    twoWitness = memberMap.getWitness(twoAddressToField);
+    memberMap.set(twoAddressToField, Field(1));
+
 
     zkAppPrivateKey = PrivateKey.random();
     zkAppAddress = zkAppPrivateKey.toPublicKey();
@@ -39,6 +63,13 @@ describe('Vote', () => {
     await txn.prove();
     // this tx needs .sign(), because `deploy()` adds an account update that requires signature authorization
     await txn.sign([deployerKey, zkAppPrivateKey]).send();
+
+    // 添加成员 one
+    const memberTxn = await Mina.transaction(deployerAccount, async () => {
+      await zkApp.addMember(memberMap.getRoot());
+    });
+    await memberTxn.prove();
+    await memberTxn.sign([deployerAccount.key]).send();
   }
 
   it('init number to 0', async () => {
@@ -54,7 +85,7 @@ describe('Vote', () => {
     await localDeploy();
     // 反对票
     let txn = await Mina.transaction(oneTestAccount, async () => {
-      await zkApp.count(Bool(false));
+      await zkApp.count(Bool(false), memberMap.getWitness(oneAddressToField));
     });
     await txn.prove();
     await txn.sign([oneTestKey]).send();
@@ -65,7 +96,7 @@ describe('Vote', () => {
 
     // 赞成票
     let twotxn = await Mina.transaction(twoTestAccount, async () => {
-      await zkApp.count(Bool(true));
+      await zkApp.count(Bool(true), memberMap.getWitness(twoAddressToField));
     });
     await twotxn.prove();
     await twotxn.sign([twoTestKey]).send();
