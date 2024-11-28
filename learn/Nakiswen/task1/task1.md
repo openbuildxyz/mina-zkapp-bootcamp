@@ -38,16 +38,13 @@ Mina 使用的是 PLONK（Permutations over Lagrange-bases for Oecumenical Nonin
 值得注意的是，这种递归证明体系虽然在存储效率上有巨大优势，但也带来了较高的计算开销，这是目前 Mina 正在持续优化的方向。
 
 
+## tx hash
+
+XwxqfCXvLzrdVuKgXorYEswDVgoa7EacmvPij1CUjcStT
+
 ### 递归零知识证明验证流程
 
-1. 选择 Block Producer
-
-2. 构建一个新的 Block
-
-    2.1. 验证一组 Tx
-
-    2.2. 基于已验证的 Tx 集和上一个 Block 的 hash
-
-3. 广播新的 Block
-
-4. 其他验证器可以验证新的 Block
+- 1.将问题转换成电路描述(用o作写电路代码)。
+- 2.将电路编译(complie) 成plonkish格式 同时生成PK(proving key), Vk(verifying key)。
+- 3.证明者使用函数 Prove 函数生成证明(Proof)。
+- 4.验证者使用 Verify 函数，验证proof的的真假。
