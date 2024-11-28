@@ -1,57 +1,34 @@
-import { AccountUpdate, Field, Mina, PrivateKey, PublicKey } from 'o1js';
-import { Vote } from './Vote';
+import { Bool, MerkleTree, Poseidon, PrivateKey, Proof } from 'o1js';
+import { MerkleWitness20, Vote, VoteState } from './Vote.js';
 
 describe('Vote', () => {
-  let deployer: Mina.TestPublicKey,
-    member1: Mina.TestPublicKey,
-    member2: Mina.TestPublicKey,
-    member3: Mina.TestPublicKey,
-    app: PrivateKey,
-    instance: Vote;
+  it('ok', async () => {
+    const memberTree = new MerkleTree(20);
+    const members = [PrivateKey.random(), PrivateKey.random(), PrivateKey.random()];
+    members.forEach((m, i) => memberTree.setLeaf(BigInt(i), Poseidon.hash(m.toPublicKey().toFields())));
 
-  beforeAll(async () => {
-    const Local = await Mina.LocalBlockchain({ proofsEnabled: false });
-    Mina.setActiveInstance(Local);
+    const vote = async (index: number, result: boolean, lastState: VoteState, lastProof: Proof<VoteState, void>) => {
+      const member = members[index];
+      const memberWitness = new MerkleWitness20(memberTree.getWitness(BigInt(index)));
+      const nextState = VoteState.create(lastState, Bool(result), member.toPublicKey(), memberWitness);
+      const { proof } = await Vote.vote(nextState, lastProof, Bool(result), member.toPublicKey(), memberWitness);
+      return { state: nextState, proof };
+    };
 
-    [deployer, member1, member2, member3] = Local.testAccounts;
-    app = PrivateKey.random();
-    instance = new Vote(app.toPublicKey());
+    await Vote.compile();
 
-    const txn = await Mina.transaction(deployer, async () => {
-      AccountUpdate.fundNewAccount(deployer);
-      await instance.deploy();
-    });
-    await txn.prove();
-    await txn.sign([deployer.key, app]).send();
-  });
+    let state = VoteState.init(memberTree.getRoot());
+    let { proof } = await Vote.init(state);
 
-  const vote = async (member: Mina.TestPublicKey, pass: boolean) => {
-    const tx1 = await Mina.transaction(member, async () => {
-      if (pass) {
-        await instance.agree();
-      } else {
-        await instance.reject();
-      }
-    });
-    await tx1.prove();
-    await tx1.sign([member.key]).send();
-  };
+    for (let i = 0; i < members.length; i++) {
+      const res = await vote(i, i % 2 === 0, state, proof);
+      state = res.state;
+      proof = res.proof;
+    }
 
-  it('member1 vote agree', async () => {
-    await vote(member1, true);
-    expect(instance.agreedCount.get()).toEqual(Field(1));
-    expect(instance.rejectedCount.get()).toEqual(Field(0));
-  });
-
-  it('member2 vote agree', async () => {
-    await vote(member2, true);
-    expect(instance.agreedCount.get()).toEqual(Field(2));
-    expect(instance.rejectedCount.get()).toEqual(Field(0));
-  });
-
-  it('member3 vote reject', async () => {
-    await vote(member3, false);
-    expect(instance.agreedCount.get()).toEqual(Field(2));
-    expect(instance.rejectedCount.get()).toEqual(Field(1));
+    expect(proof.publicInput.agree.toString()).toEqual('2');
+    expect(proof.publicInput.reject.toString()).toEqual('1');
+    const ok = await Vote.verify(proof);
+    expect(ok).toBeTruthy();
   });
 });
