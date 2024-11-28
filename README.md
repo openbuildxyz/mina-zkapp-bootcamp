@@ -102,6 +102,9 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 | lispking      | 发表技术文章 | [Kimchi：Mina 证明系统的最新更新](https://learnblockchain.cn/article/10013)                 | [1.3 MINA](https://minascan.io/mainnet/tx/5JuZN4QWTrtxQxY66sEjQrD6ZJcMhnsvvuYWX3aasBG2ABovUsqX)   |
 | lispking      | 发表技术文章 | [重新介绍 Mina：利用“万物证明”构建（真实）物联网](https://learnblockchain.cn/article/10031) | [1.3 MINA](https://minascan.io/mainnet/tx/5JupvnywULNVrmAanLE5yL4Qo8jsgaFnth5pLgonT93d3XwLkYU8)   |
 | lispking      | 发表技术文章 | [Mina协议上的零知识机器学习](https://mp.weixin.qq.com/s/vAaYppVCfg19mj5w86NCuA)             | [1.4 MINA](https://minascan.io/mainnet/tx/5JtiynKbPqh34UxQCueYgzgRVNcUQtaWY4bsJHZrkNbgpiLpS3uf)   |
+| longerd       | 发表技术文章 | [Mina Learning - Mina Protocol 中文翻译](https://learnblockchain.cn/article/10075)          | [1.4 MINA](https://minascan.io/mainnet/tx/5JuCZaKreuir6dqSwn1QKQzkz3oGdJPFNzFpB1wjanNpbEx7uWsZ)   |
+| lispking      | 发表技术文章 | [Mina 白板会议 TL;DR](https://learnblockchain.cn/article/10079)                             | [1.4 MINA](https://minascan.io/mainnet/tx/5JvEt2Dxab2K1jAHUYQhqAVg18pKijeqrwXX8R9ktSLRMo7Xo3Xx)   |
+| longerd       | 发表技术文章 | [Mina Learning - Address](https://learnblockchain.cn/article/10083)                         | [1.4 MINA](https://minascan.io/mainnet/tx/5JuS4PvnXGM8WvREh4oJjqW2RWWpWLAQ7HgnjAakLpfmKTZEjbQn)   |
 
 <br>
 
