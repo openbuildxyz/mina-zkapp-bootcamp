@@ -5,7 +5,7 @@
 
 - github 用户名：JackCat1221
 - OpenBuild 注册邮箱：mercedes_gy@qq.com
-- Mina 钱包地址：
+- Mina 钱包地址：B62qkF17k4t22jDH9TuGn3rWeuphrrBwwWbwq1c4CTf5wzWkeb6EP7H
 
 #### 自我介绍
 - 前端开发，熟练 React Vue 原生等
