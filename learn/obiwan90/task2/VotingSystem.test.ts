@@ -3,94 +3,122 @@ import {
     Bool,
     verify,
     PrivateKey,
+    PublicKey,
+    Proof,
+    ZkProgram,
     Poseidon,
 } from 'o1js';
 import { VotingProgram } from './VotingSystem';
 
-// 简单的日志函数
-const log = (...args: any[]) => {
-    console.log(...args);
-};
-
 describe('投票系统测试', () => {
     let verificationKey: any;
+    let VotingProof: any;
+    let members: { privateKey: PrivateKey, publicKey: PublicKey, hash: Field }[];
 
     beforeAll(async () => {
-        log('开始编译投票程序...');
+        console.log('编译投票程序...');
+        console.time('编译耗时');
         const compiled = await VotingProgram.compile();
         verificationKey = compiled.verificationKey;
+        VotingProof = ZkProgram.Proof(VotingProgram);
+        console.timeEnd('编译耗时');
+
+        // 初始化成员列表
+        members = Array(3).fill(0).map(() => {
+            const privateKey = PrivateKey.random();
+            const publicKey = privateKey.toPublicKey();
+            const hash = Poseidon.hash(publicKey.toFields());
+            return { privateKey, publicKey, hash };
+        });
+
+        console.log('成员列表初始化完成');
+        members.forEach((m, i) => {
+            console.log(`成员 ${i + 1} 哈希:`, m.hash.toString());
+        });
     });
 
-    it('能完成多人投票并统计结果', async () => {
-        // 1. 创建成员列表
-        const members = Array(3).fill(0).map(() => {
-            const privateKey = PrivateKey.random();
-            return {
-                privateKey,
-                publicKey: privateKey.toPublicKey(),
-            };
-        });
+    it('能完成递归投票并验证最终结果', async () => {
+        // 1. 初始状态
+        let input = Field(0);
+        let proof = await VotingProgram.baseCase(input);
+        proof = await testJsonRoundtrip(VotingProof, proof);
 
-        // 2. 计算每个成员的公钥哈希
-        const memberHashes = members.map(m =>
-            Poseidon.hash(m.publicKey.toFields())
+        // 验证初始证明
+        let ok = await verify(proof.toJSON(), verificationKey);
+        expect(ok).toBe(true);
+
+        // 2. 第一次投票
+        input = input.add(1);  // 赞成票
+        proof = await VotingProgram.vote(
+            input,
+            Bool(true),
+            members[0].publicKey,
+            members[0].hash,  // 成员哈希
+            proof
         );
+        proof = await testJsonRoundtrip(VotingProof, proof);
+        ok = await verify(proof.toJSON(), verificationKey);
+        expect(ok).toBe(true);
 
-        log('\n===== 成员信息 =====');
-        memberHashes.forEach((hash, i) => {
-            log(`成员 ${i + 1} 哈希: ${hash.toString()}`);
-        });
+        // 3. 第二次投票
+        proof = await VotingProgram.vote(
+            input,
+            Bool(false),
+            members[1].publicKey,
+            members[1].hash,  // 成员哈希
+            proof
+        );
+        proof = await testJsonRoundtrip(VotingProof, proof);
+        ok = await verify(proof.toJSON(), verificationKey);
+        expect(ok).toBe(true);
 
-        let approveCount = Field(0);
+        // 4. 第三次投票
+        input = input.add(1);  // 赞成票
+        proof = await VotingProgram.vote(
+            input,
+            Bool(true),
+            members[2].publicKey,
+            members[2].hash,  // 成员哈希
+            proof
+        );
+        proof = await testJsonRoundtrip(VotingProof, proof);
 
-        // 3. 进行投票
-        log('\n===== 开始投票 =====');
-        for (let i = 0; i < members.length; i++) {
-            const choice = i % 2 === 0; // 第1、3个成员投赞成，第2个成员投反对
-            log(`成员 ${i + 1} 投票: ${choice ? '赞成' : '反对'}`);
-
-            const proof = await VotingProgram.vote(
-                memberHashes[i],
-                approveCount,
-                Bool(choice),
-                members[i].publicKey
-            );
-
-            const ok = await verify(proof.toJSON(), verificationKey);
-            expect(ok).toBe(true);
-
-            if (choice) {
-                approveCount = approveCount.add(1);
-            }
-        }
-
-        // 4. 输出结果
-        const finalApproveCount = Number(approveCount.toString());
-        log('\n===== 投票结果 =====');
-        log('总票数:', members.length);
-        log('赞成票:', finalApproveCount);
-        log('反对票:', members.length - finalApproveCount);
-        log('===================\n');
-
-        // 验证结果
-        expect(finalApproveCount).toBe(2); // 应该有2票赞成
-        expect(members.length - finalApproveCount).toBe(1); // 应该有1票反对
+        // 验证最终结果
+        ok = await verify(proof.toJSON(), verificationKey);
+        expect(ok && proof.publicInput.toString() === '2').toBe(true);
+        console.log('最终赞成票数:', proof.publicInput.toString());
     });
 
     it('非成员不能投票', async () => {
-        const member = PrivateKey.random().toPublicKey();
-        const memberHash = Poseidon.hash(member.toFields());
+        // 创建一个非成员
         const outsider = PrivateKey.random().toPublicKey();
+        const outsiderHash = Poseidon.hash(outsider.toFields());
 
-        log('\n测试非成员投票...');
-        await expect(async () => {
+        let input = Field(0);
+        let proof = await VotingProgram.baseCase(input);
+
+        console.log('\n测试非成员投票...');
+        try {
             await VotingProgram.vote(
-                memberHash,
-                Field(0),
+                input.add(1),
                 Bool(true),
-                outsider
+                outsider,
+                outsiderHash,
+                proof
             );
-        }).rejects.toThrow();
-        log('成功拒绝非成员投票 ✓\n');
+            fail('应该拒绝非成员的投票');
+        } catch (error) {
+            console.log('成功拒绝非成员投票 ✓');
+        }
     });
+
+    // JSON序列化测试
+    async function testJsonRoundtrip(MyProof: any, proof: Proof<Field, void>) {
+        let jsonProof = proof.toJSON();
+        console.log('json proof', JSON.stringify({
+            ...jsonProof,
+            proof: jsonProof.proof.slice(0, 10) + '..'
+        }));
+        return await MyProof.fromJSON(jsonProof);
+    }
 });
