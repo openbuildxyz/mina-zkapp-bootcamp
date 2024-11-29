@@ -28,4 +28,4 @@ Mina 通过 zk-SNARKs 实现递归证明（Recursive Proofs），允许新的状
 
 3. 下载安装 [Auro wallet](https://www.aurowallet.com/download/)，创建账户，并完成[领水](https://faucet.minaprotocol.com/)
 
-请提交回答，钱包账户截图和领水 `tx hash: B62qk2M6hHxFpbRE1JAcCS4sArJwYTXMoRBWZM9jPeKnrc6Ybh51jYg`。
+请提交回答，钱包账户截图和领水 `tx hash: 5Jv7aKEgr1rDcpk2kLmSVGj9YLQiQs5wXH4sCxV5Bgk2vYZHfD2Q`。
