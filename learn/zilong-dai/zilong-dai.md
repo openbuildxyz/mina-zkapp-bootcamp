@@ -5,7 +5,7 @@
 
 - github 用户名：zilong-dai
 - OpenBuild 注册邮箱：2840478265@qq.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt
 
 #### 自我介绍
 
