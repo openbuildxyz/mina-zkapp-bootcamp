@@ -1,63 +1,68 @@
-import { Field,MerkleWitness, MerkleTree, verify, ZkProgram, SelfProof, Poseidon, Struct, Provable, } from 'o1js';
+import { Field,MerkleWitness, MerkleTree, ZkProgram, Poseidon, Struct, Provable, SelfProof, Bool } from 'o1js';
 
 class MerkleTreeWitness extends MerkleWitness(64) {}
-class MainProgramState extends Struct({
+class VoteResult extends Struct({
+  // 用于验证团队成员
   treeRoot: Field,
-  approveNum: Field,
-  rejectNum:Field
+  approveNum:Field,
+  disApproveNum:Field
 }) {}
 
 const Vote = ZkProgram({
   name: 'vote',
-  publicInput:MainProgramState,
-  publicOutput:MainProgramState,
+  publicInput:Field, // publicInput 是团队成员的个数
+  publicOutput:VoteResult,
   methods: {
-    baseCase:{
-      privateInputs:[],
-      // 先证明 approveNum 和 rejectNum 都是从 0 开始计数
-      async method(publicInput:MainProgramState){
-        publicInput.approveNum.assertEquals(Field(0))
-        publicInput.rejectNum.assertEquals(Field(0))
-        return {
-          publicOutput:publicInput
-        }
+    init:{
+      privateInputs:[Field], // 输入一个 treeRoot
+      async method(total:Field,treeRoot:Field){
+        total.assertEquals(Field(0));
+        
+        return new VoteResult({
+          treeRoot,
+          approveNum:Field(0),
+          disApproveNum:Field(0)
+        })
       }
     },
     execute:{
-      privateInputs:[Field,Field,Field,Field,MerkleTreeWitness],
+      privateInputs:[
+        Field,
+        Field,
+        MerkleTreeWitness,
+        SelfProof<Field,VoteResult>
+      ],
       async method(
-        publicInput:MainProgramState,
-        voteValue:Field,
-        approveNum:Field,
-        rejectNum:Field,
+        total:Field,
+        voteStatus:Field,
         account:Field,
-        path:MerkleTreeWitness
+        path:MerkleTreeWitness,
+        earierProof:SelfProof<Field,VoteResult>
       ){
-        // 1. 投票值只能是 0 或 1
-        voteValue.assertLessThanOrEqual(Field(1));
-        // 2. 证明账号在团队名单上
-        path.calculateRoot(Poseidon.hash([account])).assertEquals(publicInput.treeRoot);
-        // 3. 投票值为 0 时，approveNum 加 1；投票值为 1 时，rejectNum 加 1
-       const newApproveNum  = Provable.if(
-          voteValue.equals(Field(0)),
-          publicInput.approveNum,
-          publicInput.approveNum.add(1)
-        )
-        newApproveNum.assertEquals(approveNum)
-        const newRejectNum = Provable.if(
-          voteValue.equals(Field(1)),
-          publicInput.rejectNum,
-          publicInput.rejectNum.add(1)
-        )
-        newRejectNum.assertEquals(rejectNum)
+        earierProof.verify();
+        // total是最外层声明的 publicInput，这里是上一次的输入
+        earierProof.publicInput.add(1).assertEquals(total);
+        // voteStatus 是投票状态，0 表示反对，1 表示赞成
+        Bool.or(voteStatus.equals(Field(0)),voteStatus.equals(Field(1))).assertTrue();
+        // 验证 account
+        const {publicOutput} = earierProof;
+        path.calculateRoot(Poseidon.hash([account])).assertEquals(publicOutput.treeRoot);
 
-        return {
-          publicOutput:new MainProgramState({
-            treeRoot:publicInput.treeRoot,
-            approveNum:newApproveNum,
-            rejectNum:newRejectNum
-          })
-        }
+        const newApproveNum = Provable.if(
+          voteStatus.equals(Field(1)),
+          publicOutput.approveNum.add(1),
+          publicOutput.approveNum
+        );
+        const newDisApproveNum = Provable.if(
+          voteStatus.equals(Field(0)),
+          publicOutput.disApproveNum.add(1),
+          publicOutput.disApproveNum
+        );
+        return new VoteResult({
+          treeRoot:publicOutput.treeRoot,
+          approveNum:newApproveNum,
+          disApproveNum:newDisApproveNum
+        })
       }
     }
   },
@@ -66,29 +71,41 @@ const Vote = ZkProgram({
 // 测试用例
 async function test() {
   const tree = new MerkleTree(64);
+  const memberKeys = new Array(10).fill(0).map((_,i)=>Field(i));
+  memberKeys.forEach((el,idx)=> tree.setLeaf(BigInt(idx),Poseidon.hash(el.toFields())));
+  const memeberNum = memberKeys.length;
   const root = tree.getRoot();
-  tree.setLeaf(1n,Poseidon.hash([Field(1)]))
-  console.log("tree root",Poseidon.hash([Field(1)]));
-  
-  const witness = new MerkleTreeWitness(tree.getWitness(1n));
-  console.log("witness.calculateRoot(Poseidon.hash([Field(1)]))",witness.calculateRoot(Poseidon.hash([Field(1)])),root);
 
-  const {verificationKey} = await Vote.compile();
-  const baseCaseState = new MainProgramState({
-    treeRoot:root,
-    approveNum:Field(0),
-    rejectNum:Field(0)
-  })
+  await Vote.compile();
   console.log("loading base case");
-  const baseCaseResult = await Vote.baseCase(baseCaseState)
+  const baseProof = await Vote.init(Field(0),root);
   console.log("verify base case.......");
-  const baseCaseOk = await verify(baseCaseResult.proof,verificationKey);
-  console.log("base case ok",baseCaseOk);
+  const baseOk = await Vote.verify(baseProof);
+  console.log("base case ok",baseOk);
+
   console.log("loading execute");
-  const excuteResult = await Vote.execute(baseCaseState,Field(0),Field(0),Field(1),Field(1),witness)
-  console.log("verify execute.......");
-  const excuteOk = await verify(excuteResult.proof,verificationKey);
-  console.log("execute ok",excuteOk);
+  let proof = baseProof;
+  for(let i=0;i<memeberNum;i++){
+    const merkleWitness = new MerkleTreeWitness(tree.getWitness(BigInt(i)));
+    const voteStatus = Provable.if(
+      Field(Math.random()*100 | 0).greaterThan(50),
+      Field(1),
+      Field(0)
+    )
+    proof = await Vote.execute(
+      Field(i).add(1),
+      voteStatus,
+      memberKeys[i],
+      merkleWitness,
+      proof
+    );
+    console.log("verify execute.......");
+    const ok = await Vote.verify(proof);
+    console.log("execute ok",ok);
+  }
+  console.log("赞成票",proof.publicOutput.approveNum.toBigInt());
+  console.log("反对票",proof.publicOutput.disApproveNum.toBigInt());
+  
 }
 
 test()
