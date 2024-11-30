@@ -56,10 +56,10 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 4. 《Demo 案例讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289481)
 
 **第三章：zkApp 基础开发**
-1. 《zkApp 基础概念与实操》
-2. 《本地测试》
-3. 《部署到 DevNet》
-4. 《解析交易细节》
+1. 《zkApp 基础概念与实操》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934453)
+2. 《本地测试》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934453)
+3. 《部署到 DevNet》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934576)
+4. 《解析交易细节》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934593)
 
 **第四章：zkApp 高阶应用**
 1. 《Event 合约日志分析》
