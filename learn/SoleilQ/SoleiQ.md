@@ -5,7 +5,7 @@
 
 - github 用户名：SoleilQ
 - OpenBuild 注册邮箱：tianhang.qi0515@gmail.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qnWJH3kHJymNzGJkmNT9SW5SBrsdxy6MtFiVqycPBMmhVAi44WV6
 
 #### 自我介绍
 
