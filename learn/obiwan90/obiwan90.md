@@ -4,7 +4,7 @@
 #### 个人信息
 
 - github 用户名：obiwan90
-- OpenBuild 注册邮箱：obiwan@gmail.com
+- OpenBuild 注册邮箱：obiwanycj@gmail.com
 - Mina 钱包地址：B62qjJ3ahz6vcgnv76VxBhSdjJsmwJiV6Hgn5SuJDjeXYPzVm4Ur6PK
 
 #### 自我介绍

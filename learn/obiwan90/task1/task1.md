@@ -19,5 +19,6 @@ SNARK工作分离
 1. 零知识证明，证明者无需透露任何输入的实际数据，不需要公开所有交易细节，从而增强隐私保护。
 2. 简洁性，证明文件非常小同时也就让验证耗费的时间少
 
+tx hash: 5JukdV4yqmevFopdDzy2k44szM3w9QDHK7D43U4hUYtNFWCHxLVV
 
 ![测试空投](/learn/obiwan90/task1/mina.png)
