@@ -1,5 +1,5 @@
 import { AccountUpdate, Bool, Field, Mina, PrivateKey, Proof, PublicKey } from 'o1js';
-import { VoterClass, VoterProgram } from './Add';
+import { VoterClass, VoterProgram } from './vote';
 let proofsEnabled = false;
 
 describe('Add', () => {
