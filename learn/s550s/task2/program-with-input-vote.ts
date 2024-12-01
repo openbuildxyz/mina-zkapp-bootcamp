@@ -355,4 +355,4 @@ function testJsonRoundtrip<
     })
   );
   return MyProof.fromJSON(jsonProof);
-}
+} 
