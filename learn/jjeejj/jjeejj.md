@@ -5,7 +5,7 @@
 
 - github 用户名：jjeejj
 - OpenBuild 注册邮箱：wenjunjiang93@gmail.com
-- Mina 钱包地址：(可以在学习完创建 Mina 钱包地址后再填)
+- Mina 钱包地址：B62qkKwzSj3hi3PSckmjzstUsWuVePEqBbaHaaBmfcHcNwks8o7ePrW
 
 #### 自我介绍
 
