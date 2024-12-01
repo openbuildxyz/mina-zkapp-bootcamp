@@ -86,3 +86,124 @@ mina 打包
    - 利用 blockProof_i 和 ChainProof_i-1 生成 ChainProof_i (ChainProof_i 会证明,i 和 i 之前的块是合法的)
 3. 打包新的块
 4. 其他人来验证
+
+#### zk 命令行工具
+
+https://docs.minaprotocol.com/zkapps/writing-a-zkapp/introduction-to-zkapps/install-zkapp-cli
+
+搭建一个 zk 项目
+
+```
+zk project projectName
+```
+
+##### o1js 数据类型
+
+Field, // unit256
+Bool,
+UInt32,Ulnt64
+CircuitString
+PublicKey,PrivateKey,Signature //公钥,私钥,签名
+Group,Scalar //
+Poseidon hash // 波塞冬,hash 函数
+MerkleTree,MerkleMap
+
+```
+let x = new Field(4) // x =4
+x = x.add(3); // x = 7
+x = x.sub(1); // x = 6
+x = x.mul(3); // x = 18
+x = x.div(2); // x = 9
+x = x.square(); // x = 81
+x = x.sqrt(); // x = 9
+
+let b = x.equals(8); // false
+b = x.greaterThan(8); // 比8大? true
+b = b.not().or(b).and(b); // true ; not 取反, 或运算, 与运算
+b.toBoolean(); // true
+
+let hash = Poseidon.hash([x]); // 明文数组,传入,得到哈希值
+
+let privKey = PrivateKey.random(); // 创建一个私钥
+let pubKey = PublicKey.fromPrivateKey(privKey); // 生成公钥
+
+let msg = [hash]; // 签名
+let sig = Signature.create(privKey, msg); // 基于私钥对指定的消息进行签名
+sig.verify(pubKey, msg); // 签名后进行验证签名
+```
+
+**没有 if else, 有三元**
+
+```
+const x = Provable.if(new Bool(foo), a, b); // foo ? a : b;
+```
+
+**使用 Struct 构造新类型**
+
+```
+let CompoundType = Struct({
+  foo: [Field, Field],
+  bar: {x: Field, y: Field}
+})
+// 使用类型
+class CompoundClass extends CompoundType {}
+
+let CompoundObj0 = new CompoundClass({for: [x0, z], bar: {x: 1, y: 2} })
+```
+
+第一个参数,是 bool 的数组
+第二个参数,是希望返回的是 Int64 类型的数据
+第三个参数,是结果数组
+在这个例子中,第二个 bool 是 true,x === Int64.from(2)
+
+```
+let x = Provable.switch([Bool(false), Bool(true), Bool(false)], Int64, [
+  Int64.from(1),
+  Int64.from(2),
+  Int64.from(3),
+]);
+x.assertEquals(Int64.from(2));
+```
+
+Zero Knowledge Proof
+
+compile(program) -> verification_key:string
+prove(program,public_inputs,private_inputs) -> proof:string
+verify(proof,public_inputs,verification_key) -> boolean
+
+##### Proof 对象的结构
+
+```
+{
+"publciInput": Field[], // 电路method的公开入参
+"publcioutput": Field[], //电路method的返回值
+"maxProofVerified":Integer, // 电路method中验证的proof的个数
+"proof":binary type //proof本身,二进制格式
+}
+```
+
+##### 一个完整的 zkprogram 的结构
+
+```
+{
+  name:string,
+publciInput: any, //电路method的公开入参, 可选,only one
+publcioutput: any //电路method的返回值, 可选,only one
+methods:{
+    customMethod1:{
+      privateInput: any, // 当前method 的私有入参,必选, 允许是空数组
+      async method(publicInputType, ...privateInputs) {
+          //...constrains
+          // return, 如果定义了publcioutput就需要return
+      }
+  },
+    customMethod2:{
+      privateInput: any, // 当前method 的私有入参,必选, 允许是空数组
+      async method(publicInputType, ...privateInputs) {
+          //...constrains
+          // return, 如果定义了publcioutput就需要return
+      }
+  }
+}
+}
+```
