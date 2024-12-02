@@ -108,7 +108,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 
 <br>
 
-## AMA 活动
+### AMA 活动
 
 - [Mina Bootcamp Community AMA(task2)](https://youtu.be/xw4epbB9k9c)
 
