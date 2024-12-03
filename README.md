@@ -38,6 +38,8 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 2. 在 `task1` 文件夹中存放任务文件，可以新建 `readme.md` 整理任务内容。（鼓励提交学习笔记和心得）
 3. 提交 `PR` 到本仓库，等待合并后完成 `task1`。
 
+⚠️  每个**Task**单独提交，一个 `PR` 包含多个**Task**会直接关闭。
+
 <br>
 
 
