@@ -125,3 +125,5 @@
 | 120 | fanofmusk          | [3.7 MINA](https://minascan.io/mainnet/tx/5JukXaVBvGAeaumEYGjYHS6cPnrvJofdHvQb5AMKqWtHSHgE84kW) | B62qk6ZhFYh8BV6HHueatYnK8z1Zp4UgHsxorDRCHCpT5hXtFdi9z4Z  |
 | 121 | AnsonZnl           | [3.7 MINA](https://minascan.io/mainnet/tx/5JuRrSyojvwLQTmVU8pqfiT6NG1ypeMd2BR5GSx1fTNf21RG4FMT) | B62qjoDym4qSu5YYLvmPTKePePpkGeXmPZAwwjHUpQNeP1hoFVJoB7a  |
 | 122 | Tsuizen            | [3.7 MINA](https://minascan.io/mainnet/tx/5JtjMFJvymZdcGPRQxPf943VWxZMnK1tDzEQutuuTj3S6HcfHXBS) | B62qoVP6qNFigWb6erNPmEcDtvSnktDqMsXra8eKUBoFyeVK9iF6qta  |
+| 123 | amber              | [3.7 MINA](https://minascan.io/mainnet/tx/5JvCZopKVcFNGxsvXpaMJ1CRUBT6evohzrYptutJ9bteR7uGahkK) | B62qk2M6hHxFpbRE1JAcCS4sArJwYTXMoRBWZM9jPeKnrc6Ybh51jYg  |
+| 124 | LeonTing1010       | [3.7 MINA](https://minascan.io/mainnet/tx/5JvMjaxmtFCrAHndTugY5zW1Htiv19vykaSa128tqAHaNREZorjf) | B62qpc7dLZF5w4BTdBqL1MxQVN6BByemQouBevh9hCPc4jRKhLRQfrp  |
