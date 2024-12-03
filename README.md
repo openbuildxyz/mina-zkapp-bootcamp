@@ -49,7 +49,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 3. 《Mina 22kb 原理》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731576916)
 4. 《Mina 开发者资源》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1731577075)
 
-**第二章：o1JS 开发框架** |  [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter2.pptx)
+**第二章：o1JS 开发框架** |  [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter2.pptx) 
 1. 《o1JS 简介》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289285)
 2. 《使用 zkapp-cli 初始化工程》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289385)
 3. 《DSL 语法讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289429)
@@ -82,8 +82,8 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 | 任务 | 阶段 | 名称 | 奖励 | 状态 |
 |-------|-------|-------|-------|-------|
 | [task1](./task/task1.md) | 第一周 | 创建Auro wallet账户，完成水龙头领水 | ￥15 | 已结束([奖励🎉](./reward/task1.md)) |
-| [task2](./task/task2.md) | 第二周 | 设计一个简单的投票统计器 | ￥35 | 进行中(12月1日结束) | 
-| [task3](./task/task3.md) | 第三周 | 设计一个众筹合约，时间窗口关闭后被投资人方可提款 | ￥15 | |
+| [task2](./task/task2.md) | 第二周 | 设计一个简单的投票统计器 | ￥35 | 已结束([AMA](https://youtu.be/xw4epbB9k9c)) | 
+| [task3](./task/task3.md) | 第三周 | 设计一个众筹合约，时间窗口关闭后被投资人方可提款 | ￥15 | 进行中 |
 | [task4](./task/task4.md) | 第四周 | 设计一个众筹合约，众筹资金逐步释放 | ￥15 | |
 | [task5](./task/task5.md) | 第四周 | 发行你自己的 token，然后设计一个众筹合约 | ￥35 | |
 | [task6](./task/task6.md) | 第五周 | 运行一个 appchain | ￥21 | |
@@ -105,6 +105,12 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 | longerd       | 发表技术文章 | [Mina Learning - Mina Protocol 中文翻译](https://learnblockchain.cn/article/10075)          | [1.4 MINA](https://minascan.io/mainnet/tx/5JuCZaKreuir6dqSwn1QKQzkz3oGdJPFNzFpB1wjanNpbEx7uWsZ)   |
 | lispking      | 发表技术文章 | [Mina 白板会议 TL;DR](https://learnblockchain.cn/article/10079)                             | [1.4 MINA](https://minascan.io/mainnet/tx/5JvEt2Dxab2K1jAHUYQhqAVg18pKijeqrwXX8R9ktSLRMo7Xo3Xx)   |
 | longerd       | 发表技术文章 | [Mina Learning - Address](https://learnblockchain.cn/article/10083)                         | [1.4 MINA](https://minascan.io/mainnet/tx/5JuS4PvnXGM8WvREh4oJjqW2RWWpWLAQ7HgnjAakLpfmKTZEjbQn)   |
+
+<br>
+
+### AMA 活动
+
+- [Mina Bootcamp Community AMA(task2)](https://youtu.be/xw4epbB9k9c)
 
 <br>
 
