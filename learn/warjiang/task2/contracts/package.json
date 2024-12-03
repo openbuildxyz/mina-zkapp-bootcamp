@@ -20,7 +20,8 @@
     "format": "prettier --write --ignore-unknown **/*",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "testw": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
-    "lint": "npx eslint src/* --fix"
+    "lint": "npx eslint src/* --fix",
+    "vote": "npm run build && node --experimental-vm-modules build/src/vote.js"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.4",
