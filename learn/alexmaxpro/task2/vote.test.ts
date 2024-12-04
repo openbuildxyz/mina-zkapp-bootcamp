@@ -1,42 +1,67 @@
-// Jest test for VotingSystem
-import { VotingSystem } from './vote';
-describe('VotingSystem', () => {
-  let votingSystem: VotingSystem;
+import { AccountUpdate, Field, Mina, PrivateKey, PublicKey } from 'o1js';
+import { Vote } from './vote';
 
-  beforeEach(() => {
-    const teamMembers = ['Alice', 'Bob', 'Charlie'];
-    votingSystem = new VotingSystem(teamMembers);
+/*
+ * This file specifies how to test the `Vote` example smart contract. It is safe to delete this file and replace
+ * with your own tests.
+ *
+ * See https://docs.minaprotocol.com/zkapps for more info.
+ */
+
+let proofsEnabled = false;
+
+describe('Vote', () => {
+  let deployerAccount: Mina.TestPublicKey,
+    deployerKey: PrivateKey,
+    senderAccount: Mina.TestPublicKey,
+    senderKey: PrivateKey,
+    zkAppVoteress: PublicKey,
+    zkAppPrivateKey: PrivateKey,
+    zkApp: Vote;
+
+  beforeAll(async () => {
+    if (proofsEnabled) await Vote.compile();
   });
 
-  test('should initialize votes to zero', () => {
-    const results = votingSystem.getResults();
-    expect(results.yes).toBe(0);
-    expect(results.no).toBe(0);
+  beforeEach(async () => {
+    const Local = await Mina.LocalBlockchain({ proofsEnabled });
+    Mina.setActiveInstance(Local);
+    [deployerAccount, senderAccount] = Local.testAccounts;
+    deployerKey = deployerAccount.key;
+    senderKey = senderAccount.key;
+
+    zkAppPrivateKey = PrivateKey.random();
+    zkAppVoteress = zkAppPrivateKey.toPublicKey();
+    zkApp = new Vote(zkAppVoteress);
   });
 
-  test('should allow a valid team member to vote', () => {
-    votingSystem.addVote('Alice', 'yes');
-    const results = votingSystem.getResults();
-    expect(results.yes).toBe(1);
-    expect(results.no).toBe(0);
+  async function localDeploy() {
+    const txn = await Mina.transaction(deployerAccount, async () => {
+      AccountUpdate.fundNewAccount(deployerAccount);
+      await zkApp.deploy();
+    });
+    await txn.prove();
+    // this tx needs .sign(), because `deploy()` Votes an account update that requires signature authorization
+    await txn.sign([deployerKey, zkAppPrivateKey]).send();
+  }
+
+  it('generates and deploys the `Vote` smart contract', async () => {
+    await localDeploy();
+    const num = zkApp.num.get();
+    expect(num).toEqual(Field(1));
   });
 
-  test('should not allow a non-team member to vote', () => {
-    expect(() => votingSystem.addVote('Dave', 'yes')).toThrow(
-      'Voter is not a member of the team.'
-    );
-  });
+  it('correctly updates the num state on the `Vote` smart contract', async () => {
+    await localDeploy();
 
-  test('should not allow a member to vote twice', () => {
-    votingSystem.addVote('Bob', 'no');
-    expect(() => votingSystem.addVote('Bob', 'yes')).toThrow(
-      'This member has already voted.'
-    );
-  });
+    // update transaction
+    const txn = await Mina.transaction(senderAccount, async () => {
+      await zkApp.update();
+    });
+    await txn.prove();
+    await txn.sign([senderKey]).send();
 
-  test('should not allow invalid vote type', () => {
-    expect(() => votingSystem.addVote('Charlie', 'maybe' as 'yes')).toThrow(
-      'Invalid vote type.'
-    );
+    const updatedNum = zkApp.num.get();
+    expect(updatedNum).toEqual(Field(3));
   });
 });
