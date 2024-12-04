@@ -1,4 +1,4 @@
-import { AccountUpdate, Mina, PrivateKey, PublicKey, UInt64, type Field, type UInt32 } from 'o1js';
+import { AccountUpdate, Mina, PrivateKey, PublicKey, UInt64, type UInt32 } from 'o1js';
 import { CrowdFunding } from '../task3/crowdfunding';
 
 /*
@@ -124,7 +124,8 @@ describe('Add', () => {
 		expect(senderBalance).toBeTruthy();
 
 		local.incrementGlobalSlot(30 + 1);
-		console.log("current block height: ", local.getNetworkState().globalSlotSinceGenesis);
+		const curSlot = local.getNetworkState().globalSlotSinceGenesis;
+		console.log("current block height: ", curSlot.toString());
 
 		expect(
 			Mina.transaction(senderAccount, async () => {
