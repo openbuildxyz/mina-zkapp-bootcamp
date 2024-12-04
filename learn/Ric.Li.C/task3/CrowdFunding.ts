@@ -26,6 +26,7 @@ export class CrowdFunding extends SmartContract {
     props: DeployArgs & {
       fundingCap: UInt64;
       endTime: UInt32;
+      owner: PublicKey;
     }
   ) {
     await super.deploy(props);
@@ -34,13 +35,10 @@ export class CrowdFunding extends SmartContract {
     this.totalRaised.set(UInt64.zero);
     this.fundingCap.set(props.fundingCap);
     this.endTime.set(props.endTime);
-    this.owner.set(this.sender.getUnconstrained());
+    this.owner.set(props.owner);
     Provable.log('props.fundingCap is', props.fundingCap);
     Provable.log('props.endTime is', props.endTime);
-    Provable.log(
-      'this.sender.getUnconstrained() is',
-      this.sender.getUnconstrained()
-    );
+    Provable.log('props.owner is', props.owner);
 
     // 初始化账户权限
     this.account.permissions.set({
