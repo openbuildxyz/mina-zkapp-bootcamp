@@ -1,0 +1,13 @@
+export { Integer, NonNegativeInteger, PositiveInteger, isInteger, isNonNegativeInteger, isPositiveInteger, assertInteger, assertNonNegativeInteger, assertPositiveInteger, asInteger, asNonNegativeInteger, asPositiveInteger, };
+declare function asInteger<N extends number>(n: Integer<N>): Integer<N>;
+declare function asNonNegativeInteger<N extends number>(n: NonNegativeInteger<N>): NonNegativeInteger<N>;
+declare function asPositiveInteger<N extends number>(n: PositiveInteger<N>): PositiveInteger<N>;
+declare function isInteger<N extends number>(n: N): n is Integer<N>;
+declare function isNonNegativeInteger<N extends number>(n: N): n is NonNegativeInteger<N>;
+declare function isPositiveInteger<N extends number>(n: N): n is PositiveInteger<N>;
+declare function assertInteger(n: number, message: string): void;
+declare function assertNonNegativeInteger(n: number, message: string): void;
+declare function assertPositiveInteger(n: number, message: string): void;
+type Integer<T extends number> = number extends T ? never : `${T}` extends `${string}.${string}` | `${string}e-${string}` ? never : T;
+type NonNegativeInteger<T extends number> = number extends T ? never : `${T}` extends `-${string}` | `${string}.${string}` | `${string}e-${string}` ? never : T;
+type PositiveInteger<T extends number> = number extends T ? never : `${T}` extends `-${string}` | `${string}.${string}` | `${string}e-${string}` | `0` ? never : T;

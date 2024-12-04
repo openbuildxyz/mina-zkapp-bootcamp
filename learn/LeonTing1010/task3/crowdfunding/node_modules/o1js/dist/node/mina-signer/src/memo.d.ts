@@ -1,0 +1,20 @@
+export { Memo };
+declare function fromString(memo: string): string;
+declare function toString(memo: string): string;
+declare function hash(memo: string): bigint;
+declare const Memo: {
+    sizeInBytes: number;
+    empty(): string;
+    toValidString(memo?: string): string;
+    toBase58(t: string): string;
+    fromBase58(base58: string): string;
+    toBytes(t: string): number[];
+    readBytes<N extends number>(bytes: number[], offset: import("src/bindings/crypto/non-negative.js").NonNegativeInteger<N>): [value: string, offset: number];
+    fromBytes(bytes: number[]): string;
+    toBits(t: string): boolean[];
+    fromBits(bits: boolean[]): string;
+    sizeInBits: number;
+    fromString: typeof fromString;
+    toString: typeof toString;
+    hash: typeof hash;
+};

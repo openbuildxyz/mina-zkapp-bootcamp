@@ -1,0 +1,14 @@
+import { Field } from './field.js';
+import type { WasmGPallas, WasmGVesta, WasmPallasGProjective, WasmVestaGProjective } from '../../compiled/node_bindings/plonk_wasm.cjs';
+import type { MlArray } from '../../../lib/ml/base.js';
+import { OrInfinity } from './curve.js';
+export { fieldToRust, fieldFromRust, fieldsToRustFlat, fieldsFromRustFlat, maybeFieldToRust, affineToRust, affineFromRust, WasmAffine, WasmProjective, };
+declare function fieldToRust([, x]: Field, dest?: Uint8Array): Uint8Array;
+declare function fieldFromRust(x: Uint8Array): Field;
+declare function fieldsToRustFlat([, ...fields]: MlArray<Field>): Uint8Array;
+declare function fieldsFromRustFlat(fieldBytes: Uint8Array): MlArray<Field>;
+declare function maybeFieldToRust(x?: Field): Uint8Array | undefined;
+type WasmAffine = WasmGVesta | WasmGPallas;
+declare function affineFromRust<A extends WasmAffine>(pt: A): OrInfinity;
+declare function affineToRust<A extends WasmAffine>(pt: OrInfinity, makeAffine: () => A): A;
+type WasmProjective = WasmVestaGProjective | WasmPallasGProjective;
