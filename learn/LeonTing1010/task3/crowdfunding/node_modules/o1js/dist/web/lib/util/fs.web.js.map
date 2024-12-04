@@ -1,0 +1,1 @@
+{"version":3,"file":"fs.web.js","sourceRoot":"","sources":["../../../../src/lib/util/fs.web.ts"],"names":[],"mappings":"AAAA,OAAO,EACL,KAAK,IAAI,aAAa,EACtB,KAAK,IAAI,YAAY,EACrB,KAAK,IAAI,OAAO,EAChB,KAAK,IAAI,SAAS,EAClB,QAAQ,GACT,CAAC;AAEF,SAAS,KAAK;IACZ,MAAM,KAAK,CAAC,iBAAiB,CAAC,CAAC;AACjC,CAAC;AAED,SAAS,QAAQ;IACf,OAAO,EAAE,CAAC;AACZ,CAAC"}

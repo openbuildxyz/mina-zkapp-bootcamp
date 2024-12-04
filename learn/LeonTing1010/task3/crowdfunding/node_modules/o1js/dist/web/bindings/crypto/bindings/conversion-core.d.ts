@@ -1,0 +1,74 @@
+import type { WasmFpGate, WasmFpPolyComm, WasmFqGate, WasmFqPolyComm, WasmGPallas, WasmGVesta } from '../../compiled/node_bindings/plonk_wasm.cjs';
+import { OrInfinity, Gate, PolyComm, Wire } from './kimchi-types.js';
+import type * as wasmNamespace from '../../compiled/node_bindings/plonk_wasm.cjs';
+import { MlArray } from '../../../lib/ml/base.js';
+import { WasmAffine, affineFromRust, fieldsFromRustFlat, fieldsToRustFlat } from './conversion-base.js';
+export { ConversionCore, ConversionCores, conversionCore, freeOnFinalize, wrap, unwrap, mapFromUintArray, mapToUint32Array, };
+type wasm = typeof wasmNamespace;
+type WasmPolyComm = WasmFpPolyComm | WasmFqPolyComm;
+type WasmClasses = {
+    CommitmentCurve: typeof WasmGVesta | typeof WasmGPallas;
+    makeAffine: () => WasmAffine;
+    Gate: typeof WasmFpGate | typeof WasmFqGate;
+    PolyComm: typeof WasmFpPolyComm | typeof WasmFqPolyComm;
+};
+type ConversionCore = ReturnType<typeof conversionCorePerField>;
+type ConversionCores = ReturnType<typeof conversionCore>;
+declare function conversionCore(wasm: wasm): {
+    fp: {
+        wireToRust([, row, col]: Wire): wasmNamespace.Wire;
+        vectorToRust: typeof fieldsToRustFlat;
+        vectorFromRust: typeof fieldsFromRustFlat;
+        gateToRust(gate: Gate): WasmFpGate | WasmFqGate;
+        gateFromRust(wasmGate: WasmFpGate | WasmFqGate): never;
+        pointToRust(point: OrInfinity): WasmAffine;
+        pointFromRust: typeof affineFromRust;
+        pointsToRust([, ...points]: MlArray<OrInfinity>): Uint32Array;
+        pointsFromRust(points: Uint32Array): MlArray<OrInfinity>;
+        polyCommToRust(polyComm: PolyComm): WasmPolyComm;
+        polyCommFromRust(polyComm: WasmPolyComm): PolyComm;
+        polyCommsToRust([, ...comms]: MlArray<PolyComm>): Uint32Array;
+        polyCommsFromRust(rustComms: Uint32Array): MlArray<PolyComm>;
+    };
+    fq: {
+        wireToRust([, row, col]: Wire): wasmNamespace.Wire;
+        vectorToRust: typeof fieldsToRustFlat;
+        vectorFromRust: typeof fieldsFromRustFlat;
+        gateToRust(gate: Gate): WasmFpGate | WasmFqGate;
+        gateFromRust(wasmGate: WasmFpGate | WasmFqGate): never;
+        pointToRust(point: OrInfinity): WasmAffine;
+        pointFromRust: typeof affineFromRust;
+        pointsToRust([, ...points]: MlArray<OrInfinity>): Uint32Array;
+        pointsFromRust(points: Uint32Array): MlArray<OrInfinity>;
+        polyCommToRust(polyComm: PolyComm): WasmPolyComm;
+        polyCommFromRust(polyComm: WasmPolyComm): PolyComm;
+        polyCommsToRust([, ...comms]: MlArray<PolyComm>): Uint32Array;
+        polyCommsFromRust(rustComms: Uint32Array): MlArray<PolyComm>;
+    };
+    wireToRust: ([, row, col]: Wire) => wasmNamespace.Wire;
+    mapMlArrayToRustVector<TMl, TRust extends {}>([, ...array]: MlArray<TMl>, map: (x: TMl) => TRust): Uint32Array;
+};
+declare function conversionCorePerField(wasm: wasm, { CommitmentCurve, makeAffine, Gate, PolyComm }: WasmClasses): {
+    wireToRust([, row, col]: Wire): wasmNamespace.Wire;
+    vectorToRust: typeof fieldsToRustFlat;
+    vectorFromRust: typeof fieldsFromRustFlat;
+    gateToRust(gate: Gate): WasmFpGate | WasmFqGate;
+    gateFromRust(wasmGate: WasmFpGate | WasmFqGate): never;
+    pointToRust(point: OrInfinity): WasmAffine;
+    pointFromRust: typeof affineFromRust;
+    pointsToRust([, ...points]: MlArray<OrInfinity>): Uint32Array;
+    pointsFromRust(points: Uint32Array): MlArray<OrInfinity>;
+    polyCommToRust(polyComm: PolyComm): WasmPolyComm;
+    polyCommFromRust(polyComm: WasmPolyComm): PolyComm;
+    polyCommsToRust([, ...comms]: MlArray<PolyComm>): Uint32Array;
+    polyCommsFromRust(rustComms: Uint32Array): MlArray<PolyComm>;
+};
+type Freeable = {
+    free(): void;
+};
+type Constructor<T> = new (...args: any[]) => T;
+declare function wrap<T>(ptr: number, Class: Constructor<T>): T;
+declare function unwrap<T extends {}>(obj: T): number;
+declare function freeOnFinalize<T extends Freeable>(instance: T): T;
+declare function mapFromUintArray<T>(array: Uint32Array | Uint8Array, map: (i: number) => T): T[];
+declare function mapToUint32Array<T>(array: T[], map: (t: T) => number): Uint32Array;

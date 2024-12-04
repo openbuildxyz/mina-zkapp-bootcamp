@@ -1,0 +1,10 @@
+import { GenericHashInput, GenericSignable } from '../../bindings/lib/generic.js';
+import { BinableWithBits } from '../../bindings/lib/binable.js';
+export { signable, SignableBigint, BinableBigint, BinableBool, HashInput, Signable, };
+type Field = bigint;
+declare let signable: import("../../bindings/lib/provable-generic.js").SignableConstructor<bigint>;
+type Signable<T, J> = GenericSignable<T, J, Field>;
+type HashInput = GenericHashInput<Field>;
+declare function SignableBigint<T extends bigint = bigint, TJSON extends string = string>(check: (x: bigint) => void): Signable<T, TJSON>;
+declare function BinableBigint<T extends bigint = bigint>(sizeInBits: number, check: (x: bigint) => void): BinableWithBits<T>;
+declare function BinableBool(check: (x: number) => void): BinableWithBits<boolean>;
