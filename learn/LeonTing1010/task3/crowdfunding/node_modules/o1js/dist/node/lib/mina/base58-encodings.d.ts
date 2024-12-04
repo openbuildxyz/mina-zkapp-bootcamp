@@ -1,2 +1,0 @@
-export { TokenId, ReceiptChainHash, LedgerHash, EpochSeed, StateHash };
-declare const TokenId: import("../util/base58.js").Base58<import("../provable/field.js").Field>, ReceiptChainHash: import("../util/base58.js").Base58<import("../provable/field.js").Field>, EpochSeed: import("../util/base58.js").Base58<import("../provable/field.js").Field>, LedgerHash: import("../util/base58.js").Base58<import("../provable/field.js").Field>, StateHash: import("../util/base58.js").Base58<import("../provable/field.js").Field>;

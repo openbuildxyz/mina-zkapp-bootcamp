@@ -1,1 +1,0 @@
-{"version":3,"file":"smart-contract-base.js","sourceRoot":"","sources":["../../../../src/lib/mina/smart-contract-base.ts"],"names":[],"mappings":"AAMA,OAAO,EAAE,eAAe,EAAE,iBAAiB,EAAE,CAAC;AAE9C,MAAM,iBAAiB;CAAG;AAE1B,SAAS,eAAe,CAAC,MAAe;IACtC,OAAO,MAAM,YAAY,iBAAiB,CAAC;AAC7C,CAAC"}
