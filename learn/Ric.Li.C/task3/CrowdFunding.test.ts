@@ -52,6 +52,7 @@ let deployTx = await Mina.transaction(
     zkapp.deploy({
       fundingCap: UInt64.from(1_000_000_000_000), // fundingCap: 1,000 MINA
       endTime: UInt32.from(currentSlot.add(1_000)), // endTime: current slot + 1,000 block heights
+      owner: deployer, // owner: deployer
     }); // Deploy the zkApp
   }
 );
