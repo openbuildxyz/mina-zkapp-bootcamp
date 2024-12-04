@@ -1,1 +1,0 @@
-{"version":3,"file":"types.js","sourceRoot":"","sources":["../../../../src/mina-signer/src/types.ts"],"names":[],"mappings":"AAaA,MAAM,CAAC,MAAM,SAAS,GAAG;IACvB,QAAQ,CAAC,OAAkB;QACzB,OAAO,OAAO,OAAO,KAAK,QAAQ,CAAC,CAAC,CAAC,OAAO,CAAC,CAAC,CAAC,OAAO,CAAC,MAAM,CAAC;IAChE,CAAC;CACF,CAAC"}
