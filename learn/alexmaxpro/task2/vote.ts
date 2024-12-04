@@ -1,36 +1,29 @@
-class VotingSystem {
-  teamMembers: Set<string>;
-  votes: { yes: number; no: number };
-  votedMembers: Set<string>;
-  constructor(teamMembers: string[]) {
-    this.teamMembers = new Set(teamMembers);
-    this.votes = {
-      yes: 0,
-      no: 0,
-    };
-    this.votedMembers = new Set();
+import { Field, SmartContract, state, State, method } from 'o1js';
+
+/**
+ * Basic Example
+ * See https://docs.minaprotocol.com/zkapps for more info.
+ *
+ * The Add contract initializes the state variable 'num' to be a Field(1) value by default when deployed.
+ * When the 'update' method is called, the Add contract adds Field(2) to its 'num' contract state.
+ *
+ * This file is safe to delete and replace with your own contract.
+ */
+export class Vote extends SmartContract {
+  @state(Field) num = State<Field>();
+  @state(Field) yesVotes = State<Field>();
+  @state(Field) noVotes = State<Field>();
+
+  init() {
+    super.init();
+    this.num.set(Field(1));
+    this.yesVotes.set(Field(0));
+    this.noVotes.set(Field(0));
   }
 
-  addVote(voter: string, voteType: 'yes' | 'no') {
-    if (!this.teamMembers.has(voter)) {
-      throw new Error('Voter is not a member of the team.');
-    }
-    if (this.votedMembers.has(voter)) {
-      throw new Error('This member has already voted.');
-    }
-    if (!['yes', 'no'].includes(voteType)) {
-      throw new Error('Invalid vote type.');
-    }
-
-    this.votes[voteType]++;
-    this.votedMembers.add(voter);
+  @method async update() {
+    const currentState = this.num.getAndRequireEquals();
+    const newState = currentState.add(2);
+    this.num.set(newState);
   }
-
-  getResults() {
-    return { ...this.votes };
-  }
-}
-
-export {
-  VotingSystem,
 }
