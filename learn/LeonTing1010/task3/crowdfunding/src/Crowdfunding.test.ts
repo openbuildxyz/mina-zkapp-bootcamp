@@ -1,4 +1,4 @@
-import { AccountUpdate, Field, Mina, PrivateKey, PublicKey, UInt64 } from 'o1js';
+import { AccountUpdate, Field, Mina, PrivateKey, PublicKey, UInt32, UInt64 } from 'o1js';
 import { Crowdfunding } from './Crowdfunding';
 
 let contract: Crowdfunding, txn;
@@ -8,6 +8,7 @@ Mina.setActiveInstance(Local);
 let initialBalance = 10_000_000_000;
 let [feePayer] = Local.testAccounts;
 let contractAccount = Mina.TestPublicKey.random();
+Local.setBlockchainLength(UInt32.from(1000));
 // Deploy the Crowdfunding contract
 contract = new Crowdfunding(contractAccount);
 console.log('Deploying Crowdfunding...');
@@ -32,7 +33,7 @@ describe('Crowdfunding zkApp', () => {
 
     // Set the contract's deadline
     txn = await Mina.transaction(feePayer, async () => {
-      await contract.setDeadline(deadline);
+      await contract.setDeadline(UInt32.from(10000));
     });
     await txn.prove();
     await txn.sign([feePayer.key, contractAccount.key]).send();
@@ -58,7 +59,7 @@ describe('Crowdfunding zkApp', () => {
 
     // Call the setDeadline method
     txn = await Mina.transaction(feePayer, async () => {
-      await contract.setDeadline(deadline);
+      await contract.setDeadline(UInt32.from(10000));
     });
     await txn.prove();
     await txn.sign([feePayer.key, contractAccount.key]).send();
