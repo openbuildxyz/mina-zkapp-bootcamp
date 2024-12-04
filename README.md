@@ -23,8 +23,8 @@
 
 完成报名后联系小助手微信 `hahalzr0118` 加入交流群。课程不需要具备 ZK 知识就可以学习，只需要有一定的 `TypeScript` 基础，可以参考[学习资源](#学习资源)进行学习，有其他问题请联系小助手或在交流群沟通。
 
-Auro Wallet 下载：https://www.aurowallet.com/download/  
-Mina 水龙头：https://faucet.minaprotocol.com/  
+Auro Wallet 下载：https://www.aurowallet.com/download/
+Mina 水龙头：https://faucet.minaprotocol.com/
 Mina 区块链浏览器：https://minascan.io/devnet/home
 
 <br>
@@ -57,7 +57,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 3. 《DSL 语法讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289429)
 4. 《Demo 案例讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289481)
 
-**第三章：zkApp 基础开发**
+**第三章：zkApp 基础开发**  |  [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter3.pptx)
 1. 《zkApp 基础概念与实操》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934453)
 2. 《本地测试》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934453)
 3. 《部署到 DevNet》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934576)

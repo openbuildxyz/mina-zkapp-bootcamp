@@ -69,3 +69,4 @@
 | 65  | zilong-dai       | [5.5 Mina](https://minascan.io/mainnet/tx/5JtcpwavHSHpm4EmQYCJMZHN1ayFQmMPQskBCLnEUx7EHbAadi4x) | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt |
 | 66  | zj               | [5.5 Mina](https://minascan.io/mainnet/tx/5JuTEgy2ELEfT4hQXRwCiwWMTCYg8KPre1npKkjMf8taaaFsKrXL) | B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ |
 | 67  | zxw3759          | [5.5 Mina](https://minascan.io/mainnet/tx/5JvKcSGc32EamF7J8iNsGbN1pAAqWYLGhhXqvw53uLujBXgBZbpf) | B62qmPuRAxf24G3u6n7hDo7uXNoCsCwyPu2Z8A6ZFCG2SDykTTgZVbZ |
+| 68  | serencc          | [5.5 Mina](https://minascan.io/mainnet/tx/5JukEp8PCwbTBJv4szh3AhrrUUebCCAyGLjs4wjkxj3gwzULFTn3) | B62qkPycEPSNxVihvGgZrsSDr6Ur72BMCdMpKo9nYhA4oXCmRG4FsWv |
