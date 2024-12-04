@@ -1,5 +1,5 @@
-import { Account, AccountUpdate, Mina, PrivateKey, PublicKey, UInt64, type Field } from 'o1js';
-import { endTime, CrowdFunding, sleep } from '../task2/crowdfunding';
+import { AccountUpdate, Mina, PrivateKey, PublicKey, UInt64, type Field, type UInt32 } from 'o1js';
+import { CrowdFunding } from '../task3/crowdfunding';
 
 /*
  * This file specifies how to test the `Add` example smart contract. It is safe to delete this file and replace
@@ -8,10 +8,10 @@ import { endTime, CrowdFunding, sleep } from '../task2/crowdfunding';
  * See https://docs.minaprotocol.com/zkapps for more info.
  */
 
+type PromiseType<T> = T extends Promise<infer U> ? U : never;
+
 const MINA = 1e9;
-const hour = 60 * 60 * 1000;
-const second_2 = 2 * 1000;
-const targetAmountRequired = 100 * MINA;
+const hardcapSlot = UInt64.from(30 * MINA);
 
 let proofsEnabled = false;
 
@@ -23,13 +23,11 @@ describe('Add', () => {
 		zkAppAddress: PublicKey,
 		zkAppPrivateKey: PrivateKey,
 		zkApp: CrowdFunding,
-		targetAmount: UInt64,
-		endtime: Field
+		endtimeSlot: UInt32,
+		local: PromiseType<ReturnType<typeof Mina.LocalBlockchain>>;
 
 	beforeAll(async () => {
 		if (proofsEnabled) await CrowdFunding.compile();
-		targetAmount = UInt64.from(targetAmountRequired);
-		endtime = endTime(hour);
 	});
 
 	beforeEach(async () => {
@@ -42,13 +40,15 @@ describe('Add', () => {
 		zkAppPrivateKey = PrivateKey.random();
 		zkAppAddress = zkAppPrivateKey.toPublicKey();
 		zkApp = new CrowdFunding(zkAppAddress);
+
+		endtimeSlot = Local.getNetworkState().globalSlotSinceGenesis.add(30);
+		local = Local
 	});
 
-	async function localDeploy(endtime: Field) {
+	async function localDeploy() {
 		const txn = await Mina.transaction(deployerAccount, async () => {
 			AccountUpdate.fundNewAccount(deployerAccount);
-			await zkApp.deploy();
-			await zkApp.initState(targetAmount, endtime, deployerAccount);
+			await zkApp.deploy({ receiver: deployerAccount, hardcap: hardcapSlot, endtime: endtimeSlot });
 		});
 		await txn.prove();
 		// this tx needs .sign(), because `deploy()` adds an account update that requires signature authorization
@@ -56,19 +56,16 @@ describe('Add', () => {
 	}
 
 	it('generates and deploys the `CrowdFunding` smart contract', async () => {
-		await localDeploy(endtime);
-		const amount = zkApp.amount.get();
-		expect(amount).toEqual(UInt64.from(0));
+		await localDeploy();
+		const targetAmount = zkApp.hardcap.get();
+		expect(targetAmount).toEqual(UInt64.from(hardcapSlot));
 
-		const targetAmount = zkApp.targetAmount.get();
-		expect(targetAmount).toEqual(UInt64.from(targetAmountRequired));
-
-		const endtime_ = zkApp.endTime.get();
-		expect(endtime_).toEqual(endtime);
+		const curBalance = zkApp.account.balance.getAndRequireEquals();
+		console.log(`curBalance: ${curBalance}`)
 	});
 
 	it('correctly contribute on the `CrowdFunding` smart contract', async () => {
-		await localDeploy(endtime);
+		await localDeploy();
 
 		// contribute transaction
 		const txn = await Mina.transaction(senderAccount, async () => {
@@ -77,70 +74,41 @@ describe('Add', () => {
 		await txn.prove();
 		await txn.sign([senderKey]).send();
 
-		const amount = zkApp.amount.get();
+		const amount = zkApp.account.balance.getAndRequireEquals();
 		expect(amount).toEqual(UInt64.from(10 * MINA));
 	});
 
 	it('correctly reduce sender account on the `CrowdFunding` smart contract', async () => {
-		await localDeploy(endtime);
+		await localDeploy();
 
-		// contribute transaction
 		const txn = await Mina.transaction(senderAccount, async () => {
 			await zkApp.fund(UInt64.from(10 * MINA));
 		});
 		await txn.prove();
 		await txn.sign([senderKey]).send();
 
-		const amount = zkApp.amount.get();
+		const amount = zkApp.account.balance.getAndRequireEquals();
 		expect(amount).toEqual(UInt64.from(10 * MINA));
 
 		const senderBalance = AccountUpdate.create(senderAccount).balanceChange.equals(30 * MINA - 10 * MINA);
 		expect(senderBalance).toBeTruthy();
-	});
 
-	it('correctly reduce sender account on the `CrowdFunding` smart contract', async () => {
-		await localDeploy(endtime);
-
-		// contribute transaction
-		const txn = await Mina.transaction(senderAccount, async () => {
-			await zkApp.fund(UInt64.from(10 * MINA));
+		const overtxn = await Mina.transaction(senderAccount, async () => {
+			await zkApp.fund(UInt64.from(30 * MINA));
 		});
-		await txn.prove();
-		await txn.sign([senderKey]).send();
+		await overtxn.prove();
+		await overtxn.sign([senderKey]).send();
 
-		const amount = zkApp.amount.get();
-		expect(amount).toEqual(UInt64.from(10 * MINA));
+		const amount2 = zkApp.account.balance.getAndRequireEquals();
+		expect(amount2).toEqual(UInt64.from(30 * MINA));
 
-		const senderBalance = AccountUpdate.create(senderAccount).balanceChange.equals(30 * MINA - 10 * MINA);
-		expect(senderBalance).toBeTruthy();
+		const senderBalance_2 = AccountUpdate.create(senderAccount).balanceChange.equals(30 * MINA - 20 * MINA);
+		expect(senderBalance_2).toBeTruthy();
 	});
 
-
-	it('withdraw on the `CrowdFunding` smart contract', async () => {
-		// 1 hour ago for testing
-		await localDeploy(endTime(-hour));
-
-		await expect(
-			Mina.transaction(senderAccount, async () => {
-				await zkApp.fund(UInt64.from(10 * MINA));
-			})
-		).rejects.toThrow("Crowdfunding period has ended");
-
-		const withdrawTxn = await Mina.transaction(deployerAccount, async () => {
-			await zkApp.withdraw();
-		})
-		await withdrawTxn.prove();
-		await withdrawTxn.sign([deployerKey]).send();
-
-		const amount = zkApp.amount.get();
-		expect(amount).toEqual(UInt64.from(0));
-
-		const receiverBalance = AccountUpdate.create(senderAccount).balanceChange.equals(0);
-		expect(receiverBalance).toBeTruthy();
-	});
 
 	it('send and withdraw on the `CrowdFunding` smart contract', async () => {
-		await localDeploy(endTime(second_2));
+		await localDeploy();
 
 		// contribute transaction
 		const txn = await Mina.transaction(senderAccount, async () => {
@@ -149,13 +117,21 @@ describe('Add', () => {
 		await txn.prove();
 		await txn.sign([senderKey]).send();
 
-		const amount = zkApp.amount.get();
+		const amount = zkApp.account.balance.getAndRequireEquals();
 		expect(amount).toEqual(UInt64.from(10 * MINA));
 
 		const senderBalance = AccountUpdate.create(senderAccount).balanceChange.equals(30 * MINA - 10 * MINA);
 		expect(senderBalance).toBeTruthy();
 
-		await sleep(second_2 * 2);
+		local.incrementGlobalSlot(30 + 1);
+		console.log("current block height: ", local.getNetworkState().globalSlotSinceGenesis);
+
+		expect(
+			Mina.transaction(senderAccount, async () => {
+				console.log("bad draw by others");
+				await zkApp.withdraw();
+			})
+		).rejects.toThrow();
 
 		const withdrawTxn = await Mina.transaction(deployerAccount, async () => {
 			console.log("withdraw");

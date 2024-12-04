@@ -1,67 +1,73 @@
-import { AccountUpdate, Field, method, Permissions, PublicKey, SmartContract, state, State, UInt64 } from "o1js";
-
-export const endTime = (duration: number): Field => {
-	return Field(Math.floor((Date.now() + duration) / 1000))
-}
-
-export const sleep = (ms: number) => {
-	return new Promise(resolve => {
-		setTimeout(resolve, ms);
-	})
-}
+import { AccountUpdate, method, Permissions, Provable, PublicKey, SmartContract, state, State, UInt32, UInt64, type DeployArgs } from 'o1js';
 
 export class CrowdFunding extends SmartContract {
-	@state(UInt64) targetAmount = State<UInt64>();
-	@state(UInt64) amount = State<UInt64>();
-	@state(Field) endTime = State<Field>();
+	@state(UInt64) hardcap = State<UInt64>();
+	@state(UInt32) endtime = State<UInt32>();
 	@state(PublicKey) receiver = State<PublicKey>();
 
-	init() {
-		super.init();
-		this.amount.set(UInt64.from(0));
+	private preCond() {
+		const hardcap = this.hardcap.getAndRequireEquals();
+		const endtime = this.endtime.getAndRequireEquals();
+		const receiver = this.receiver.getAndRequireEquals();
+		const curBalance = this.account.balance.getAndRequireEquals();
+
+		const curTime = this.network.blockchainLength.getAndRequireEquals();
+
+		curTime.greaterThan(endtime).assertFalse("crowdfunding end...");
+		curBalance.greaterThan(hardcap).assertFalse("crowdfunding hardcap reached...");
+
+		return {
+			hardcap,
+			endtime,
+			receiver,
+			curBalance,
+		}
+	}
+
+	private preCalcFund(amount: UInt64) {
+		const hardcap = this.hardcap.getAndRequireEquals();
+		const curBalance = this.account.balance.getAndRequireEquals();
+
+		const fund = curBalance.add(amount);
+		const realfund = Provable.if(
+			fund.greaterThanOrEqual(hardcap),
+			hardcap.sub(curBalance),
+			amount
+		);
+
+		return { realfund }
+	}
+
+	async deploy(args: DeployArgs & {
+		receiver: PublicKey,
+		hardcap: UInt64,
+		endtime: UInt32
+	}) {
+		await super.deploy(args);
 
 		this.account.permissions.set({
 			...Permissions.default(),
 			setVerificationKey: Permissions.VerificationKey.impossibleDuringCurrentVersion(),
 			setPermissions: Permissions.impossible(),
 		})
-	}
 
-	@method async initState(targetAmount: UInt64, endtime: Field, receiver: PublicKey) {
-		this.targetAmount.set(targetAmount);
-		this.endTime.set(endtime);
-		this.receiver.set(receiver);
+		this.receiver.set(args.receiver);
+		this.hardcap.set(args.hardcap);
+		this.endtime.set(args.endtime);
 	}
 
 	@method async fund(amount: UInt64) {
-		const currentTime = Field(Math.floor(Date.now() / 1000));
-		const endTime = this.endTime.getAndRequireEquals();
+		this.preCond();
+		const { realfund } = this.preCalcFund(amount);
 
-		currentTime.assertLessThan(endTime, "Crowdfunding period has ended");
-
-		const curAmount = this.amount.getAndRequireEquals();
-		const targetAmount = this.targetAmount.getAndRequireEquals();
-
-		curAmount.assertLessThan(targetAmount, "Crowdfunding target already reached");
-
-		const senderUpdate = AccountUpdate.create(this.sender.getAndRequireSignature());
-		senderUpdate.balanceChange.sub(amount);
-
-		const newAmount = curAmount.add(amount);
-		this.amount.set(newAmount);
+		const senderUpdate = AccountUpdate.createSigned(this.sender.getAndRequireSignature());
+		senderUpdate.send({ to: this, amount: realfund })
 	}
 
 	@method async withdraw() {
-		const currentTime = Field(Math.floor(Date.now() / 1000));
-		const endTime = this.endTime.getAndRequireEquals();
+		const { receiver, curBalance } = this.preCond();
 
-		currentTime.assertGreaterThanOrEqual(endTime, "Crowdfunding period has not ended yet");
-
-		const amount = this.amount.getAndRequireEquals();
-		const receiver = this.receiver.getAndRequireEquals();
-		const receiverUpdate = AccountUpdate.create(receiver);
-		receiverUpdate.balanceChange.add(amount);
-
-		this.amount.set(UInt64.from(0));
+		this.sender.getAndRequireSignature().assertEquals(receiver);
+		this.send({ to: receiver, amount: curBalance })
 	}
 }
