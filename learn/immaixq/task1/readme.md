@@ -27,4 +27,6 @@ Application of recursive zk proofs allows for verifying large amount of informat
 
 
 ## 下载安装 Auro wallet，创建账户，并完成领水 Download Auro Wallet, create account
+tx hash: 5JteG3NETiHKbJSZ65tMFohKWxHhXRTq66pBqUxps34n4ruwrKDx
+
 ![wallet_ss](./wallet_ss.jpeg)
