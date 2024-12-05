@@ -12,3 +12,4 @@
 | longerd       | 发表技术文章 | [Mina Learning - Address](https://learnblockchain.cn/article/10083)                         | [1.4 MINA](https://minascan.io/mainnet/tx/5JuS4PvnXGM8WvREh4oJjqW2RWWpWLAQ7HgnjAakLpfmKTZEjbQn)   |
 | lispking      | 发表技术文章 | [Mina 上的 STO 和现实世界资产](https://learnblockchain.cn/article/10107)                    | [1.1 MINA](https://minascan.io/mainnet/tx/5JuVzt4J9KrRPdTF5PuGzBa54y5fEDvynGUjTeqKjWikSktGiS6A)   |
 | lispking      | 发表技术文章 | [Mina: 建立值得信赖的社区](https://learnblockchain.cn/article/10108)                        | [1.1 MINA](https://minascan.io/mainnet/tx/5Jtbf2ujy56iY82wHpZ1YXqun7usULbdSdcAaEezggqxsWw2Zv4p)   |
+| tokenlin      | AMA 技术分享 | [AMA](https://youtu.be/xw4epbB9k9c)                                                         | [54 MINA](https://minascan.io/mainnet/tx/5Ju1p3TZKP74LwNQxtJEHqJh3PccvAfz7qMfEV8GGXG47E6joixp)    |
