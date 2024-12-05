@@ -31,15 +31,6 @@ export class CrowdFunding extends SmartContract {
   ) {
     await super.deploy(props);
 
-    // 初始化合约状态
-    this.totalRaised.set(UInt64.zero);
-    this.fundingCap.set(props.fundingCap);
-    this.endTime.set(props.endTime);
-    this.owner.set(props.owner);
-    Provable.log('props.fundingCap is', props.fundingCap);
-    Provable.log('props.endTime is', props.endTime);
-    Provable.log('props.owner is', props.owner);
-
     // 初始化账户权限
     this.account.permissions.set({
       ...Permissions.default(),
@@ -47,6 +38,20 @@ export class CrowdFunding extends SmartContract {
         Permissions.VerificationKey.impossibleDuringCurrentVersion(),
       setPermissions: Permissions.impossible(),
     });
+
+    // Below will be logged twice due to prove() and actual send()
+    Provable.log('props.fundingCap is', props.fundingCap);
+    Provable.log('props.endTime is', props.endTime);
+    Provable.log('props.owner is', props.owner);
+    Provable.log(
+      '============================================================================================='
+    );
+
+    // 初始化合约状态
+    this.totalRaised.set(UInt64.zero);
+    this.fundingCap.set(props.fundingCap);
+    this.endTime.set(props.endTime);
+    this.owner.set(props.owner);
   }
 
   // Method for contributing MINA to the crowdfunding campaign
@@ -112,9 +117,11 @@ export class CrowdFunding extends SmartContract {
     // Ensure the funding period has ended
     const currentTime = this.network.blockchainLength.get();
     this.network.blockchainLength.requireEquals(currentTime);
+    Provable.log('currentTime is', currentTime);
 
     const fundingEndTime = this.endTime.getAndRequireEquals();
-    currentTime.assertGreaterThan(
+    Provable.log('fundingEndTime is', fundingEndTime);
+    currentTime.assertGreaterThanOrEqual(
       fundingEndTime,
       'Funding period is still active'
     );
