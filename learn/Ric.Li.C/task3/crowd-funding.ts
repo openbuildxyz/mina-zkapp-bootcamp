@@ -5,6 +5,7 @@ import {
   method,
   UInt32,
   UInt64,
+  Bool,
   PublicKey,
   Provable,
   DeployArgs,
@@ -121,10 +122,17 @@ export class CrowdFunding extends SmartContract {
 
     const fundingEndTime = this.endTime.getAndRequireEquals();
     Provable.log('fundingEndTime is', fundingEndTime);
-    currentTime.assertGreaterThanOrEqual(
-      fundingEndTime,
-      'Funding period is still active'
-    );
+    // currentTime.assertGreaterThanOrEqual(
+    //   fundingEndTime,
+    //   'Funding period is still active'
+    // );
+    const isTimeOver = currentTime.greaterThanOrEqual(fundingEndTime);
+
+    const totalRaised = this.totalRaised.getAndRequireEquals();
+    const fundingCap = this.fundingCap.getAndRequireEquals();
+    const isCapReached = totalRaised.greaterThanOrEqual(fundingCap);
+
+    isTimeOver.or(isCapReached).assertTrue('Funding period is still active');
 
     // Perform the withdrawal
     this.send({ to: receiver, amount: currentBalance });

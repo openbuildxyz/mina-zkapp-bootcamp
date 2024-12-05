@@ -14,4 +14,4 @@
 
 -   测试运行截图: ![Screenshot](task3.png)
 
--   部署到 `DevNet` 的 `tx hash`:
+-   部署到 `DevNet` 的 `tx hash`: https://minascan.io/devnet/tx/5Ju2hRPm419EwVwD76e3uju373ro1SBxAnEDBcz9t75BS66hrvxU

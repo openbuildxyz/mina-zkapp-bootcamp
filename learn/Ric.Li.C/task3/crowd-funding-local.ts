@@ -60,7 +60,7 @@ await deployTx.prove();
 await deployTx.sign([deployer.key, zkappAccount.key]).send();
 
 console.log('Contract deployed.');
-console.log('\n');
+console.log('');
 console.log('Initial state:');
 console.log(
   'Total raised         :',
@@ -78,7 +78,7 @@ console.log(
   'block height'
 );
 console.log('Owner                :', zkapp.owner.get().toBase58());
-console.log('\n');
+console.log('');
 console.log('Contract balance     :', formatBalance(zkappAccount));
 console.log('Deployer balance     :', formatBalance(deployer));
 console.log(
@@ -90,17 +90,17 @@ console.log(
 );
 
 // Donor 1 contributes to the campaign
-console.log('Donor 1 contributes 50 MINA...');
+console.log('Donor 1 contributes 300 MINA...');
 let contributeTx1 = await Mina.transaction(
   { sender: donor1, fee: 0.1 * 1e9, memo: 'Donor 1 contribution' },
   async () => {
-    await zkapp.contribute(UInt64.from(50 * 1e9)); // Donor 1 contributes 50 MINA
+    await zkapp.contribute(UInt64.from(300 * 1e9)); // Donor 1 contributes 300 MINA
   }
 );
 await contributeTx1.prove();
 await contributeTx1.sign([donor1.key]).send();
 
-console.log('\n');
+console.log('');
 console.log('After Donor 1 contribution:');
 console.log(
   'Total raised     :',
@@ -114,17 +114,17 @@ console.log(
 );
 
 // Donor 2 contributes to the campaign
-console.log('Donor 2 contributes 70 MINA...');
+console.log('Donor 2 contributes 900 MINA...');
 let contributeTx2 = await Mina.transaction(
   { sender: donor2, fee: 0.1 * 1e9, memo: 'Donor 2 contribution' },
   async () => {
-    await zkapp.contribute(UInt64.from(70 * 1e9)); // Donor 2 contributes 70 MINA
+    await zkapp.contribute(UInt64.from(900 * 1e9)); // Donor 2 contributes 900 MINA
   }
 );
 await contributeTx2.prove();
 await contributeTx2.sign([donor2.key]).send();
 
-console.log('\n');
+console.log('');
 console.log('After Donor 2 contribution:');
 console.log(
   'Total raised     :',
@@ -139,11 +139,12 @@ console.log(
 
 // Owner withdraws funds after the funding period ends
 console.log('Simulating end of funding period...');
-Local.incrementGlobalSlot(1_001);
-console.log(
-  'Current block height:',
-  Local.getNetworkState().globalSlotSinceGenesis.toString()
-);
+// Local.incrementGlobalSlot(1_001);
+// console.log(
+//   'Current block height:',
+//   Local.getNetworkState().globalSlotSinceGenesis.toString()
+// );
+Local.setBlockchainLength(UInt32.from(1_001));
 
 console.log('Owner withdraws funds...');
 let withdrawTx = await Mina.transaction(
@@ -155,9 +156,9 @@ let withdrawTx = await Mina.transaction(
 await withdrawTx.prove();
 await withdrawTx.sign([deployer.key]).send();
 
-console.log('\n');
+console.log('');
 console.log('After withdrawal:');
-console.log('Contract balance     :', zkapp.account.balance.get());
+console.log('Contract balance     :', formatBalance(zkappAccount));
 console.log('Beneficiary balance  :', formatBalance(beneficiary));
 console.log('Funds successfully withdrawn.');
 console.log(
@@ -170,6 +171,9 @@ console.log('deployer     :', formatBalance(deployer));
 console.log('donor1       :', formatBalance(donor1));
 console.log('donor2       :', formatBalance(donor2));
 console.log('beneficiary  :', formatBalance(beneficiary));
+console.log(
+  '============================================================================================='
+);
 
 let account = Mina.getAccount(zkappAccount);
 console.log(JSON.stringify(account));
