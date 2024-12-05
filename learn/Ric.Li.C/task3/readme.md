@@ -8,9 +8,9 @@
 
 ### 作业
 
--   众筹合约: [CrowdFunding.ts](CrowdFunding.ts)
+-   众筹合约: [crowd-funding.ts](crowd-funding.ts)
 
--   本地测试的交互脚本: [CrowdFunding.test.ts](CrowdFunding.test.ts)
+-   本地测试的交互脚本: [crowd-funding-local.ts](crowd-funding-local.ts)
 
 -   测试运行截图: ![Screenshot](task3.png)
 
