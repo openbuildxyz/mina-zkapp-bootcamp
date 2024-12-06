@@ -31,8 +31,11 @@ interface BaseState {
     endTime: State<UInt32>;
 }
 
+const CONTRIBUTE = Field(1);
+const WITHDRAW = Field(2);
+
 // 状态检查装饰器
-function checkState(type: 'contribute' | 'withdraw') {
+function checkState(operationType: Field, errorMessage: string) {
     return function <T extends SmartContract & BaseState>(
         target: T,
         propertyKey: string,
@@ -59,27 +62,12 @@ function checkState(type: 'contribute' | 'withdraw') {
             //     console.log('isHardCapReached:', isHardCapReached.toString());
             //     console.log("=====================================");
             // });
-
             const isTimeEnded = currentTime.greaterThanOrEqual(endTime);
             const condition = isHardCapReached.or(isTimeEnded);
 
-            if (type === 'withdraw') {
-                const beneficiary = this.beneficiary.getAndRequireEquals();
-                const sender = this.sender.getAndRequireSignature();
-                sender.equals(beneficiary).assertTrue('Only beneficiary can withdraw');
-            }
-
-            const shouldAssert = Provable.if(
-                Bool(type === 'contribute'),
-                condition.not(),
-                condition
-            );
-
-            shouldAssert.assertTrue(
-                type === 'contribute'
-                    ? 'Cannot contribute: hard cap reached or window closed'
-                    : 'Cannot withdraw: neither hard cap reached nor window closed'
-            );
+            operationType.equals(CONTRIBUTE).and(condition.not())
+                .or(operationType.equals(WITHDRAW).and(condition))
+                .assertTrue(errorMessage);
 
             return originalMethod.apply(this, args);
         };
@@ -87,6 +75,29 @@ function checkState(type: 'contribute' | 'withdraw') {
         return descriptor;
     };
 }
+
+function onlyBeneficiary(operationType: Field) {
+    return function <T extends SmartContract & BaseState>(
+        target: T,
+        propertyKey: string,
+        descriptor: TypedPropertyDescriptor<any>
+    ) {
+        const originalMethod = descriptor.value;
+
+        descriptor.value = function (this: T, ...args: any[]) {
+            Provable.if(operationType.equals(WITHDRAW),
+                Bool.and(
+                    this.sender.getAndRequireSignature().equals(this.beneficiary.getAndRequireEquals()),
+                    Bool(true)
+                ),
+                Bool(true)
+            ).assertTrue('Only beneficiary can withdraw');
+            return originalMethod.apply(this, args);
+        };
+        return descriptor;
+    };
+}
+
 
 function formatMina(amount: UInt64): string {
     return (Number(amount.toBigInt()) / 1e9).toFixed(2);
@@ -124,7 +135,7 @@ export class CrowdfundingContract extends SmartContract implements BaseState {
 
     // 投资
     @method
-    @checkState('contribute')
+    @checkState(CONTRIBUTE, 'Cannot contribute: hard cap reached or window closed') //【未达到硬顶且未结束】才能通过
     async contribute(amount: UInt64) {
         amount.assertGreaterThan(UInt64.from(0));
 
@@ -154,7 +165,8 @@ export class CrowdfundingContract extends SmartContract implements BaseState {
 
     // 提现 
     @method
-    @checkState('withdraw')
+    @onlyBeneficiary(WITHDRAW)
+    @checkState(WITHDRAW, 'Cannot withdraw: neither hard cap reached nor window closed') //需要【已达到硬顶或已结束】才能通过
     async withdraw() {
         const beneficiary = this.beneficiary.getAndRequireEquals();
         const currentBalance = this.account.balance.getAndRequireEquals();
