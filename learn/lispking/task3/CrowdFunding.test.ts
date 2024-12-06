@@ -1,0 +1,105 @@
+import { AccountUpdate, Mina, PrivateKey, PublicKey, UInt32, UInt64 } from 'o1js';
+import { CrowdFunding } from './CrowdFunding';
+
+let proofsEnabled = false;
+
+describe('CrowdFunding', () => {
+  let deployerAccount: Mina.TestPublicKey,
+    deployerKey: PrivateKey,
+    user1: Mina.TestPublicKey,
+    user1Key: PrivateKey,
+    user2: Mina.TestPublicKey,
+    user2Key: PrivateKey,
+    user3: Mina.TestPublicKey,
+    user3Key: PrivateKey,
+    zkAppAddress: PublicKey,
+    zkAppPrivateKey: PrivateKey,
+    zkApp: CrowdFunding,
+    Local: any;
+
+  beforeAll(async () => {
+    if (proofsEnabled) await CrowdFunding.compile();
+  });
+
+  beforeEach(async () => {
+    Local = await Mina.LocalBlockchain({ proofsEnabled });
+    Mina.setActiveInstance(Local);
+
+    [deployerAccount, user1, user2, user3] = Local.testAccounts;
+    deployerKey = deployerAccount.key;
+    user1Key = user1.key;
+    user2Key = user2.key;
+    user3Key = user3.key;
+
+    zkAppPrivateKey = PrivateKey.random();
+    zkAppAddress = zkAppPrivateKey.toPublicKey();
+    zkApp = new CrowdFunding(zkAppAddress);
+
+    await localDeploy();
+  });
+
+  async function localDeploy() {
+    const txn = await Mina.transaction(deployerAccount, async () => {
+      AccountUpdate.fundNewAccount(deployerAccount);
+      await zkApp.deploy({
+        deadline: UInt32.from(100),
+        minimumInvestment: UInt64.from(10),
+        hardCap: UInt64.from(100),
+      });
+    });
+    await txn.prove();
+    // this tx needs .sign(), because `deploy()` adds an account update that requires signature authorization
+    await txn.sign([deployerKey, zkAppPrivateKey]).send();
+  }
+
+  it('deploy', async () => {
+    expect(zkApp.account.balance.get()).toEqual(UInt64.from(0));
+    expect(zkApp.getDeadline()).toEqual(UInt32.from(100));
+    expect(zkApp.getMinimumInvestment()).toEqual(UInt64.from(10));
+    expect(zkApp.getHardCap()).toEqual(UInt64.from(100));
+    expect(zkApp.getInvestor()).toEqual(deployerKey.toPublicKey());
+  });
+
+  it('contribute success', async () => {
+    const amount = UInt64.from(100);
+    expect(zkApp.account.balance.get()).toEqual(UInt64.from(0));
+
+    const txn = await Mina.transaction(user1, async () => {
+      await zkApp.contribute(amount);
+    });
+    await txn.prove();
+    await txn.sign([user1Key, zkAppPrivateKey]).send().wait();
+
+    expect(zkApp.account.balance.get()).toEqual(amount);
+  });
+
+  it('contribute failed by less amount', async () => {
+    expect(async () => {
+      await Mina.transaction(user1, async () => {
+        await zkApp.contribute(UInt64.from(1));
+      })
+    }).rejects;
+  })
+
+  it('withdraw success', async () => {
+    const amount = UInt64.from(100);
+    expect(zkApp.account.balance.get()).toEqual(UInt64.from(0));
+
+    let txn = await Mina.transaction(user1, async () => {
+      await zkApp.contribute(amount);
+    });
+    await txn.prove();
+    await txn.sign([user1Key, zkAppPrivateKey]).send();
+
+    Local.setBlockchainLength(UInt32.from(100));
+    Mina.setActiveInstance(Local);
+
+    txn = await Mina.transaction(deployerAccount, async () => {
+      await zkApp.withdraw();
+    });
+    await txn.prove();
+    await txn.sign([deployerKey, zkAppPrivateKey]).send();
+
+    expect(zkApp.account.balance.get()).toEqual(UInt64.from(0));
+  })
+});
