@@ -73,6 +73,33 @@ describe('CrowdFunding', () => {
     expect(zkApp.account.balance.get()).toEqual(amount);
   });
 
+  it('contribute success by more users', async () => {
+    const baseAmount = 10;
+    const amount = UInt64.from(baseAmount);
+    expect(zkApp.account.balance.get()).toEqual(UInt64.from(0));
+
+    let txn = await Mina.transaction(user1, async () => {
+      await zkApp.contribute(amount);
+    });
+    await txn.prove();
+    await txn.sign([user1Key, zkAppPrivateKey]).send().wait();
+    expect(zkApp.account.balance.get()).toEqual(amount);
+
+    txn = await Mina.transaction(user2, async () => {
+      await zkApp.contribute(amount);
+    });
+    await txn.prove();
+    await txn.sign([user2Key, zkAppPrivateKey]).send().wait();
+    expect(zkApp.account.balance.get()).toEqual(UInt64.from(baseAmount * 2));
+
+    txn = await Mina.transaction(user3, async () => {
+      await zkApp.contribute(amount);
+    });
+    await txn.prove();
+    await txn.sign([user3Key, zkAppPrivateKey]).send().wait();
+    expect(zkApp.account.balance.get()).toEqual(UInt64.from(baseAmount * 3));
+  });
+
   it('contribute failed by less amount', async () => {
     expect(async () => {
       await Mina.transaction(user1, async () => {
