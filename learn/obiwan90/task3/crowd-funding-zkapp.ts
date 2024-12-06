@@ -63,6 +63,12 @@ function checkState(type: 'contribute' | 'withdraw') {
             const isTimeEnded = currentTime.greaterThanOrEqual(endTime);
             const condition = isHardCapReached.or(isTimeEnded);
 
+            if (type === 'withdraw') {
+                const beneficiary = this.beneficiary.getAndRequireEquals();
+                const sender = this.sender.getAndRequireSignature();
+                sender.equals(beneficiary).assertTrue('Only beneficiary can withdraw');
+            }
+
             const shouldAssert = Provable.if(
                 Bool(type === 'contribute'),
                 condition.not(),

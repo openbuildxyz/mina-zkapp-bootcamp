@@ -190,7 +190,7 @@ describe('CrowdfundingContract', () => {
             await tx1.sign([investor1.key]).send();
 
             // 模拟时间流逝
-            Local.setGlobalSlot(1001);
+            Local.setBlockchainLength(UInt32.from(101));
 
             // 非受益人尝试提现
             await expect(async () => {
