@@ -44,6 +44,7 @@ let zkAppKey = PrivateKey.random();
 let zkAppAccount = zkAppKey.toPublicKey();
 let zkApp = new CrowdFunding(zkAppAccount);
 
+console.time('Deploy');
 let tx = await Mina.transaction({
     sender: deployer,
     fee: 0.2 * 1e9,
@@ -59,6 +60,7 @@ let tx = await Mina.transaction({
 });
 await tx.prove();
 await tx.sign([deployerKey, zkAppKey]).send().wait();
+console.timeEnd('Deploy');
 
 await fetchAccount({ publicKey: zkAppAccount });
 console.log(`zkApp Address: ${zkAppAccount.toBase58()}`);
