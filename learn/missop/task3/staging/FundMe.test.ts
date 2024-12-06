@@ -20,7 +20,7 @@ describe('FundMe', () => {
         })
         Mina.setActiveInstance(network);
         senderKey = PrivateKey.fromBase58(
-            'EKEmmADQ9g4mjf84TNXjQ5LTqshih7wA3Q94qvkrsYXcBbt3Nhpq'
+            ''
         );
         sender = senderKey.toPublicKey();
         console.log(`Fetching the fee payer account information.`);
