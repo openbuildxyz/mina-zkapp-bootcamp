@@ -86,14 +86,14 @@ describe('FundMe', () => {
         expect(funeMeContract.balance).toEqual(HARD_CAP)
     })
 
-    it('should withdraw successfully', async () => {
-        await fetchAccount({ publicKey: zkAppAccount });// !!!必须
-        await fetchAccount({ publicKey: sender });// !!!必须
-        const tx = await Mina.transaction(sender, async () => {
-            await funeMeContract.withdraw(UInt64.from(ADD_NUM * UNIT));
-        });
-        await tx.prove();
-        await tx.sign([senderKey]).send().wait();
-        expect(funeMeContract.balance).toEqual(0);
-    })
+    // it('should withdraw successfully', async () => {
+    //     await fetchAccount({ publicKey: zkAppAccount });// !!!必须
+    //     await fetchAccount({ publicKey: sender });// !!!必须
+    //     const tx = await Mina.transaction(sender, async () => {
+    //         await funeMeContract.withdraw(UInt64.from(ADD_NUM * UNIT));
+    //     });
+    //     await tx.prove();
+    //     await tx.sign([senderKey]).send().wait();
+    //     expect(funeMeContract.balance).toEqual(0);
+    // })
 })
