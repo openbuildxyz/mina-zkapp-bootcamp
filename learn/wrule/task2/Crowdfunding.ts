@@ -24,7 +24,7 @@ export class Crowdfunding extends SmartContract {
     this.currentAmount.set(Field(0));
   }
 
-  @method initializeCrowdfunding(
+  @method async initializeCrowdfunding(
     startTime: UInt64,
     endTime: UInt64, 
     targetAmount: Field,
@@ -47,7 +47,7 @@ export class Crowdfunding extends SmartContract {
     this.hardCap.set(hardCap);
   }
 
-  @method contribute(amount: Field) {
+  @method async contribute(amount: Field) {
     const currentTime = this.network.timestamp.getAndRequireEquals();
     const startTime = this.startTime.getAndRequireEquals();
     const endTime = this.endTime.getAndRequireEquals();
@@ -63,14 +63,14 @@ export class Crowdfunding extends SmartContract {
       .assertTrue('Exceeds hard cap');
 
     // 转账逻辑
-    const payerUpdate = AccountUpdate.createSigned(this.sender);
-    payerUpdate.send({ to: this, amount: Number(amount.toString()) });
+    const payerUpdate = AccountUpdate.createSigned(this.sender.getAndRequireSignature());
+    payerUpdate.send({ to: this.address, amount: Number(amount.toString()) });
 
     // 更新当前金额
     this.currentAmount.set(currentAmount.add(amount));
   }
 
-  @method withdraw() {
+  @method async withdraw() {
     const currentTime = this.network.timestamp.getAndRequireEquals();
     const endTime = this.endTime.getAndRequireEquals();
     const beneficiary = this.beneficiary.getAndRequireEquals();
@@ -96,7 +96,7 @@ export class Crowdfunding extends SmartContract {
     this.currentAmount.set(Field(0));
   }
 
-  @method refund() {
+  @method async refund() {
     const currentTime = this.network.timestamp.getAndRequireEquals();
     const endTime = this.endTime.getAndRequireEquals();
     const currentAmount = this.currentAmount.getAndRequireEquals();

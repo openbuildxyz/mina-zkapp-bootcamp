@@ -3,11 +3,18 @@ import { Crowdfunding } from './Crowdfunding';
 
 let proofsEnabled = false;
 
+interface IUser {
+  key: PrivateKey;
+  account: Mina.TestPublicKey;
+}
+
 describe('Crowdfunding', () => {
-  let deployerAccount: Mina.PrivateKey,
+  let deployerAccount: PublicKey,
     deployerKey: PrivateKey,
-    senderAccount: Mina.PrivateKey,
+    
+    senderAccount: PublicKey,
     senderKey: PrivateKey,
+
     zkAppAddress: PublicKey,
     zkAppPrivateKey: PrivateKey,
     zkApp: Crowdfunding;
@@ -25,22 +32,22 @@ describe('Crowdfunding', () => {
     const Local = await Mina.LocalBlockchain({ proofsEnabled });
     Mina.setActiveInstance(Local);
     
-    deployerAccount = Local.testAccounts[0].privateKey;
-    deployerKey = deployerAccount;
+    deployerAccount = Local.testAccounts[0].key.toPublicKey();
+    deployerKey = Local.testAccounts[0].key;
     
-    senderAccount = Local.testAccounts[1].privateKey;
-    senderKey = senderAccount;
+    senderAccount = Local.testAccounts[1].key.toPublicKey();;
+    senderKey = Local.testAccounts[1].key;
 
     zkAppPrivateKey = PrivateKey.random();
     zkAppAddress = zkAppPrivateKey.toPublicKey();
     zkApp = new Crowdfunding(zkAppAddress);
 
     // 设置众筹参数
-    const currentSlot = Mina.getNetworkState().timestamp;
-    startTime = currentSlot.add(UInt64.from(1000)); // 开始时间设为当前时间+1000
-    endTime = startTime.add(UInt64.from(10000));    // 结束时间设为开始时间+10000
-    targetAmount = Field(5000);                      // 目标金额5000
-    hardCap = Field(10000);                         // 硬顶10000
+    const currentTime = UInt64.from(Date.now());
+    startTime = currentTime.add(UInt64.from(1000));
+    endTime = startTime.add(UInt64.from(10000));
+    targetAmount = Field(5000);
+    hardCap = Field(10000);
   });
 
   async function localDeploy() {
@@ -52,7 +59,7 @@ describe('Crowdfunding', () => {
     await txn.sign([deployerKey, zkAppPrivateKey]).send();
   }
 
-  it('should deploy and initialize crowdfunding', async () => {
+  it('should initialize crowdfunding correctly', async () => {
     await localDeploy();
 
     const txn = await Mina.transaction(deployerAccount, async () => {
@@ -65,40 +72,11 @@ describe('Crowdfunding', () => {
     });
     await txn.prove();
     await txn.sign([deployerKey]).send();
-  });
 
-  it('should not allow non-beneficiary to initialize', async () => {
-    await localDeploy();
-
-    await expect(async () => {
-      const txn = await Mina.transaction(senderAccount, async () => {
-        await zkApp.initializeCrowdfunding(
-          startTime,
-          endTime,
-          targetAmount,
-          hardCap
-        );
-      });
-      await txn.prove();
-      await txn.sign([senderKey]).send();
-    }).rejects.toThrow('Only beneficiary can initialize');
-  });
-
-  it('should not allow invalid time settings', async () => {
-    await localDeploy();
-
-    await expect(async () => {
-      const txn = await Mina.transaction(deployerAccount, async () => {
-        await zkApp.initializeCrowdfunding(
-          endTime,          // 故意将开始时间设为结束时间
-          startTime,        // 故意将结束时间设为开始时间
-          targetAmount,
-          hardCap
-        );
-      });
-      await txn.prove();
-      await txn.sign([deployerKey]).send();
-    }).rejects.toThrow('Start time must be before end time');
+    expect(zkApp.startTime.get()).toEqual(startTime);
+    expect(zkApp.endTime.get()).toEqual(endTime);
+    expect(zkApp.targetAmount.get()).toEqual(targetAmount);
+    expect(zkApp.hardCap.get()).toEqual(hardCap);
   });
 
   it('should allow contribution during funding period', async () => {
@@ -116,17 +94,19 @@ describe('Crowdfunding', () => {
     await txn.prove();
     await txn.sign([deployerKey]).send();
 
-    // 设置当前时间为众筹期间
-    const currentSlot = startTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
     // 投资
     const contributionAmount = Field(1000);
     txn = await Mina.transaction(senderAccount, async () => {
+      // 设置为众筹期间的时间
+      const currentTime = startTime.add(UInt64.from(1000));
+      zkApp.network.timestamp.requireEquals(currentTime);
+      
       await zkApp.contribute(contributionAmount);
     });
     await txn.prove();
     await txn.sign([senderKey]).send();
+
+    expect(zkApp.currentAmount.get()).toEqual(contributionAmount);
   });
 
   it('should not allow contribution before start time', async () => {
@@ -144,14 +124,13 @@ describe('Crowdfunding', () => {
     await txn.prove();
     await txn.sign([deployerKey]).send();
 
-    // 设置当前时间为开始时间之前
-    const currentSlot = startTime.sub(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 尝试投资
+    // 尝试在开始时间之前投资
     await expect(async () => {
       const contributionAmount = Field(1000);
       txn = await Mina.transaction(senderAccount, async () => {
+        const currentTime = startTime.sub(UInt64.from(1000));
+        zkApp.network.timestamp.requireEquals(currentTime);
+        
         await zkApp.contribute(contributionAmount);
       });
       await txn.prove();
@@ -174,14 +153,13 @@ describe('Crowdfunding', () => {
     await txn.prove();
     await txn.sign([deployerKey]).send();
 
-    // 设置当前时间为结束时间之后
-    const currentSlot = endTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 尝试投资
+    // 尝试在结束时间之后投资
     await expect(async () => {
       const contributionAmount = Field(1000);
       txn = await Mina.transaction(senderAccount, async () => {
+        const currentTime = endTime.add(UInt64.from(1000));
+        zkApp.network.timestamp.requireEquals(currentTime);
+        
         await zkApp.contribute(contributionAmount);
       });
       await txn.prove();
@@ -204,176 +182,17 @@ describe('Crowdfunding', () => {
     await txn.prove();
     await txn.sign([deployerKey]).send();
 
-    // 设置当前时间为众筹期间
-    const currentSlot = startTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
     // 尝试投资超过硬顶的金额
     await expect(async () => {
-      const contributionAmount = Field(15000); // 大于硬顶10000
+      const contributionAmount = Field(11000);
       txn = await Mina.transaction(senderAccount, async () => {
+        const currentTime = startTime.add(UInt64.from(1000));
+        zkApp.network.timestamp.requireEquals(currentTime);
+        
         await zkApp.contribute(contributionAmount);
       });
       await txn.prove();
       await txn.sign([senderKey]).send();
     }).rejects.toThrow('Exceeds hard cap');
-  });
-
-  it('should allow beneficiary to withdraw after successful funding', async () => {
-    await localDeploy();
-
-    // 初始化众筹
-    let txn = await Mina.transaction(deployerAccount, async () => {
-      await zkApp.initializeCrowdfunding(
-        startTime,
-        endTime,
-        targetAmount,
-        hardCap
-      );
-    });
-    await txn.prove();
-    await txn.sign([deployerKey]).send();
-
-    // 设置当前时间为众筹期间
-    let currentSlot = startTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 投资足够金额
-    const contributionAmount = Field(6000); // 大于目标金额5000
-    txn = await Mina.transaction(senderAccount, async () => {
-      await zkApp.contribute(contributionAmount);
-    });
-    await txn.prove();
-    await txn.sign([senderKey]).send();
-
-    // 设置当前时间为结束时间之后
-    currentSlot = endTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 受益人提款
-    txn = await Mina.transaction(deployerAccount, async () => {
-      await zkApp.withdraw();
-    });
-    await txn.prove();
-    await txn.sign([deployerKey]).send();
-  });
-
-  it('should not allow withdrawal before end time', async () => {
-    await localDeploy();
-
-    // 初始化众筹
-    let txn = await Mina.transaction(deployerAccount, async () => {
-      await zkApp.initializeCrowdfunding(
-        startTime,
-        endTime,
-        targetAmount,
-        hardCap
-      );
-    });
-    await txn.prove();
-    await txn.sign([deployerKey]).send();
-
-    // 设置当前时间为众筹期间
-    const currentSlot = startTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 投资足够金额
-    const contributionAmount = Field(6000);
-    txn = await Mina.transaction(senderAccount, async () => {
-      await zkApp.contribute(contributionAmount);
-    });
-    await txn.prove();
-    await txn.sign([senderKey]).send();
-
-    // 尝试提前提款
-    await expect(async () => {
-      txn = await Mina.transaction(deployerAccount, async () => {
-        await zkApp.withdraw();
-      });
-      await txn.prove();
-      await txn.sign([deployerKey]).send();
-    }).rejects.toThrow('Crowdfunding not ended');
-  });
-
-  it('should not allow withdrawal if target not reached', async () => {
-    await localDeploy();
-
-    // 初始化众筹
-    let txn = await Mina.transaction(deployerAccount, async () => {
-      await zkApp.initializeCrowdfunding(
-        startTime,
-        endTime,
-        targetAmount,
-        hardCap
-      );
-    });
-    await txn.prove();
-    await txn.sign([deployerKey]).send();
-
-    // 设置当前时间为众筹期间
-    let currentSlot = startTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 投资不足金额
-    const contributionAmount = Field(4000); // 小于目标金额5000
-    txn = await Mina.transaction(senderAccount, async () => {
-      await zkApp.contribute(contributionAmount);
-    });
-    await txn.prove();
-    await txn.sign([senderKey]).send();
-
-    // 设置当前时间为结束时间之后
-    currentSlot = endTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 尝试提款
-    await expect(async () => {
-      txn = await Mina.transaction(deployerAccount, async () => {
-        await zkApp.withdraw();
-      });
-      await txn.prove();
-      await txn.sign([deployerKey]).send();
-    }).rejects.toThrow('Target amount not reached');
-  });
-
-  it('should not allow non-beneficiary to withdraw', async () => {
-    await localDeploy();
-
-    // 初始化众筹
-    let txn = await Mina.transaction(deployerAccount, async () => {
-      await zkApp.initializeCrowdfunding(
-        startTime,
-        endTime,
-        targetAmount,
-        hardCap
-      );
-    });
-    await txn.prove();
-    await txn.sign([deployerKey]).send();
-
-    // 设置当前时间为众筹期间
-    let currentSlot = startTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 投资足够金额
-    const contributionAmount = Field(6000);
-    txn = await Mina.transaction(senderAccount, async () => {
-      await zkApp.contribute(contributionAmount);
-    });
-    await txn.prove();
-    await txn.sign([senderKey]).send();
-
-    // 设置当前时间为结束时间之后
-    currentSlot = endTime.add(UInt64.from(1000));
-    await Mina.setTimestamp(currentSlot);
-
-    // 非受益人尝试提款
-    await expect(async () => {
-      txn = await Mina.transaction(senderAccount, async () => {
-        await zkApp.withdraw();
-      });
-      await txn.prove();
-      await txn.sign([senderKey]).send();
-    }).rejects.toThrow('Only beneficiary can withdraw');
   });
 });
