@@ -3,7 +3,7 @@ import { Crowdfunding } from './Crowdfunding';
 
 let contract: Crowdfunding, txn;
 // Initialize the local Mina blockchain
-let Local = await Mina.LocalBlockchain({ proofsEnabled: true });
+let Local = await Mina.LocalBlockchain({ proofsEnabled: false });
 Mina.setActiveInstance(Local);
 let initialBalance = 10_000_000_000;
 let [feePayer] = Local.testAccounts;
@@ -12,7 +12,7 @@ Local.setBlockchainLength(UInt32.from(1000));
 // Deploy the Crowdfunding contract
 contract = new Crowdfunding(contractAccount);
 console.log('Deploying Crowdfunding...');
-await Crowdfunding.compile();
+await Crowdfunding.analyzeMethods();
 
 let tx = await Mina.transaction(feePayer, async () => {
   AccountUpdate.fundNewAccount(feePayer).send({
