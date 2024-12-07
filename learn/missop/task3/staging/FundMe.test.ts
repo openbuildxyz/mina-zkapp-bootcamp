@@ -72,7 +72,7 @@ describe('FundMe', () => {
         });
         await tx.prove();
         await tx.sign([senderKey]).send().wait();
-        expect(funeMeContract.balance).toEqual(1 * UNIT)
+        expect(funeMeContract.account.balance.get()).toEqual(1 * UNIT)
     })
 
     it('should not fund exceed hardcap', async () => {
@@ -83,7 +83,7 @@ describe('FundMe', () => {
         });
         await tx.prove();
         await tx.sign([senderKey]).send().wait();
-        expect(funeMeContract.balance).toEqual(HARD_CAP)
+        expect(funeMeContract.account.balance.get()).toEqual(HARD_CAP)
     })
 
     // it('should withdraw successfully', async () => {
@@ -94,6 +94,6 @@ describe('FundMe', () => {
     //     });
     //     await tx.prove();
     //     await tx.sign([senderKey]).send().wait();
-    //     expect(funeMeContract.balance).toEqual(0);
+    //     expect(funeMeContract.account.balance.get()).toEqual(0);
     // })
 })
