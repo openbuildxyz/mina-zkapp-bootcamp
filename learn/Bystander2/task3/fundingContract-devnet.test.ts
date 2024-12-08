@@ -28,17 +28,13 @@ describe('DEV Net', () => {
 
     Mina.setActiveInstance(network);
     senderKey = PrivateKey.fromBase58(
-      'EKDuCFNQFbKw5dr6CbGMy8adNk8Ck6qsHeTcaQURqfX286dQhETn'
+      ''
     );
     sender = senderKey.toPublicKey();
     console.log(`Fetching the fee payer account information.`);
     const senderAcct = await fetchAccount({ publicKey: sender });
     const accountDetails = senderAcct.account;
-    console.log(
-      `Using the fee payer account ${sender.toBase58()} with nonce: ${
-        accountDetails?.nonce
-      } and balance: ${accountDetails?.balance}.`
-    );
+    
     await FundingContract.compile();
 
     const zkappKey = PrivateKey.random();
@@ -49,7 +45,7 @@ describe('DEV Net', () => {
     const tx = await Mina.transaction(
       {
         sender,
-        fee: 1 * UNIT,
+        fee: 0.2 * UNIT,
         memo: 'deploy',
       },
       async () => {

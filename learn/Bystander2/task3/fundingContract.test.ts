@@ -28,7 +28,7 @@ describe('Local Net', () => {
     const tx = await Mina.transaction(
       {
         sender: deployer,
-        fee: 1 * UNIT,
+        fee: 0.2 * UNIT,
         memo: 'deploy',
       },
       async () => {
