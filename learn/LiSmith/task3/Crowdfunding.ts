@@ -1,9 +1,10 @@
-import { AccountUpdate, method, Permissions, Provable, PublicKey, SmartContract, state, State, UInt32, UInt64, type DeployArgs } from 'o1js';
+import { AccountUpdate, Bool, method, Permissions, Provable, PublicKey, SmartContract, state, State, UInt32, UInt64, type DeployArgs } from 'o1js';
 
 export class CrowdFunding extends SmartContract {
 	@state(UInt64) hardcap = State<UInt64>();
 	@state(UInt32) endtime = State<UInt32>();
 	@state(PublicKey) receiver = State<PublicKey>();
+	@state(Bool) closed = State<Bool>(Bool(false));
 
 	private preCond() {
 		const hardcap = this.hardcap.getAndRequireEquals();

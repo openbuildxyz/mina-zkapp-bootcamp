@@ -127,7 +127,7 @@ describe('Crowdfunding', () => {
 		const curSlot = local.getNetworkState().globalSlotSinceGenesis;
 		console.log("current block height: ", curSlot.toString());
 
-		expect(
+		await expect(
 			Mina.transaction(senderAccount, async () => {
 				console.log("bad draw by others");
 				await zkApp.withdraw();
