@@ -23,8 +23,8 @@
 
 完成报名后联系小助手微信 `hahalzr0118` 加入交流群。课程不需要具备 ZK 知识就可以学习，只需要有一定的 `TypeScript` 基础，可以参考[学习资源](#学习资源)进行学习，有其他问题请联系小助手或在交流群沟通。
 
-Auro Wallet 下载：https://www.aurowallet.com/download/  
-Mina 水龙头：https://faucet.minaprotocol.com/  
+Auro Wallet 下载：https://www.aurowallet.com/download/
+Mina 水龙头：https://faucet.minaprotocol.com/
 Mina 区块链浏览器：https://minascan.io/devnet/home
 
 <br>
@@ -57,7 +57,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 3. 《DSL 语法讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289429)
 4. 《Demo 案例讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732289481)
 
-**第三章：zkApp 基础开发**
+**第三章：zkApp 基础开发**  |  [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter3.pptx)
 1. 《zkApp 基础概念与实操》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934453)
 2. 《本地测试》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934453)
 3. 《部署到 DevNet》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934576)
@@ -84,7 +84,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 | 任务 | 阶段 | 名称 | 奖励 | 状态 |
 |-------|-------|-------|-------|-------|
 | [task1](./task/task1.md) | 第一周 | 创建Auro wallet账户，完成水龙头领水 | ￥15 | 已结束([奖励🎉](./reward/task1.md)) |
-| [task2](./task/task2.md) | 第二周 | 设计一个简单的投票统计器 | ￥35 | 已结束([AMA](https://youtu.be/xw4epbB9k9c)) | 
+| [task2](./task/task2.md) | 第二周 | 设计一个简单的投票统计器 | ￥35 | 已结束([AMA](https://youtu.be/xw4epbB9k9c) \| [奖励🎉](./reward/task2.md)) | 
 | [task3](./task/task3.md) | 第三周 | 设计一个众筹合约，时间窗口关闭后被投资人方可提款 | ￥15 | 进行中 |
 | [task4](./task/task4.md) | 第四周 | 设计一个众筹合约，众筹资金逐步释放 | ￥15 | |
 | [task5](./task/task5.md) | 第四周 | 发行你自己的 token，然后设计一个众筹合约 | ￥35 | |
@@ -94,7 +94,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 
 ### 📢 Mina 学习激励活动！
 
-参与技术讨论、撰写技术文章、社交分享，即有机会赢取 MINA 奖励！🎉  [立即参与](https://github.com/openbuildxyz/mina-zkapp-bootcamp/discussions/154)
+参与技术讨论和分享、撰写技术文章、社交分享，即有机会赢取 MINA 奖励！🎉  [立即参与](https://github.com/openbuildxyz/mina-zkapp-bootcamp/discussions/154)
 
 
 | 用户名        | 奖励类型     |                     链接                                                                    | 奖励                                                                                              |
@@ -107,6 +107,11 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 | longerd       | 发表技术文章 | [Mina Learning - Mina Protocol 中文翻译](https://learnblockchain.cn/article/10075)          | [1.4 MINA](https://minascan.io/mainnet/tx/5JuCZaKreuir6dqSwn1QKQzkz3oGdJPFNzFpB1wjanNpbEx7uWsZ)   |
 | lispking      | 发表技术文章 | [Mina 白板会议 TL;DR](https://learnblockchain.cn/article/10079)                             | [1.4 MINA](https://minascan.io/mainnet/tx/5JvEt2Dxab2K1jAHUYQhqAVg18pKijeqrwXX8R9ktSLRMo7Xo3Xx)   |
 | longerd       | 发表技术文章 | [Mina Learning - Address](https://learnblockchain.cn/article/10083)                         | [1.4 MINA](https://minascan.io/mainnet/tx/5JuS4PvnXGM8WvREh4oJjqW2RWWpWLAQ7HgnjAakLpfmKTZEjbQn)   |
+| lispking      | 发表技术文章 | [Mina 上的 STO 和现实世界资产](https://learnblockchain.cn/article/10107)                    | [1.1 MINA](https://minascan.io/mainnet/tx/5JuVzt4J9KrRPdTF5PuGzBa54y5fEDvynGUjTeqKjWikSktGiS6A)   |
+| lispking      | 发表技术文章 | [Mina: 建立值得信赖的社区](https://learnblockchain.cn/article/10108)                        | [1.1 MINA](https://minascan.io/mainnet/tx/5Jtbf2ujy56iY82wHpZ1YXqun7usULbdSdcAaEezggqxsWw2Zv4p)   |
+| tokenlin      | AMA 技术分享 | [AMA](https://youtu.be/xw4epbB9k9c)                                                         | [54 MINA](https://minascan.io/mainnet/tx/5Ju1p3TZKP74LwNQxtJEHqJh3PccvAfz7qMfEV8GGXG47E6joixp)    |
+| lispking      | 发表技术文章 | [Mina 作为参与实验室](https://mp.weixin.qq.com/s/Rc7KOzSBOoAfF9AQY-z4YQ)                    | [1.1 MINA](https://minascan.io/mainnet/tx/5JtgdzZxSWJHUanuKVhDCEuP75ESmSRH9ryMoifJDdwexsESE6LF)   |
+| hello2jie     | 发表技术文章 | [从 0 到 1：实现一个基于零知识证明的寻宝游戏](https://juejin.cn/post/7445524780604243978)   | [1.1 MINA](https://minascan.io/mainnet/tx/5JuL1mDujYexVxdnqhSyWDTMYzkMEJ6MetpAozdzBzZatz5fStLf)   |
 
 <br>
 
