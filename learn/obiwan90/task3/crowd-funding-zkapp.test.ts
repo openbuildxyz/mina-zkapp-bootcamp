@@ -1,4 +1,4 @@
-import { CrowdfundingContract } from './crowd-funding-zkapp';
+import { CrowdfundingContract, AmountEvent } from './crowd-funding-zkapp';
 import { getProfiler } from './utils/profiler.js';
 
 import {
@@ -60,7 +60,7 @@ describe('CrowdfundingContract', () => {
     });
 
     describe('contribute()', () => {
-        it('应该允许在窗口期内且未达到硬顶时投资', async () => {
+        it('测试投资: 当金额大于0且在上限内 --> 应该接受投资', async () => {
             const amount = UInt64.from(100);
 
             const tx = await Mina.transaction({
@@ -80,7 +80,7 @@ describe('CrowdfundingContract', () => {
             expect(balance).toBe('100');
         });
 
-        it('当投资金额为0时应该失败', async () => {
+        it('测试投资: 当金额为0 --> 应该失败', async () => {
             const amount = UInt64.from(0);
             await expect(async () => {
                 const tx = await Mina.transaction({
@@ -95,7 +95,7 @@ describe('CrowdfundingContract', () => {
             }).rejects.toThrow();
         });
 
-        it('当超过硬顶时应该失败', async () => {
+        it('测试投资: 当金额超过剩余额度 --> 应该只接受剩余额度并退回多余金额', async () => {
             // 先投资到达硬顶
             const tx1 = await Mina.transaction({ sender: investor1, fee: 1e9 }, async () => {
                 await zkApp.contribute(hardCap);
@@ -113,7 +113,7 @@ describe('CrowdfundingContract', () => {
             }).rejects.toThrow();
         });
 
-        it('当超过结束时间时应该失败', async () => {
+        it('测试投资: 当超过结束时间 --> 应该失败', async () => {
             // 模拟时间流逝
             Local.setBlockchainLength(UInt32.from(101));
             await expect(async () => {
@@ -124,10 +124,42 @@ describe('CrowdfundingContract', () => {
                 await tx.sign([investor1.key]).send();
             }).rejects.toThrow();
         });
+        it('测试投资: 当金额刚好等于剩余额度 --> 应该接受全部金额', async () => {
+            // 先投资8 MINA
+            await Mina.transaction(investor1, async () => {
+                await zkApp.contribute(UInt64.from(8 * 1e9));
+            }).prove().sign([investor1.key]).send();
+
+            // 再投资剩余的2 MINA
+            const remainingAmount = UInt64.from(2 * 1e9);
+            await Mina.transaction(investor2, async () => {
+                await zkApp.contribute(remainingAmount);
+            }).prove().sign([investor2.key]).send();
+
+            const balance = Mina.getBalance(zkApp.address);
+            expect(balance.toString()).toBe(hardCap.toString());
+        });
+
+        it('测试投资: 当同一投资者多次投资 --> 正确累加金额', async () => {
+            const amount1 = UInt64.from(2 * 1e9);
+            const amount2 = UInt64.from(3 * 1e9);
+
+            await Mina.transaction(investor1, async () => {
+                await zkApp.contribute(amount1);
+            }).prove().sign([investor1.key]).send();
+
+            await Mina.transaction(investor1, async () => {
+                await zkApp.contribute(amount2);
+            }).prove().sign([investor1.key]).send();
+
+            const balance = Mina.getBalance(zkApp.address);
+            expect(balance.toString()).toBe(amount1.add(amount2).toString());
+        });
+
     });
 
     describe('withdraw()', () => {
-        it('当达到硬顶时受益人应该能够提现', async () => {
+        it('测试提现: 当达到硬顶且调用者是受益人 --> 应该允许提现', async () => {
             // 先投资到达硬顶
             const tx1 = await Mina.transaction({
                 sender: investor1,
@@ -157,31 +189,54 @@ describe('CrowdfundingContract', () => {
             expect(balance).toBe('0');
         });
 
-        it('当超过结束时间时受益人应该能够提现', async () => {
-            // 先进行一些投资
-            const tx1 = await Mina.transaction(investor1, async () => {
-                await zkApp.contribute(UInt64.from(500));
-            });
-            await tx1.prove();
-            await tx1.sign([investor1.key]).send();
+        it('测试提现: 当合约余额为0 --> 应该失败', async () => {
+            Local.setBlockchainLength(UInt32.from(1001));
 
-            // 模拟时间流逝
-            Local.setBlockchainLength(UInt32.from(101));
-            // 受益人提现
-            const tx2 = await Mina.transaction(beneficiary, async () => {
-                await zkApp.withdraw();
-            });
-            await tx2.prove();
-            await tx2.sign([beneficiary.key]).send();
-
-            let balance: string = '';
-            Provable.asProver(() => {
-                balance = Mina.getBalance(zkApp.address).toString();
-            });
-            expect(balance).toBe('0');
+            await expect(async () => {
+                const tx = await Mina.transaction(beneficiary, async () => {
+                    await zkApp.withdraw();
+                });
+                await tx.prove();
+                await tx.sign([beneficiary.key]).send();
+            }).rejects.toThrow();
         });
 
-        it('非受益人不应该能够提现', async () => {
+        it('测试提现: 当时间刚好结束（边界条件） --> 应该允许提现', async () => {
+            // 投资一些资金
+            await Mina.transaction(investor1, async () => {
+                await zkApp.contribute(UInt64.from(5 * 1e9));
+            }).prove().sign([investor1.key]).send();
+
+            // 设置时间刚好结束
+            Local.setBlockchainLength(UInt32.from(1000));
+
+            const tx = await Mina.transaction(beneficiary, async () => {
+                await zkApp.withdraw();
+            });
+            await tx.prove();
+            await tx.sign([beneficiary.key]).send();
+
+            const balance = Mina.getBalance(zkApp.address);
+            expect(balance.toString()).toBe('0');
+        });
+
+        it('测试提现: 当刚好达到硬顶（边界条件） --> 应该允许提现', async () => {
+            // 刚好达到硬顶
+            await Mina.transaction(investor1, async () => {
+                await zkApp.contribute(hardCap);
+            }).prove().sign([investor1.key]).send();
+
+            const tx = await Mina.transaction(beneficiary, async () => {
+                await zkApp.withdraw();
+            });
+            await tx.prove();
+            await tx.sign([beneficiary.key]).send();
+
+            const balance = Mina.getBalance(zkApp.address);
+            expect(balance.toString()).toBe('0');
+        });
+
+        it('测试提现: 当调用者不是受益人 --> 应该失败', async () => {
             // 先进行一些投资
             const tx1 = await Mina.transaction(investor1, async () => {
                 await zkApp.contribute(UInt64.from(500));
@@ -192,7 +247,7 @@ describe('CrowdfundingContract', () => {
             // 模拟时间流逝
             Local.setBlockchainLength(UInt32.from(101));
 
-            // 非受益人尝试提现
+            // 非受益��尝试提现
             await expect(async () => {
                 const tx2 = await Mina.transaction(investor1, async () => {
                     await zkApp.withdraw();
@@ -202,7 +257,7 @@ describe('CrowdfundingContract', () => {
             }).rejects.toThrow();
         });
 
-        it('在未达到硬顶且在窗口期内时不应该能够提现', async () => {
+        it('测试提现: 当未达到硬顶且未结束 --> 应该失败', async () => {
             // 进行一些投资
             const tx1 = await Mina.transaction(investor1, async () => {
                 await zkApp.contribute(UInt64.from(500));
@@ -218,6 +273,56 @@ describe('CrowdfundingContract', () => {
                 await tx2.prove();
                 await tx2.sign([beneficiary.key]).send();
             }).rejects.toThrow();
+        });
+    });
+
+    describe('Events', () => {
+        it('测试事件: 当投资超额时 --> 应该发出正确的投资和退款事件', async () => {
+            const overAmount = UInt64.from(12 * 1e9); // 超过硬顶
+
+            const tx = await Mina.transaction(investor1, async () => {
+                zkApp.contribute(overAmount);
+            });
+            await tx.prove();
+            await tx.sign([investor1.key]).send();
+
+            const events = await zkApp.fetchEvents();
+
+            // 需要找到正确的事件
+            // 投资事件应该是第一个事件
+            const contributeEvent = events.find(e => {
+                const data = e.event.data as unknown as AmountEvent;
+                return data.type.toString() === '1';  // 投资事件type为1
+            });
+            const eventData = contributeEvent?.event.data as unknown as AmountEvent;
+            expect(eventData.amount.toString()).toBe(hardCap.toString());
+
+            // 退款事件应该是第二个事件
+            const refundEvent = events.find(e => {
+                const data = e.event.data as unknown as AmountEvent;
+                return data.type.toString() === '3';  // 退款事件type为3
+            });
+            const refundData = refundEvent?.event.data as unknown as AmountEvent;
+            const expectedRefund = overAmount.sub(hardCap);
+            expect(refundData.amount.toString()).toBe(expectedRefund.toString());
+        });
+
+        it('测试事件: 当提现时 --> 应该发出正确的提现事件', async () => {
+            // 投资并等待时间结束
+            await Mina.transaction(investor1, async () => {
+                zkApp.contribute(UInt64.from(5 * 1e9));
+            }).prove().sign([investor1.key]).send();
+
+            Local.setBlockchainLength(UInt32.from(1001));
+
+            await Mina.transaction(beneficiary, async () => {
+                await zkApp.withdraw();
+            }).prove().sign([beneficiary.key]).send();
+
+            const events = await zkApp.fetchEvents();
+            const withdrawEvent = events.find(e => e.type === 'amount');
+            const withdrawData = withdrawEvent?.event.data as unknown as AmountEvent;
+            expect(withdrawData.amount.toString()).toBe(UInt64.from(5 * 1e9).toString());
         });
     });
 });
