@@ -1,54 +1,75 @@
-import { Crowdfunding } from './Crowdfunding';
-import { Mina, PrivateKey, PublicKey, UInt64 } from 'o1js';
+import { Mina, PrivateKey, AccountUpdate, UInt64 } from 'o1js';
+import { Crowdfunding } from '../crowdfunding';
 
-describe('Crowdfunding Contract', () => {
-  let deployerKey: PrivateKey;
-  let deployerPublicKey: PublicKey;
-  let beneficiaryKey: PrivateKey;
-  let beneficiaryPublicKey: PublicKey;
-  let contributorKey: PrivateKey;
-  let contributorPublicKey: PublicKey;
+describe('Crowdfunding Smart Contract', () => {
+  let owner: PrivateKey;
+  let investor1: PrivateKey;
+  let investor2: PrivateKey;
+  let crowdfunding: Crowdfunding;
 
-  beforeAll(() => {
-    const Local = Mina.LocalBlockchain({ proofsEnabled: false });
+  beforeEach(() => {
+    const Local = Mina.LocalBlockchain();
     Mina.setActiveInstance(Local);
+    owner = Local.testAccounts[0].privateKey;
+    investor1 = Local.testAccounts[1].privateKey;
+    investor2 = Local.testAccounts[2].privateKey;
 
-    // 初始化账户
-    deployerKey = Local.testAccounts[0].privateKey;
-    deployerPublicKey = deployerKey.toPublicKey();
-
-    beneficiaryKey = PrivateKey.random();
-    beneficiaryPublicKey = beneficiaryKey.toPublicKey();
-
-    contributorKey = Local.testAccounts[1].privateKey;
-    contributorPublicKey = contributorKey.toPublicKey();
+    crowdfunding = new Crowdfunding(owner);
   });
 
-  it('should allow contributions and beneficiary withdrawal', async () => {
-    // 创建合约实例
-    const crowdfunding = new Crowdfunding(deployerPublicKey);
-    const hardCap = UInt64.fromNumber(1000);
-    const endTime = Mina.getBlockchainLength().add(10); // 时间窗口结束
+  it('should allow investments within the time window', async () => {
+    const hardCap = UInt64.from(1000);
+    const deadline = UInt64.from(Date.now() + 10_000); // 10 seconds from now
 
-    // 初始化合约
-    await crowdfunding.init(beneficiaryPublicKey, hardCap, endTime);
+    await crowdfunding.setDeadline(deadline.toField());
+    await crowdfunding.setHardCap(hardCap.toField());
 
-    // 测试投资
-    await crowdfunding.contribute(UInt64.fromNumber(200), contributorPublicKey);
-    await crowdfunding.contribute(UInt64.fromNumber(300), contributorPublicKey);
+    await crowdfunding.invest(UInt64.from(100), investor1.toPublicKey().toBase58());
+    expect(crowdfunding.totalFunds.get()).toEqual(UInt64.from(100).toField());
+  });
 
-    const totalFunds = crowdfunding.totalFunds.get();
-    expect(totalFunds).toEqual(UInt64.fromNumber(500)); // 验证总筹资金额
+  it('should not allow investments after the deadline', async () => {
+    const hardCap = UInt64.from(1000);
+    const deadline = UInt64.from(Date.now() + 1); // 1 millisecond from now
 
-    // 时间窗口未结束，提款应失败
-    expect(() => crowdfunding.withdraw()).toThrow('Crowdfunding period is still active');
+    await crowdfunding.setDeadline(deadline.toField());
+    await crowdfunding.setHardCap(hardCap.toField());
 
-    // 快进时间到结束
-    Mina.advanceBlockchainLength(11);
+    // Wait for deadline to pass
+    await new Promise((resolve) => setTimeout(resolve, 10));
 
-    // 测试提款
-    await crowdfunding.withdraw();
-    const contractBalance = Mina.getAccount(crowdfunding.address).balance;
-    expect(contractBalance).toEqual(UInt64.zero()); // 验证资金已提取
+    await expect(
+      crowdfunding.invest(UInt64.from(100), investor1.toPublicKey().toBase58())
+    ).rejects.toThrow('时间窗口已关闭');
+  });
+
+  it('should allow withdrawals after the deadline', async () => {
+    const hardCap = UInt64.from(1000);
+    const deadline = UInt64.from(Date.now() + 10); // 10 milliseconds from now
+
+    await crowdfunding.setDeadline(deadline.toField());
+    await crowdfunding.setHardCap(hardCap.toField());
+
+    await crowdfunding.invest(UInt64.from(200), investor1.toPublicKey().toBase58());
+
+    // Wait for deadline to pass
+    await new Promise((resolve) => setTimeout(resolve, 20));
+
+    await crowdfunding.withdraw(UInt64.from(200), investor1.toPublicKey().toBase58());
+    expect(crowdfunding.totalFunds.get()).toEqual(UInt64.from(0).toField());
+  });
+
+  it('should not allow non-investors to withdraw', async () => {
+    const hardCap = UInt64.from(1000);
+    const deadline = UInt64.from(Date.now() + 10_000);
+
+    await crowdfunding.setDeadline(deadline.toField());
+    await crowdfunding.setHardCap(hardCap.toField());
+
+    await crowdfunding.invest(UInt64.from(100), investor1.toPublicKey().toBase58());
+
+    await expect(
+      crowdfunding.withdraw(UInt64.from(50), investor2.toPublicKey().toBase58())
+    ).rejects.toThrow('未找到投资记录');
   });
 });

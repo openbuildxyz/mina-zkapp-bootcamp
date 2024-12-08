@@ -1,65 +1,52 @@
-import {
-  Field,
-  SmartContract,
-  state,
-  State,
-  method,
-  PublicKey,
-  UInt64,
-  Circuit,
-  Bool,
-} from 'o1js';
+import { Field, SmartContract, state, method, CircuitValue, Bool, UInt64, AccountUpdate } from 'o1js';
 
-export class Crowdfunding extends SmartContract {
-  // 合约状态变量
-  @state(UInt64) totalFunds = State<UInt64>();
-  @state(PublicKey) beneficiary = State<PublicKey>();
-  @state(UInt64) hardCap = State<UInt64>();
-  @state(UInt64) endTime = State<UInt64>();
+class Crowdfunding extends SmartContract {
+  @state(Field) public deadline: Field; // 截止时间
+  @state(Field) public hardCap: Field; // 硬顶
+  @state(Field) public totalFunds: Field; // 累积资金
+  @state(Field) public investors: Map<string, Field>; // 投资者记录
 
-  // 部署合约时初始化
-  @method init(beneficiary: PublicKey, hardCap: UInt64, endTime: UInt64) {
-    this.totalFunds.set(UInt64.zero());
-    this.beneficiary.set(beneficiary);
+  constructor() {
+    super();
+    this.deadline = Field(0);
+    this.hardCap = Field(0);
+    this.totalFunds = Field(0);
+    this.investors = new Map();
+  }
+
+  // 设置截止时间
+  @method setDeadline(deadline: Field) {
+    this.deadline.set(deadline);
+  }
+
+  // 设置硬顶
+  @method setHardCap(hardCap: Field) {
     this.hardCap.set(hardCap);
-    this.endTime.set(endTime);
   }
 
-  // 允许投资函数
-  @method contribute(amount: UInt64, sender: PublicKey) {
-    const currentTime = this.network.blockchainLength.get(); // 当前区块链长度模拟时间
-    const endTime = this.endTime.get();
-    const totalFunds = this.totalFunds.get();
-    const hardCap = this.hardCap.get();
+  // 投资方法
+  @method invest(amount: UInt64, investor: string) {
+    const currentTime = UInt64.from(Date.now());
+    this.deadline.get().assertGreaterThan(currentTime.toField(), '时间窗口已关闭');
+    this.totalFunds.get().assertLessThan(this.hardCap.get(), '已达到硬顶');
 
-    // 确保在时间窗口内
-    Circuit.assertTrue(currentTime.lessThanOrEqual(endTime), 'Crowdfunding period has ended');
-
-    // 确保硬顶未超额
-    const newTotal = totalFunds.add(amount);
-    Circuit.assertTrue(newTotal.lessThanOrEqual(hardCap), 'Contribution exceeds hard cap');
-
-    // 更新总筹资金额
-    this.totalFunds.set(newTotal);
-
-    // 接收捐款
-    this.balance.addInPlace(amount);
+    const currentInvestment = this.investors.get(investor) ?? Field(0);
+    this.investors.set(investor, currentInvestment.add(amount.toField()));
+    this.totalFunds.set(this.totalFunds.get().add(amount.toField()));
   }
 
-  // 提款函数（仅投资人可调用）
-  @method withdraw() {
-    const currentTime = this.network.blockchainLength.get(); // 当前区块链时间
-    const endTime = this.endTime.get();
-    const totalFunds = this.totalFunds.get();
-    const beneficiary = this.beneficiary.get();
+  // 提款方法
+  @method withdraw(amount: UInt64, investor: string) {
+    const currentTime = UInt64.from(Date.now());
+    this.deadline.get().assertLessThanOrEqual(currentTime.toField(), '时间窗口尚未关闭');
 
-    // 验证时间窗口已关闭
-    Circuit.assertTrue(currentTime.greaterThan(endTime), 'Crowdfunding period is still active');
+    const investorFunds = this.investors.get(investor);
+    if (!investorFunds) throw new Error('未找到投资记录');
 
-    // 验证提款者是受益人
-    Circuit.assertEqual(this.sender, beneficiary, 'Only the beneficiary can withdraw funds');
-
-    // 转移资金
-    this.send({ to: beneficiary, amount: totalFunds });
+    investorFunds.assertGreaterThanOrEqual(amount.toField(), '提款金额超出投资额');
+    this.totalFunds.set(this.totalFunds.get().sub(amount.toField()));
+    this.investors.set(investor, investorFunds.sub(amount.toField()));
   }
 }
+
+export { Crowdfunding };
