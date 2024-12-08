@@ -7,3 +7,7 @@
 3. 时间窗口关闭后被投资人方可提款
 
 请提交提供 Jest 本地测试的交互脚本，以及部署到 DevNet 的 tx hash。
+
+## 部署到 DevNet 的 tx hash
+
+5JvB9RzEcLcCT9y1eFCuretYuGae8DCsr6tLfp6mM5hepnx4fPRC
