@@ -102,7 +102,7 @@ export class CrowdFunding extends SmartContract {
         //     console.log('账户余额before:', Number(this.account.balance.get()), 'MINA');
         // });
         const senderUpdate = AccountUpdate.createSigned(this.sender.getAndRequireSignature());
-        senderUpdate.send({ to: this.address, amount: amount });
+        senderUpdate.send({ to: this.address, amount: addAmount });
         // Provable.asProver(() => { 
         //     console.log('账户余额after:', Number(this.account.balance.get()), 'MINA');
         // });
