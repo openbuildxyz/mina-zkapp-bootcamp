@@ -1,19 +1,22 @@
 
-### task3£º Éè¼ÆÒ»¸öÖÚ³ïºÏÔ¼, Ê±¼ä´°¿Ú¹Ø±Õºó±»Í¶×ÊÈË·½¿ÉÌá¿î
+### task3ï¼š è®¾è®¡ä¸€ä¸ªä¼—ç­¹åˆçº¦, æ—¶é—´çª—å£å…³é—­åè¢«æŠ•èµ„äººæ–¹å¯ææ¬¾
 
-1. ÔËÓÃ `zkapp-cli` ÃüÁîĞĞ¹¤¾ß³õÊ¼»¯¹¤³Ì
-2. Ê¹ÓÃ `o1js` Éè¼ÆÒ»¸öÖÚ³ïºÏÔ¼£¬ÔÚÖ¸¶¨Ê±¼ä´°¿Ú¼äÔÊĞíÈÎºÎÈËÍ¶Èë MINA£¬ÓĞÓ²¶¥
-3. Ê±¼ä´°¿Ú¹Ø±Õºó±»Í¶×ÊÈË·½¿ÉÌá¿î
+1. è¿ç”¨ `zkapp-cli` å‘½ä»¤è¡Œå·¥å…·åˆå§‹åŒ–å·¥ç¨‹
+2. ä½¿ç”¨ `o1js` è®¾è®¡ä¸€ä¸ªä¼—ç­¹åˆçº¦ï¼Œåœ¨æŒ‡å®šæ—¶é—´çª—å£é—´å…è®¸ä»»ä½•äººæŠ•å…¥ MINAï¼Œæœ‰ç¡¬é¡¶
+3. æ—¶é—´çª—å£å…³é—­åè¢«æŠ•èµ„äººæ–¹å¯ææ¬¾
 
-ÇëÌá½»Ìá¹© `Jest` ±¾µØ²âÊÔµÄ½»»¥½Å±¾£¬ÒÔ¼°²¿Êğµ½ `DevNet` µÄ `tx hash`¡£
+è¯·æäº¤æä¾› `Jest` æœ¬åœ°æµ‹è¯•çš„äº¤äº’è„šæœ¬ï¼Œä»¥åŠéƒ¨ç½²åˆ° `DevNet` çš„ `tx hash`ã€‚
 
-### ×÷Òµ
+### ä½œä¸š
 
--   ÖÚ³ïºÏÔ¼: [CrowdFunding.ts](CrowdFunding.ts)
+-   ä¼—ç­¹åˆçº¦: [CrowdFunding.ts](CrowdFunding.ts)
 
--   ±¾µØ²âÊÔµÄ½»»¥½Å±¾: [CrowdFunding.test.ts](CrowdFunding.test.ts)
+-   æœ¬åœ°æµ‹è¯•çš„äº¤äº’è„šæœ¬: [CrowdFunding.test.ts](CrowdFunding.test.ts)
 
--   ²âÊÔÔËĞĞ½ØÍ¼: ![Screenshot](task3.png)
+-   Devnetéƒ¨ç½²è„šæœ¬: ![CrowdFunding-devnet.ts](CrowdFunding-devnet.ts)
 
--   ²¿Êğµ½ `DevNet` µÄ `tx hash`:
- 
+* ç”¨äº†åˆ«äººçš„è„šæœ¬ï¼Œè¯¾ç¨‹çœ‹äº†3ã€4éï¼Œå¹¶æŠŠè‡ªå·±ç†è§£æ³¨è§£åœ¨ä¸Šé¢ï¼ŒçœŸå¿ƒå­¦ä¹ ã€‚
+* SECRET_KEY ç”¨äº† coldstar1993è¯¾ç¨‹ä»£ç ä¸­çš„ SECRET_KEY
+* éƒ¨ç½²å®Œæ¯•å¾—åˆ° zkApp Address: B62qr2Y3At4SAkSQeh1gjhbes5JrGiSznujnE7ePQ7nwthsgtdgC6Wa
+* è¯·æ±‚ https://minascan.io/devnet/account/B62qr2Y3At4SAkSQeh1gjhbes5JrGiSznujnE7ePQ7nwthsgtdgC6Wa/txs 
+* ä¸€ç›´æ²¡æ˜¾ç¤ºäº¤æ˜“ 
