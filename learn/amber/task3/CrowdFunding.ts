@@ -20,6 +20,7 @@ export class CrowdFunding extends SmartContract {
             setPermissions: Permissions.impossible(),
         })
 
+        this.owner.set(args.owner);
     }
 
     @method async initState(hardCap: UInt64, deadline: UInt32) {
@@ -75,9 +76,13 @@ export class CrowdFunding extends SmartContract {
 
         // 贡献金额需大于0
         amount.greaterThan(UInt64.from(0)).assertTrue("贡献金额必须大于0");
+       
         // 计算距离hardcap的值
         const remaining = this.hardCap.get().sub(this.account.balance.get());
-
+        // console.log('距离hardcap的值', Number(remaining));
+        // Provable.asProver(() => {
+        //     console.log('距离上限金额还剩:', Number(amount), 'MINA');
+        // });
 
         // 如果溢出，则只add remaining
         const addAmount = Provable.if(
@@ -85,14 +90,22 @@ export class CrowdFunding extends SmartContract {
             amount,
             remaining
         );
-
+        // Provable.asProver(() => {
+        //     console.log('实际贡献金额:', Number(addAmount), 'MINA');
+        // });
 
         // // 将资金发送给合约所有者
         // const sender = this.sender.getAndRequireSignature();
         // AccountUpdate.createSigned(sender)
         //     .send({ to: this.address, amount: addAmount });
-        this.send({to: this.owner.getAndRequireEquals(), amount: addAmount});
-
+        // Provable.asProver(() => { 
+        //     console.log('账户余额before:', Number(this.account.balance.get()), 'MINA');
+        // });
+        const senderUpdate = AccountUpdate.createSigned(this.sender.getAndRequireSignature());
+        senderUpdate.send({ to: this.address, amount: amount });
+        // Provable.asProver(() => { 
+        //     console.log('账户余额after:', Number(this.account.balance.get()), 'MINA');
+        // });
         const overflow = amount.sub(addAmount);
         if (overflow.greaterThan(UInt64.from(0))) {
             this.send({to: this.sender.getUnconstrained(), amount: overflow});
