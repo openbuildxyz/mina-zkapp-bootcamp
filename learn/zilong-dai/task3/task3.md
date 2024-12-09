@@ -12,3 +12,5 @@ npm install --save-dev jest
 
 npx jest src/Crowdfunding.test.ts
 ```
+
+tx hash: [5Jv1aj84JT3h9ENNCsHPAuJe9YogHR5ZKdszdgWwGs7Y3dHUu6GL](https://minascan.io/devnet/tx/5Jv1aj84JT3h9ENNCsHPAuJe9YogHR5ZKdszdgWwGs7Y3dHUu6GL?type=zk-tx)
