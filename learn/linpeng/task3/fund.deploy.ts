@@ -8,7 +8,7 @@ import {
 } from 'o1js';
 import { Fund } from './fund.js';
 
-const SECRET_KEY = 'EKEpeN4iqAr9jfjDdTJSTcPYQexFFLoyK1GZzxH1QRYUQwLLWG8F'
+const SECRET_KEY = 'xxxxxxxxxx'
 
 const network = Mina.Network({
     mina: 'https://api.minascan.io/node/devnet/v1/graphql/',
