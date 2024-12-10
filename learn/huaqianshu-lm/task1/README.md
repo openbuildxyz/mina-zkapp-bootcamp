@@ -12,3 +12,6 @@ zk 的特点：链上扩容，链下计算，从而实现隐私保护。
 ## TX hash 
 
 5Ju9yNDtxXKV7iPAPFg9F4vgYraKXmsA1R5NRkuokgKHZ8n9SUm8
+
+## 账户地址
+B62qnBf81CtmkeTmSQvYeUZfYbPGs2YxmT1dAyMPeyTwfSVemHsvvNe
