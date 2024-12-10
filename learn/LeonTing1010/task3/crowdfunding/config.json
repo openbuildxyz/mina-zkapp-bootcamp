@@ -1,4 +1,14 @@
 {
   "version": 1,
-  "deployAliases": {}
+  "deployAliases": {
+    "cf": {
+      "networkId": "testnet",
+      "url": "https://api.minascan.io/node/devnet/v1/graphql",
+      "keyPath": "keys/cf.json",
+      "feepayerKeyPath": "/Users/leo/.cache/zkapp-cli/keys/cf.json",
+      "feepayerAlias": "cf",
+      "fee": "0.1",
+      "smartContract": "Crowdfunding"
+    }
+  }
 }
