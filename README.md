@@ -63,12 +63,12 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 3. 《部署到 DevNet》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934576)
 4. 《解析交易细节》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1732934593)
 
-**第四章：zkApp 高阶应用**
-1. 《Event 合约日志分析》
-2. 《Actions & Reducer 机制》
-3. 《Time-Locked Accounts 机制》
-4. 《自定义代币机制》
-5. 《Fungible Token Standard源码讲解》
+**第四章：zkApp 高阶应用**   |  [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter4.pptx)
+1. 《Event 合约日志分析》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1733741832)
+2. 《Actions & Reducer 机制》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1733741845)
+3. 《Time-Locked Accounts 机制》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1733741857)
+4. 《自定义代币机制》 |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1733742537)
+5. 《Fungible Token Standard源码讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1733742551)
 
 
 **第五章：Protokit 框架探索**
