@@ -70,3 +70,11 @@
 | 66  | zj               | [5.5 Mina](https://minascan.io/mainnet/tx/5JuTEgy2ELEfT4hQXRwCiwWMTCYg8KPre1npKkjMf8taaaFsKrXL) | B62qiV24a2Hip2VHC8oav9F9fGe56p3eBa15fQo6bjfmR1Sb9mLVzxJ |
 | 67  | zxw3759          | [5.5 Mina](https://minascan.io/mainnet/tx/5JvKcSGc32EamF7J8iNsGbN1pAAqWYLGhhXqvw53uLujBXgBZbpf) | B62qmPuRAxf24G3u6n7hDo7uXNoCsCwyPu2Z8A6ZFCG2SDykTTgZVbZ |
 | 68  | serencc          | [5.5 Mina](https://minascan.io/mainnet/tx/5JukEp8PCwbTBJv4szh3AhrrUUebCCAyGLjs4wjkxj3gwzULFTn3) | B62qkPycEPSNxVihvGgZrsSDr6Ur72BMCdMpKo9nYhA4oXCmRG4FsWv |
+| 69  | MartinYeung5     | [5.5 Mina](https://minascan.io/mainnet/tx/5JuA2cykFpTKFUHb7RkQv4wWXx4cmWYw4ksXz6mLvN45iP27YFGa) | B62qrDKrcdXZuks4cccyCtw1b4CBbrcpYFoEQs85pLVmRVUqwAFcakx |
+| 70  | Shunjun          | [5.5 Mina](https://minascan.io/mainnet/tx/5JtoW6csyB8h1u52ry6n9wJabDwwCBgMp9MaU94aTPHqdwLbqZwe) | B62qpoEaUSpAdwvV5eSpv5pRtkeCA7wKsRjohLMkAKSZbK4tYjtBBBj | 
+| 71  | amber            | [5.5 Mina](https://minascan.io/mainnet/tx/5JuwqLFmSuv24V4D6RUoyg5b9J5D5oruovERP3TvCpT8veXrykQT) | B62qk2M6hHxFpbRE1JAcCS4sArJwYTXMoRBWZM9jPeKnrc6Ybh51jYg | 
+| 72  | huangyan0914     | [5.5 Mina](https://minascan.io/mainnet/tx/5JuCo2vGGbHz6wCQ3KcFD8ubiUNdr2ZJ7YoZPgGuQbRddsG2sMaV) | B62qp6GMWfrAuQuBcUpjkaiHUi51Rt3P3TcbBGJPWMJ4peNx1ukaGnr | 
+| 73  | kelh93           | [5.5 Mina](https://minascan.io/mainnet/tx/5Jv3xZBeDaUrGwWBaXDKW4NXhJX9Ex6tRq9vKHNMp3faPPVA3NCQ) | B62qoMhd5RgEu2nmu3Sx7Zw8K7Bbx1EQXExpC5fqyAZ2x9oWS8giuAd | 
+| 74  | pengwon          | [5.5 Mina](https://minascan.io/mainnet/tx/5JtucWg13UwoQEJZN95K52Fjnu7vGq8HMSt6QmMW9d6ibmSkWau1) | B62qmRGWycWCRfmeyWoBHCmd2CYVZy1AwKt8mA9VZrFjPE3T14BUtbw | 
+| 75  | weirdcola        | [5.5 Mina](https://minascan.io/mainnet/tx/5JtxVbbyvAKSrKJDLs5zaqG9xHkFhMkE8xRJ8eTBtak7cxw7BK88) | B62qnJVQcj4gvfY1GBFryQZ4RJgfwqmVwCXB6umnH5cJQPFMLvotRL3 | 
+| 76  | DOV-3            | [5.5 Mina](https://minascan.io/mainnet/tx/5Jtn4MKD5TnMZ1pdVMRyH2FyzQygkAhjrwo7bU7XoSBe1scQh7TH) | B62qrBYFpTVKKt4976JyPJvTBB3kCjScAc1Be9yyAgSM92AyEjDbJcp |

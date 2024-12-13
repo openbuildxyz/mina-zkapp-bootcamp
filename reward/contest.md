@@ -14,3 +14,8 @@
 | lispking      | 发表技术文章 | [Mina: 建立值得信赖的社区](https://learnblockchain.cn/article/10108)                        | [1.1 MINA](https://minascan.io/mainnet/tx/5Jtbf2ujy56iY82wHpZ1YXqun7usULbdSdcAaEezggqxsWw2Zv4p)   |
 | tokenlin      | AMA 技术分享 | [AMA](https://youtu.be/xw4epbB9k9c)                                                         | [54 MINA](https://minascan.io/mainnet/tx/5Ju1p3TZKP74LwNQxtJEHqJh3PccvAfz7qMfEV8GGXG47E6joixp)    |
 | lispking      | 发表技术文章 | [Mina 作为参与实验室](https://learnblockchain.cn/article/10165)                             | [1.1 MINA](https://minascan.io/mainnet/tx/5JtgdzZxSWJHUanuKVhDCEuP75ESmSRH9ryMoifJDdwexsESE6LF)   |
+| hello2jie     | 发表技术文章 | [从 0 到 1：实现一个基于零知识证明的寻宝游戏](https://juejin.cn/post/7445524780604243978)   | [1.1 MINA](https://minascan.io/mainnet/tx/5JuL1mDujYexVxdnqhSyWDTMYzkMEJ6MetpAozdzBzZatz5fStLf)   |
+| YiShengYouNi  | 发表技术文章 | [Mina之账户模型](https://learnblockchain.cn/article/10203)                                  | [1.3 MINA](https://minascan.io/mainnet/tx/5JtkVxB7GoPqpMazaW3coGTWa8LLFxajL3xxbAk82RRxMM6WsZTq)   |
+| longerd       | 发表技术文章 | [Mina Learning - MerkleTree](https://learnblockchain.cn/article/10209)                      | [1.3 MINA](https://minascan.io/mainnet/tx/5Ju8h467UWyXh9hNRmSpTvisnF39t9HaPfyBCZvePzMnKXcsovS6)   |
+| longerd       | 发表技术文章 | [Mina Learning - Developers faq](https://learnblockchain.cn/article/10214)                  | [1.3 MINA](https://minascan.io/mainnet/tx/5JvDTSMyUzP9LjiLbiEegsyEJnAHwFueK7cx2UhpL1RnGqerFJyP)   |
+| YiShengYouNi  | 发表技术文章 | [Mina之账号初始化流程](https://learnblockchain.cn/article/10208)                            | [1.3 MINA](https://minascan.io/mainnet/tx/5Jv7qtySrwxnBCqigp3rdMJqZGmMoiBTFbFtGHaaEd1ccXrY1LSD)   |
