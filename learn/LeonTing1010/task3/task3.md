@@ -6,3 +6,4 @@
 3. 时间窗口关闭后被投资人方可提款
 
 请提交提供 `Jest` 本地测试的交互脚本，以及部署到 `DevNet` 的 `tx hash`。
+https://minascan.io/devnet/tx/5JvCa4SjdYEJjTcA1nP9x7PGci28sXzuFBJX9rqJDpZx21iGCjBd?type=zk-tx
