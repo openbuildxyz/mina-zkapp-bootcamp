@@ -7,5 +7,3 @@
 部署到测试网 tx：5JufgKdnwtKNmCTJLN1rfvvh51L7NdstFsDCCDW92YQ4fCFD3Poe
 
 单元测试脚本：unit/FundMe.test.ts
-
-集成测试包含测试环境部署脚本：staging/FundMe.test.ts
