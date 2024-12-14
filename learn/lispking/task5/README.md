@@ -6,5 +6,6 @@
 
 请提交 `token` 地址，`Jest` 本地测试交互脚本，以及部署到 `DevNet` 的 `tx hash`。
 
-TOKEN txn hash: https://minascan.io/devnet/tx/5Ju88X8RDiVuZCHVug8CD3GpYKWer5H4vJUNt7vaBtfEyTmiUQDR?type=zk-tx
-CrowdFunding txn hash: https://minascan.io/devnet/tx/5JuCK2tK9kgHRQiexw4XRebHxun23bmruwfncZXCSdkAoq7YQP9o?type=zk-tx
+TOKEN txn hash: https://minascan.io/devnet/tx/5Jv2n3vCbvXrCGk3WrapHNBGjSnrgj4FYo5kCgCURJ91q8coCqGw?type=zk-tx
+CrowdFunding txn hash: https://minascan.io/devnet/tx/5Jtsfq5nQHoSXC6wNMkddaaxcRx5edb7rqLczkSuvh2HUYUbpyik?type=zk-tx
+转Token到CrowdFunding txn hash: https://minascan.io/devnet/tx/5JuT7wJXmhnnjo5fkyyEDn1aEcqvrjm8DbaFdnR5v2K7gJG4B86d?type=zk-tx
