@@ -1,13 +1,9 @@
-import { AccountUpdate, DeployArgs, method, PublicKey, SmartContract, state, State, UInt64, Permissions, UInt32, Provable, Field, Poseidon, Bool } from "o1js";
-
-const preimage0 = Field(1234567);
-const hash0 = Poseidon.hash([preimage0]);
+import { AccountUpdate, DeployArgs, method, PublicKey, SmartContract, state, State, UInt64, Permissions, UInt32, Provable } from "o1js";
 
 export class FundMe extends SmartContract {
     @state(UInt64) hardcap = State<UInt64>();
     @state(UInt32) endTime = State<UInt32>();
     @state(PublicKey) receiver = State<PublicKey>();
-    @state(Field) hashX = State<Field>(hash0);
 
     async deploy(props: DeployArgs & {
         hardcap: UInt64,
@@ -18,14 +14,14 @@ export class FundMe extends SmartContract {
         this.hardcap.set(props.hardcap);
         this.endTime.set(props.endTime);
         this.receiver.set(props.receiver);
-        this.hashX.set(hash0);
 
         // 初始化账户权限
         this.account.permissions.set({
             ...Permissions.default(),
             setVerificationKey: Permissions.VerificationKey.impossibleDuringCurrentVersion(),
             setPermissions: Permissions.impossible(),
-            send: Permissions.proofOrSignature(),
+            send: Permissions.proof(),
+            setTiming: Permissions.proof()
         })
     }
     /**
@@ -34,6 +30,7 @@ export class FundMe extends SmartContract {
      */
     @method async fund(amount: UInt64) {
         const finalAmount = this.validateFund(amount);
+
         const sender = this.sender.getUnconstrainedV2();
         const senderUpdate = AccountUpdate.createSigned(sender);
         senderUpdate.send({ to: this, amount: finalAmount });
@@ -76,37 +73,27 @@ export class FundMe extends SmartContract {
         this.sender.getUnconstrainedV2().assertEquals(receiver);
     }
 
-    /**
-     * @param caller the privileged account
-     */
-    @method async payout(preimage: Field, privilegedAddr: PublicKey) {
-        // check time
-        const endTime = this.endTime.getAndRequireEquals();
-        const currentTime = this.network.blockchainLength.getAndRequireEquals();
-        currentTime.assertGreaterThan(endTime, "fund not ended...");
-
-        const hashX = this.hashX.getAndRequireEquals();
-        let hash1 = Poseidon.hash([preimage]);
-        hash1.assertEquals(hashX);
-
+    @method async payout() {
         // pay out the zkapp balance to the caller
-        let balance = this.account.balance.getAndRequireEquals();
+        let balance = this.account.balance.getAndRequireEquals()
+
         // withdraw 20% of the balance
-        let transferAmount = balance.div(5);
+        let cliffAmount = balance.div(5);
+        Provable.asProver(() => {
+            console.log(`cliffAmount:${cliffAmount}`)
+        })
 
-        const recieverAcctUpt = AccountUpdate.createSigned(privilegedAddr);
-        // recieverAcctUpt.account.isNew.requireEquals(Bool(true));
-        this.send({ to: recieverAcctUpt, amount: transferAmount });
-
-        const vestingPeriod = UInt32.from(200);
-        const initialMinimumBalance = balance.sub(transferAmount);
         // !!!vesting schedule!!!
-        recieverAcctUpt.account.timing.set({
-            initialMinimumBalance,
-            cliffTime: UInt32.from(0),
-            cliffAmount: UInt64.from(0),
-            vestingPeriod,
-            vestingIncrement: initialMinimumBalance.div(10),
+        this.account.timing.set({
+            initialMinimumBalance: balance,
+            // 第一次提款时间
+            cliffTime: new UInt32(0),
+            // 第一次提款金额
+            cliffAmount,
+            // 每次提款时间间隔
+            vestingPeriod: UInt32.from(200),
+            // 每次提款金额
+            vestingIncrement: balance.div(10),
         });
     }
 

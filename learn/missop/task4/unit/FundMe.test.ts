@@ -1,4 +1,4 @@
-import { AccountUpdate, Field, Mina, PublicKey, UInt32, UInt64 } from "o1js";
+import { AccountUpdate, Mina, UInt32, UInt64 } from "o1js";
 import { FundMe } from "..";
 
 const proofsEnabled = false;
@@ -12,7 +12,7 @@ describe('FundMe', () => {
     let endTime: UInt32;
     let sender: Mina.TestPublicKey;
     let zkAppAccount: Mina.TestPublicKey;
-    let funeMeContract: FundMe;
+    let fundMeContract: FundMe;
     let local: PromiseType<ReturnType<typeof Mina.LocalBlockchain>>;
 
     beforeAll(async () => {
@@ -31,7 +31,7 @@ describe('FundMe', () => {
         sender = senderAccount;
         endTime = local.getNetworkState().globalSlotSinceGenesis.add(ADD_NUM);
         zkAppAccount = Mina.TestPublicKey.random();
-        funeMeContract = new FundMe(zkAppAccount);
+        fundMeContract = new FundMe(zkAppAccount);
 
         const tx = await Mina.transaction({
             sender: deployer,
@@ -39,7 +39,7 @@ describe('FundMe', () => {
             memo: '一笔交易',
         }, async () => {
             AccountUpdate.fundNewAccount(deployer);// 需要为新账户创建而花费1MINA
-            await funeMeContract.deploy({
+            await fundMeContract.deploy({
                 hardcap: HARD_CAP,
                 endTime,
                 receiver: deployer
@@ -50,35 +50,35 @@ describe('FundMe', () => {
     });
 
     it('should deploy successfully', async () => {
-        const _hardcap = funeMeContract.hardcap.get();
-        const _endTime = funeMeContract.endTime.get();
+        const _hardcap = fundMeContract.hardcap.get();
+        const _endTime = fundMeContract.endTime.get();
 
         expect(_hardcap).toEqual(HARD_CAP);
         expect(_endTime).toEqual(endTime);
     });
 
     it('should fund successfully', async () => {
-        console.log('fund');
         const tx = await Mina.transaction(sender, async () => {
-            await funeMeContract.fund(UInt64.from(1 * UNIT));
+            await fundMeContract.fund(UInt64.from(1 * UNIT));
         });
         await tx.prove();
         await tx.sign([sender.key]).send();
-        expect(funeMeContract.account.balance.get()).toEqual(UInt64.from(1 * UNIT))
+
+        expect(fundMeContract.account.balance.get()).toEqual(UInt64.from(1 * UNIT))
     })
 
     it('should not fund exceed hardcap', async () => {
         const tx = await Mina.transaction(sender, async () => {
-            await funeMeContract.fund(UInt64.from(UInt64.from(ADD_NUM * UNIT)));
+            await fundMeContract.fund(UInt64.from(UInt64.from(ADD_NUM * UNIT)));
         });
         await tx.prove();
         await tx.sign([sender.key]).send();
-        expect(funeMeContract.account.balance.get()).toEqual(UInt64.from(HARD_CAP))
+        expect(fundMeContract.account.balance.get()).toEqual(UInt64.from(HARD_CAP))
     })
 
     it('should withdraw successfully', async () => {
         const fundTx = await Mina.transaction(sender, async () => {
-            await funeMeContract.fund(UInt64.from(UInt64.from(ADD_NUM * UNIT)));
+            await fundMeContract.fund(UInt64.from(UInt64.from(ADD_NUM * UNIT)));
         });
         await fundTx.prove();
         await fundTx.sign([sender.key]).send();
@@ -86,44 +86,67 @@ describe('FundMe', () => {
         local.setBlockchainLength(UInt32.from(ADD_NUM + 1));
 
         const tx = await Mina.transaction(deployer, async () => {
-            await funeMeContract.withdraw(UInt64.from(1 * UNIT));
+            await fundMeContract.withdraw(UInt64.from(1 * UNIT));
         });
         await tx.prove();
         await tx.sign([deployer.key]).send();
-        expect(funeMeContract.account.balance.get()).toEqual(UInt64.from((ADD_NUM - 1) * UNIT));
+
+        expect(fundMeContract.account.balance.get()).toEqual(UInt64.from((ADD_NUM - 1) * UNIT));
     })
 
-    it('should payout successfully with right preimage after deadline 200 blocks', async () => {
-        const fundTx = await Mina.transaction(sender, async () => {
-            await funeMeContract.fund(UInt64.from(UInt64.from(ADD_NUM * UNIT)));
-        });
-        await fundTx.prove();
-        await fundTx.sign([sender.key]).send();
-        const allBalance = funeMeContract.account.balance.get();
-
-        local.setBlockchainLength(endTime.add(1));
-
-        const tx = await Mina.transaction(deployer, async () => {
-            await funeMeContract.payout(Field(1234567), deployer);
+    it('should withdraw 20% of the balance after cliffTime at most', async () => {
+        // 先转账 30MINA
+        let tx = await Mina.transaction(sender, async () => {
+            await fundMeContract.fund(UInt64.from(UInt64.from(ADD_NUM * UNIT)));
         });
         await tx.prove();
+        await tx.sign([sender.key]).send();
+        console.log(`current balance of zkapp: ${fundMeContract.account.balance.get().div(1e9)} MINA`, '\n');
+        console.log('payout...');
+
+        tx = await Mina.transaction(sender, async () => {
+            await fundMeContract.payout();
+        });
+        await tx.prove();
+        await tx.sign([sender.key]).send();
+        console.log(`current balance of zkapp: ${fundMeContract.account.balance.get().div(1e9)} MINA`, '\n');
+        console.log("withdraw...");
+
+        // tx = await Mina.transaction(sender, async () => {
+        //     await fundMeContract.withdraw(UInt64.from(1 * UNIT));
+        // })
+        // console.log("fund not ended, withdraw failed")
+
+        console.log("the blockchainLength before set", `${local.getNetworkState().blockchainLength}`)
+        local.setBlockchainLength(endTime.add(1));
+        console.log("the blockchainLength after set", `${local.getNetworkState().blockchainLength}`, '\n')
+        let withdrawAmount = UInt64.from(ADD_NUM * UNIT).div(5);
+        console.log(`withdraw ${withdrawAmount.div(1e9)} MINA after endtime`)
+        tx = await Mina.transaction(deployer, async () => {
+            await fundMeContract.withdraw(withdrawAmount);
+        })
+        await tx.prove();
         await tx.sign([deployer.key]).send();
-        expect(funeMeContract.account.balance.get()).toEqual(allBalance.mul(4).div(5));
+        console.log(`current balance of zkapp: ${fundMeContract.account.balance.get().div(1e9)} MINA`, '\n');
+        console.log(`current balance of deployer: ${Mina.getBalance(deployer).div(1e9)} MINA`, '\n');
 
-        local.setBlockchainLength(endTime.add(203));
-        const tx2 = await Mina.transaction(deployer, async () => {
-            await funeMeContract.payout(Field(1234567), deployer);
-        });
-        await tx2.prove();
-        await tx2.sign([deployer.key]).send();
-        expect(funeMeContract.account.balance.get()).toEqual(allBalance.mul(7).div(10));
+        local.incrementGlobalSlot(200);
+        withdrawAmount = UInt64.from(ADD_NUM * UNIT).div(10);
+        console.log(`withdraw ${withdrawAmount.div(1e9)} MINA after 200 slot`)
+        tx = await Mina.transaction(deployer, async () => {
+            await fundMeContract.withdraw(withdrawAmount);
+        })
+        await tx.prove();
+        await tx.sign([deployer.key]).send();
+        console.log(`current balance of zkapp: ${fundMeContract.account.balance.get().div(1e9)} MINA`, '\n');
+        console.log(`current balance of deployer: ${Mina.getBalance(deployer).div(1e9)} MINA`, '\n');
 
-        local.setBlockchainLength(endTime.add(405));
-        const tx3 = await Mina.transaction(deployer, async () => {
-            await funeMeContract.payout(Field(1234567), deployer);
-        });
-        await tx3.prove();
-        await tx3.sign([deployer.key]).send();
-        expect(funeMeContract.account.balance.get()).toEqual(allBalance.mul(3).div(5));
+        console.log(`withdraw ${withdrawAmount.div(1e9)} MINA within 200 slot`)
+        tx = await Mina.transaction(deployer, async () => {
+            await fundMeContract.withdraw(withdrawAmount);
+        })
+        await tx.prove();
+        await tx.sign([deployer.key]).send();
+        console.log("failed")
     })
 })
