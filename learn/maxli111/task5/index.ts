@@ -1,3 +1,3 @@
-import { Crowdfunding } from './Crowdfunding.js';
+import { MaxToken } from './MaxToken.js';
 
-export { Crowdfunding };
+export { MaxToken };

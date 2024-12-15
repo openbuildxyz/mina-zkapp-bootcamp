@@ -1,5 +1,5 @@
 /**
- * This script can be used to interact with the Crowdfunding contract, after deploying it.
+ * This script can be used to interact with the MaxToken contract, after deploying it.
  *
  * We call the update() method on the contract, create a proof and send it to the chain.
  * The endpoint that we interact with is read from your config.json.
@@ -14,7 +14,7 @@
  */
 import fs from 'fs/promises';
 import { Mina, NetworkId, PrivateKey } from 'o1js';
-import { Crowdfunding } from './Crowdfunding.js';
+import { MaxToken } from './MaxToken.js';
 
 // check command line arg
 let deployAlias = process.argv[2];
@@ -64,19 +64,19 @@ const Network = Mina.Network({
 // const Network = Mina.Network(config.url);
 const fee = Number(config.fee) * 1e9; // in nanomina (1 billion = 1.0 mina)
 Mina.setActiveInstance(Network);
-let feepayerCrowdfundingress = feepayerKey.toPublicKey();
-let zkAppCrowdfundingress = zkAppKey.toPublicKey();
-let zkApp = new Crowdfunding(zkAppCrowdfundingress);
+let feepayerMaxTokenress = feepayerKey.toPublicKey();
+let zkAppMaxTokenress = zkAppKey.toPublicKey();
+let zkApp = new MaxToken(zkAppMaxTokenress);
 
 // compile the contract to create prover keys
 console.log('compile the contract...');
-await Crowdfunding.compile();
+await MaxToken.compile();
 
 try {
   // call update() and send transaction
   console.log('build transaction and create proof...');
   let tx = await Mina.transaction(
-    { sender: feepayerCrowdfundingress, fee },
+    { sender: feepayerMaxTokenress, fee },
     async () => {
       await zkApp.update();
     }
