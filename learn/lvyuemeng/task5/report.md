@@ -1,11 +1,11 @@
 ## tx hash
 
-Can't deploy, I don't know why the bug occur.
+Another bewilder bug.
 ```
 ✔ Build project
 ✔ Generate build.json
 ✔ Choose smart contract
-  The 'CrowdFunding' smart contract will be used
+  The 'TokenFunding' smart contract will be used
   for this deploy alias as specified in config.json.
 ✔ Generate verification key (takes 10-30 sec)
   Using the cached verification key
@@ -14,7 +14,7 @@ Can't deploy, I don't know why the bug occur.
 TypeError: Cannot read properties of undefined (reading 'x')
     at PublicKey.toFields (o1js/dist/node/lib/provable/types/circuit-value.js:39:48)
     at Object.set (o1js/dist/node/lib/mina/state.js:110:58)
-    at CrowdFunding.deploy (file:///E:/Project/JsProj/Zk/ZkSharp/build/src/task4/crowdfunding.js:67:23)
+    at TokenFunding.deploy (file:///E:/Project/JsProj/Zk/ZkSharp/build/src/task5/tokenfunding.js:67:23)
     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
     at async file:///C:/Users/nostalgia/node_modules/zkapp-cli/src/lib/deploy.js:353:9
     at async file:///E:/Project/JsProj/Zk/ZkSharp/node_modules/o1js/dist/node/lib/mina/transaction.js:71:17
@@ -28,43 +28,31 @@ TypeError: Cannot read properties of undefined (reading 'x')
     at async Object.handler (file:///C:/Users/nostalgia/node_modules/zkapp-cli/src/bin/index.js:135:30)
 ```
 
-## Test
+## report test
 
+A bewilder bug.
 ```
-src\test\fundingTiming.test.ts:
-curBalance of ZkApp: 0
-✓ Add > generates and deploys the `CrowdFunding` smart contract [235.00ms]
-✓ Add > correctly contribute on the `CrowdFunding` smart contract [5015.00ms]
-Contribution total 100 Mina.
-current block height:  31
-Before withdraw:  999
-bad draw by others
-bad draw by others
-Instant withdraw:  1099
-Send Check Amount:  10
-200 blocks later:  1089
-Send Check Amount:  10
-400 blocks later:  1079
-Send Check Amount:  10
-600 blocks later:  1069
-Send Check Amount:  10
-800 blocks later:  1059
-Send Check Amount:  10
-1000 blocks later:  1049
-Send Check Amount:  10
-1200 blocks later:  1039
-Send Check Amount:  10
-1400 blocks later:  1029
-Send Check Amount:  10
-1600 blocks later:  1019
-Send Check Amount:  10
-1800 blocks later:  1009
-Send Check Amount:  10
-2000 blocks later:  999
-✓ Add > send and withdraw on the `CrowdFunding` smart contract [2281.00ms]
+# Unhandled error between tests
+-------------------------------
+269 |     privateInputs = privateInputs.map((input) => input === SelfProof ? selfProof : input);
+270 |     // check if all arguments are provable
+271 |     let args = privateInputs.map((input, i) => {
+272 |         if (isProvable(input))
+273 |             return input;
+274 |         throw Error(`Argument ${i + 1} of method ${methodName} is not a provable type: ${input}`);
+                    ^
+error: Argument 1 of method approveBase is not a provable type: function Object() {
+    [native code]
+}
+      at E:\Project\JsProj\Zk\ZkSharp\node_modules\o1js\dist\node\lib\proof-system\zkprogram.js:274:15
+      at map (1:11)
+      at sortMethodArguments (E:\Project\JsProj\Zk\ZkSharp\node_modules\o1js\dist\node\lib\proof-system\zkprogram.js:271:30)
+      at method (E:\Project\JsProj\Zk\ZkSharp\node_modules\o1js\dist\node\lib\mina\zkapp.js:62:31)
+      at DecorateProperty (E:\Project\JsProj\Zk\ZkSharp\node_modules\reflect-metadata\Reflect.js:553:33)
+      at E:\Project\JsProj\Zk\ZkSharp\src\task5\token.ts:5:16
+-------------------------------
 
- 3 pass
- 0 fail
- 5 expect() calls
-Ran 3 tests across 1 files. [8.31s]
+
+ 0 pass
+ 1 fail
 ```
