@@ -1,5 +1,7 @@
 import { AccountUpdate, Mina, PrivateKey, PublicKey, UInt64, type UInt32 } from 'o1js';
-import { CrowdFunding } from "../task4/crowdfunding";
+import {
+	CrowdFundingTiming
+ } from "../task4/crowdfunding";
 
 /*
  * This file specifies how to test the `Add` example smart contract. It is safe to delete this file and replace
@@ -24,7 +26,7 @@ describe('Add', () => {
 		senderKey: PrivateKey,
 		zkAppAddress: PublicKey,
 		zkAppPrivateKey: PrivateKey,
-		zkApp: CrowdFunding,
+		zkApp: CrowdFundingTiming,
 		endtimeSlot: UInt32,
 		local: PromiseType<ReturnType<typeof Mina.LocalBlockchain>>;
 
