@@ -28,20 +28,21 @@ let zkAppAccount = zkAppKey.toPublicKey();
 let zkApp: Fund = new Fund(zkAppAccount);
 
 console.log('部署合约')
-let txn = await Mina.transaction({
-    sender: deployer,
-    fee: 0.2 * 1e9,
-    memo: 'deploy contract',
-},
+let txn = await Mina.transaction(
+    {
+        sender: deployer,
+        fee: 0.2 * 1e9,
+        memo: 'deploy contract',
+    },
     async () => {
         AccountUpdate.fundNewAccount(deployer);
         await zkApp.deploy({
             owner: deployer,
             hardCap: UInt64.from(100 * 1e9),
             endTime: UInt32.from(10),
-            totalFunds: UInt64.from(0)
         });
-    });
+    }
+);
 
 await txn.prove();
 await txn.sign([deployerKey, zkAppKey]).send().wait;
