@@ -77,3 +77,4 @@
 | 73  | kelh93           | [5.5 Mina](https://minascan.io/mainnet/tx/5Jv3xZBeDaUrGwWBaXDKW4NXhJX9Ex6tRq9vKHNMp3faPPVA3NCQ) | B62qoMhd5RgEu2nmu3Sx7Zw8K7Bbx1EQXExpC5fqyAZ2x9oWS8giuAd | 
 | 74  | pengwon          | [5.5 Mina](https://minascan.io/mainnet/tx/5JtucWg13UwoQEJZN95K52Fjnu7vGq8HMSt6QmMW9d6ibmSkWau1) | B62qmRGWycWCRfmeyWoBHCmd2CYVZy1AwKt8mA9VZrFjPE3T14BUtbw | 
 | 75  | weirdcola        | [5.5 Mina](https://minascan.io/mainnet/tx/5JtxVbbyvAKSrKJDLs5zaqG9xHkFhMkE8xRJ8eTBtak7cxw7BK88) | B62qnJVQcj4gvfY1GBFryQZ4RJgfwqmVwCXB6umnH5cJQPFMLvotRL3 | 
+| 76  | DOV-3            | [5.5 Mina](https://minascan.io/mainnet/tx/5Jtn4MKD5TnMZ1pdVMRyH2FyzQygkAhjrwo7bU7XoSBe1scQh7TH) | B62qrBYFpTVKKt4976JyPJvTBB3kCjScAc1Be9yyAgSM92AyEjDbJcp |
