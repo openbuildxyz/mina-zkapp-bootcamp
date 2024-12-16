@@ -62,7 +62,10 @@ let tx = await Mina.transaction({
   await zkapp.deploy({ receiver: sender, hardcap: hardcapSlot, endtime: endtimeSlot });// 部署前设置合约初始状态
 });
 await tx.prove();
-await tx.sign([senderKey, zkappKey]).send().wait();
+let txnResponse = await tx.sign([senderKey, zkappKey]).send().wait();
+
+
+console.log('Transaction Hash:', txnResponse.status, txnResponse.hash);
 
 await fetchAccount({publicKey: zkappAccount});// !!!必须
 //console.log('initial state: ' + zkapp.x.get());

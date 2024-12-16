@@ -1,2 +1,2 @@
 ### 部署
-tx hash: [5JurykU6fnT4oUZniHVBt5VK2rmb7o8Cn3XCCPPPBqSmK8EQ51dq](https://minascan.io/devnet/tx/5JurykU6fnT4oUZniHVBt5VK2rmb7o8Cn3XCCPPPBqSmK8EQ51dq?type=zk-tx)
+tx hash: [5JtwJhaWmgzpvBs78pEziE7c2pmxTfTmVS1KQQYaT56J7ciqUNgB](https://minascan.io/devnet/tx/5JtwJhaWmgzpvBs78pEziE7c2pmxTfTmVS1KQQYaT56J7ciqUNgB?type=zk-tx)
