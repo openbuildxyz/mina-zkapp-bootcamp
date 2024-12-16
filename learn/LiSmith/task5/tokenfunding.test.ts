@@ -1,168 +1,58 @@
-import { AccountUpdate, Mina, PrivateKey, PublicKey, UInt64, type Field, type UInt32 } from 'o1js';
-import { TokenFunding } from "./tokenfunding";
-import { MyTokenContract } from './token';
+import { AccountUpdate, Field, Mina, PrivateKey, PublicKey, UInt32, UInt64 } from 'o1js';
+import { RabbitToken, RabbitTokenPublish } from './tokenfunding.js';
+const balance = (acc: Mina.TestPublicKey | PublicKey, tokenId?: Field) =>
+  Mina.getBalance(acc, tokenId).toJSON();
 
-/*
- * This file specifies how to test the `Add` example smart contract. It is safe to delete this file and replace
- * with your own tests.
- *
- * See https://docs.minaprotocol.com/zkapps for more info.
- */
+describe('RabbitToken', () => {
+  it('success', async () => {
+    const Local = await Mina.LocalBlockchain({ proofsEnabled: true });
+    Mina.setActiveInstance(Local);
 
-type PromiseType<T> = T extends Promise<infer U> ? U : never;
+    const [deployer, buyer] = Local.testAccounts;
 
-const MINA = 1e9;
-const hardcapSlot = UInt64.from(100 * MINA);
+    let { publicKey: tokenAddress, privateKey: tokenOwner } = PrivateKey.randomKeypair();
+    let token = new RabbitToken(tokenAddress);
+    let tokenId = token.deriveTokenId();
 
-let proofsEnabled = false;
+    await RabbitToken.compile();
 
-const balance = (acc: Mina.TestPublicKey | PublicKey) => Mina.getBalance(acc).div(MINA).toJSON();
+    const deployTokenTx = await Mina.transaction(deployer, async () => {
+      AccountUpdate.fundNewAccount(deployer, 2);
+      await token.deploy();
+    });
+    await deployTokenTx.prove();
+    await deployTokenTx.sign([tokenOwner, deployer.key]).send();
+    expect(balance(tokenOwner.toPublicKey(), tokenId)).toEqual('1000');
 
-describe('Add', () => {
-	let deployerAccount: Mina.TestPublicKey,
-		deployerKey: PrivateKey,
-		senderAccount: Mina.TestPublicKey,
-		senderKey: PrivateKey,
+    const { publicKey: appAddress, privateKey: appAccount } = PrivateKey.randomKeypair();
+    const zkApp = new RabbitTokenPublish(appAddress, tokenId);
+    await RabbitTokenPublish.compile();
 
-		zkAppAddress: PublicKey,
-		zkAppPrivateKey: PrivateKey,
-		zkApp: TokenFunding,
+    const deployAppTx = await Mina.transaction(deployer, async () => {
+      AccountUpdate.fundNewAccount(deployer);
+      await zkApp.deploy({ endAt: UInt32.from(200) });
+      await token.approveAccountUpdate(zkApp.self);
+    });
+    await deployAppTx.prove();
+    await deployAppTx.sign([appAccount, deployer.key]).send();
 
-		tokenId: Field,
-		tokenOwnerAddr: PublicKey,
-		tokenOwnerKey: PrivateKey,
-		token: MyTokenContract,
+    const transferTx = await Mina.transaction(deployer, async () => {
+      await token.transfer(tokenAddress, appAddress, UInt64.from(100));
+    });
+    await transferTx.prove();
+    await transferTx.sign([tokenOwner, deployer.key]).send();
+    expect(balance(appAddress, tokenId)).toEqual('100');
 
-		endtimeSlot: UInt32,
-		local: PromiseType<ReturnType<typeof Mina.LocalBlockchain>>;
-
-	const withdrawBy = async (acc: Mina.TestPublicKey | PublicKey) => {
-		const txn = await Mina.transaction(acc, async () => {
-			await zkApp.withdraw();
-			await token.approveAccountUpdate(zkApp.self);
-		})
-		await txn.prove();
-		await txn.sign([deployerKey]).send();
-	}
-
-	const fundBy = async (acc: Mina.TestPublicKey | PublicKey, amount: number) => {
-		const txn = await Mina.transaction(acc, async () => {
-			await zkApp.fund(UInt64.from(amount * MINA));
-			await token.approveAccountUpdate(zkApp.self);
-
-		})
-		await txn.prove();
-		await txn.sign([deployerKey, senderKey]).send();
-	}
-
-	const sendCheck = async (acc: Mina.TestPublicKey | PublicKey, amount: number) => {
-		const txn = await Mina.transaction(acc, async () => {
-			const accUpdate = AccountUpdate.createSigned(acc);
-			accUpdate.send({ to: zkAppAddress, amount: UInt64.from(amount * MINA) });
-			await token.approveAccountUpdate(zkApp.self);
-		})
-		await txn.prove();
-		await txn.sign([deployerKey]).send();
-		console.log("Send Check Amount: ", amount)
-	}
-
-	beforeAll(async () => {
-		if (proofsEnabled) {
-			await TokenFunding.compile()
-			await MyTokenContract.compile()
-		};
-	});
-
-	beforeEach(async () => {
-		const Local = await Mina.LocalBlockchain({ proofsEnabled });
-		Mina.setActiveInstance(Local);
-		[deployerAccount, senderAccount] = Local.testAccounts;
-		deployerKey = deployerAccount.key;
-		senderKey = senderAccount.key;
-
-		const keyPair = PrivateKey.randomKeypair();
-		tokenOwnerAddr = keyPair.publicKey;
-		tokenOwnerKey = keyPair.privateKey;
-		token = new MyTokenContract(tokenOwnerAddr);
-		tokenId = token.deriveTokenId();
-
-		zkAppPrivateKey = PrivateKey.random();
-		zkAppAddress = zkAppPrivateKey.toPublicKey();
-		zkApp = new TokenFunding(zkAppAddress, tokenId);
-
-		endtimeSlot = Local.getNetworkState().globalSlotSinceGenesis.add(30);
-		local = Local
-	});
-
-	async function localDeploy() {
-		const fundAcc = await Mina.transaction(deployerAccount, async () => {
-			AccountUpdate.fundNewAccount(deployerAccount, 2);
-			await token.deploy();
-		})
-		await fundAcc.prove();
-		await fundAcc.sign([tokenOwnerKey, deployerKey]).send();
-
-		const txn = await Mina.transaction(deployerAccount, async () => {
-			AccountUpdate.fundNewAccount(deployerAccount);
-			await zkApp.deploy({ receiver: deployerAccount, hardcap: hardcapSlot, endtime: endtimeSlot });
-			await token.approveAccountUpdate(zkApp.self);
-		});
-		await txn.prove();
-		(await txn.sign([deployerKey, zkAppPrivateKey]).send());
-	}
-
-	it('generates and deploys the `CrowdFunding` smart contract', async () => {
-		await localDeploy();
-		const targetAmount = zkApp.hardcap.get();
-		expect(targetAmount).toEqual(UInt64.from(hardcapSlot));
-
-		const curBalance = zkApp.account.balance.getAndRequireEquals();
-		console.log(`curBalance of ZkApp: ${curBalance}`)
-	});
-
-	it('correctly contribute on the `CrowdFunding` smart contract', async () => {
-		await localDeploy();
-
-		await fundBy(senderAccount, 10);
-
-		const amount = zkApp.account.balance.getAndRequireEquals();
-		expect(amount).toEqual(UInt64.from(10 * MINA));
-	});
-
-	it('send and withdraw on the `CrowdFunding` smart contract', async () => {
-		await localDeploy();
-
-		await fundBy(senderAccount, 10);
-
-		const amount = zkApp.account.balance.getAndRequireEquals();
-		expect(amount).toEqual(UInt64.from(10 * MINA));
-
-		const senderBalance = AccountUpdate.create(senderAccount).balanceChange.equals(30 * MINA - 10 * MINA);
-		expect(senderBalance).toBeTruthy();
-
-		await fundBy(senderAccount, 90);
-
-		console.log("Contribution total 100 Mina.")
-
-		// Increment block height
-		local.incrementGlobalSlot(30 + 1);
-		const curSlot = local.getNetworkState().globalSlotSinceGenesis;
-		console.log("current block height: ", curSlot.toString());
-
-		console.log("Before withdraw: ", balance(deployerAccount));
-		await expect(
-			Mina.transaction(senderAccount, async () => {
-				console.log("bad draw by others");
-				await zkApp.withdraw();
-			})
-		).rejects.toThrow();
-
-		await withdrawBy(deployerAccount);
-		console.log("Instant withdraw: ", balance(deployerAccount));
-		for (let i = 1; i <= 5; i++) {
-			local.incrementGlobalSlot(200);
-			await sendCheck(deployerAccount, 10);
-			console.log(`${i * 200} blocks later: `, balance(deployerAccount));
-		}
-	});
+    const receiptAddress = Mina.TestPublicKey(PrivateKey.random());
+    const buyTx = await Mina.transaction(buyer, async () => {
+      AccountUpdate.fundNewAccount(buyer, 2);
+      AccountUpdate.createSigned(buyer).send({ to: appAddress, amount: UInt64.from(10) });
+      await zkApp.buy(receiptAddress, UInt64.from(10));
+      await token.approveAccountUpdate(zkApp.self);
+    });
+    await buyTx.prove();
+    await buyTx.sign([buyer.key, receiptAddress.key]).send();
+    expect(balance(appAddress, tokenId)).toEqual('90');
+    expect(balance(receiptAddress, tokenId)).toEqual('10');
+  });
 });
