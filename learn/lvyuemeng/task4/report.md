@@ -1,6 +1,8 @@
 ## tx hash
 
-Can't deploy, I don't know why the bug occur.
+> 5Ju9pJD4HRe5S5SZe9MaXpUcvfWXkaGUbZm5QjhwpEYhQxgtUXSX
+
+I don't know why the bug occur.
 ```
 ✔ Build project
 ✔ Generate build.json
