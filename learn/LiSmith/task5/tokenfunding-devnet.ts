@@ -24,7 +24,7 @@ const network = Mina.Network({
 Mina.setActiveInstance(network);
 
 // Fee payer setup
-const senderKey = PrivateKey.fromBase58('EKE***');
+const senderKey = PrivateKey.fromBase58('EKE****');
 const sender = senderKey.toPublicKey();
 // console.log(`Funding the fee payer account.`);
 // await Mina.faucet(sender);// 领水
@@ -39,52 +39,48 @@ console.log(
 );
 console.log('');
 
+
+let { publicKey: tokenAddress, privateKey: tokenOwner } = PrivateKey.randomKeypair();
+let token = new RabbitToken(tokenAddress);
+let tokenId = token.deriveTokenId();
+
 // 编译合约
 console.log('compile');
 console.time('compile');
 await RabbitToken.compile();
 console.timeEnd('compile');
 
-// the zkapp account
-let zkappKey = PrivateKey.random();
-let zkappAccount = zkappKey.toPublicKey();// 需要保存好合约账户的私钥！
-let zkapp = new RabbitToken(zkappAccount);
-
-console.log('deploy...');
-let tx = await Mina.transaction({
+const tx = await Mina.transaction({
   sender,
   fee: 0.2 * 10e9,
   memo: '一笔交易',
   // nonce: 2
 }, async () => {
-  AccountUpdate.fundNewAccount(sender, 2);// 需要为新账户创建而花费1MINA
-
-  //let endtimeSlot = network.getNetworkState().globalSlotSinceGenesis.add(30);
-  await zkapp.deploy();// 部署前设置合约初始状态
+    AccountUpdate.fundNewAccount(sender, 2);
+    await token.deploy();
 });
 await tx.prove();
-let txnResponse = await tx.sign([senderKey, zkappKey]).send().wait();
-
-console.log('Transaction Hash:', txnResponse.status, txnResponse.hash);
-
-await fetchAccount({publicKey: zkappAccount});// !!!必须
-//console.log('initial state: ' + zkapp.x.get());
-await fetchAccount({publicKey: sender});// !!!必须
+let txnResponse1 = await tx.sign([tokenOwner, senderKey]).send().wait();
+console.log('Transaction Hash 1:', txnResponse1.status, txnResponse1.hash);
 
 
-// console.log('update x...');
-// tx = await Mina.transaction({
-//   sender,
-//   fee: 0.2 * 10**9,
-//   memo: '一笔交易',
-//   // nonce: 2
-// }, async () => {
-//   await zkapp.update(Field(3));
-// });
-// await tx.prove();
-// await tx.sign([senderKey]).send().wait();
 
-// await fetchAccount({publicKey: zkappAccount});
-// console.log('current state: ' + zkapp.x.get());
+const { publicKey: appAddress, privateKey: appAccount } = PrivateKey.randomKeypair();
+const zkApp = new RabbitTokenPublish(appAddress, tokenId);
+await RabbitTokenPublish.compile();
 
-// SimpleProfiler.stop().store();
+const deployAppTx = await Mina.transaction({
+  sender,
+  fee: 0.2 * 10e9,
+  memo: '一笔交易',
+  // nonce: 2
+}, async () => {
+    AccountUpdate.fundNewAccount(sender);
+    await zkApp.deploy({ endAt: UInt32.from(200) });
+    await token.approveAccountUpdate(zkApp.self);
+});
+await deployAppTx.prove();
+let txnResponse2 = await deployAppTx.sign([appAccount, senderKey]).send().wait();
+console.log('Transaction Hash 2:', txnResponse2.status, txnResponse2.hash);
+
+
