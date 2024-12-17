@@ -13,7 +13,7 @@ export class PotatoToken extends TokenContract {
   }
 
   @method
-  async init() {
+  async init() { 
     super.init();
 
     // mint the entire supply to the token account with the same address as this contract

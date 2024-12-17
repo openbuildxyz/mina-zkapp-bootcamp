@@ -107,6 +107,6 @@ export class FundingContract extends SmartContract {
   }
 
   getOwner() {
-    return this.withdrawer.get();
+    return this.withdrawer.get(); 
   }
 }

@@ -130,6 +130,6 @@ describe('Local Net', () => {
     await tx.sign([deployer.key]).send();
 
     const amount = Mina.getBalance(zkappAccount, tokenId);
-    expect(amount.equals(UInt64.from(0)));
+    expect(amount.equals(UInt64.from(0))); 
   });
 });
