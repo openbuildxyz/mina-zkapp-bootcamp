@@ -36,7 +36,8 @@ export class CrowdFundContract extends SmartContract {
     // 初始化账户权限
     this.account.permissions.set({
       ...Permissions.default(),
-      setVerificationKey: Permissions.VerificationKey.impossibleDuringCurrentVersion(),
+      setVerificationKey:
+        Permissions.VerificationKey.impossibleDuringCurrentVersion(),
       setPermissions: Permissions.impossible(),
     });
   }
@@ -46,7 +47,10 @@ export class CrowdFundContract extends SmartContract {
     const _endBlockHeight = this.endBlockHeight.get();
     this.endBlockHeight.requireEquals(_endBlockHeight);
     // 检查当前区块高度是否还在规定的时间窗口内
-    this.network.blockchainLength.requireBetween(UInt32.from(0), _endBlockHeight);
+    this.network.blockchainLength.requireBetween(
+      UInt32.from(0),
+      _endBlockHeight
+    );
 
     const _hardCap = this.hardCap.get();
     const _totalRaised = this.totalRaised.get();
@@ -65,29 +69,43 @@ export class CrowdFundContract extends SmartContract {
     investorBalance.assertGreaterThanOrEqual(minas); // 投资者的账户余额必须大于等于投资金额
 
     // 投资者将mina投入到合约账户
-    investorUpdate.send({ to: this, amount: minas});
-    _totalRaised.add(minas);
-    
+    investorUpdate.send({ to: this, amount: minas });
+    this.totalRaised.set(_totalRaised.add(minas));
   }
 
-  // 提取众筹结束后的Mina
-  @method async withdrawMinas() {
-    // const _endBlockHeight = this.endBlockHeight.get();
-    // this.endBlockHeight.requireEquals(_endBlockHeight);
-    // const _currentBlockHeight = this.network.blockchainLength.get();
-    // this.network.blockchainLength.requireEquals(_currentBlockHeight);
-    // _currentBlockHeight.assertGreaterThan(_endBlockHeight); // 检查时间窗口是否关闭
+  // 时间窗口关闭后众筹资金须按照以下 vesting 计划逐步释放： 
+  // 提款人可以立即提走20%，而后每200个区块释放10%直至释放完毕
+  @method async vestingSchedule() {
+    // 众筹者
+    const _crowdfunder = this.crowdfunder.getAndRequireEquals();
+    const crowdfunderUpdate = AccountUpdate.createSigned(_crowdfunder);
 
-    // // 验证众筹者
-    // const _crowdfunder = this.crowdfunder.get();
-    // this.crowdfunder.requireEquals(_crowdfunder);
-    // const sender = this.sender.getAndRequireSignatureV2();
-    // _crowdfunder.assertEquals(sender);
+    const _totalRaised = this.totalRaised.get();
+    this.totalRaised.requireEquals(_totalRaised);
 
-    // // 提取Mina！
-    // const _totalRaised = this.totalRaised.get();
-    // this.totalRaised.requireEquals(_totalRaised);
-    // this.send({ to: _crowdfunder, amount: _totalRaised});
-    /** todo */
+    // 立即提取 20% 的众筹资金
+    const immediateRelease = _totalRaised.mul(UInt64.from(20)).div(UInt64.from(100));
+    this.send({ to: _crowdfunder, amount: immediateRelease });
+ 
+    // 锁定80%的众筹资金
+    const tokensToLock = _totalRaised.mul(UInt64.from(80)).div(UInt64.from(100));
+
+    // 释放众筹资金的间隔时间（200slots）
+    const vestingPeriod = UInt32.from(200);
+
+    // 每200slots释放资金的数量
+    const vestingIncrement = tokensToLock.div(UInt64.from(12));
+
+    // 资金释放计划
+    crowdfunderUpdate.account.timing.set({
+      initialMinimumBalance: tokensToLock,
+      cliffTime: UInt32.from(0),
+      cliffAmount: UInt64.from(0),
+      vestingPeriod: vestingPeriod,
+      vestingIncrement: vestingIncrement,
+    });
+
+    // 执行计划
+    this.send({ to: crowdfunderUpdate, amount: tokensToLock });
   }
 }
