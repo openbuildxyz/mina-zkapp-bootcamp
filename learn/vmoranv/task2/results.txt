@@ -1,0 +1,14 @@
+PASS src/Vote.test.ts (9.777 s)
+  Vote
+    √ generates and deploys the Vote smart contract (1325 ms)
+    √ allows adding team members (2545 ms)
+    √ allows team members to vote (1011 ms)
+    √ prevents non-team members from voting (429 ms)
+    √ prevents double voting (1226 ms)
+    √ correctly retrieves vote results (1180 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        10.269 s
+Ran all test suites.
