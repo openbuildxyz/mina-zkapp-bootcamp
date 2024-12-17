@@ -24,7 +24,7 @@ const network = Mina.Network({
 Mina.setActiveInstance(network);
 
 // Fee payer setup
-const senderKey = PrivateKey.fromBase58('EKEdjFogmuzcAYVqYJZPuF8WmXVR1PBZ3oMA2ektLpeRJArkD4ne');
+const senderKey = PrivateKey.fromBase58('EKE***');
 const sender = senderKey.toPublicKey();
 // console.log(`Funding the fee payer account.`);
 // await Mina.faucet(sender);// 领水
@@ -63,9 +63,9 @@ let tx = await Mina.transaction({
   await zkapp.deploy();// 部署前设置合约初始状态
 });
 await tx.prove();
-await tx.sign([senderKey, zkappKey]).send().wait();
+let txnResponse = await tx.sign([senderKey, zkappKey]).send().wait();
 
-console.log('tx is : ' + tx + " "+ JSON.stringify(tx));
+console.log('Transaction Hash:', txnResponse.status, txnResponse.hash);
 
 await fetchAccount({publicKey: zkappAccount});// !!!必须
 //console.log('initial state: ' + zkapp.x.get());
