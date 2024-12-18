@@ -1,0 +1,4 @@
+## 相关hash
+- JusToken_address：B62qruqYgtmbVz1vezjgug8D4NdRuQ98db66tw2157eqqEd6CXndszG
+- 部署Token的tx hash；5JtfvbmguvDbMesoUBkaNQD8RWBk7jsPqtuQAF5ahurLVMcGHWhc
+- 部署众筹合约v2.0的tx hash：5JuYqCtLPEDJoEMuCdrM6Dh3SoKx2oQdqu5sgTPFw1DbrxijPjYE
