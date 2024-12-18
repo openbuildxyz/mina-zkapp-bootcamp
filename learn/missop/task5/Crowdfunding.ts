@@ -1,79 +1,90 @@
-import { DeployArgs, method, PublicKey, SmartContract, state, State, UInt32, UInt64, Permissions, Provable, assert, Mina, AccountUpdate } from "o1js";
-import { FungibleToken } from "./FungibleToken";
+import {
+    AccountUpdate,
+    assert,
+    Bool,
+    DeployArgs,
+    method,
+    Permissions,
+    Provable,
+    PublicKey,
+    SmartContract,
+    State,
+    state,
+    VerificationKey,
+} from "o1js"
 
-interface CrowdfundingDeployProps extends Exclude<DeployArgs, undefined> {
-    hardcap: UInt64;
-    endTime: UInt32;
+export type FungibleTokenAdminBase = SmartContract & {
+    canMint(accountUpdate: AccountUpdate): Promise<Bool>
+    canChangeAdmin(admin: PublicKey): Promise<Bool>
+    canPause(): Promise<Bool>
+    canResume(): Promise<Bool>
 }
 
-export class Crowdfunding extends SmartContract {
-    @state(UInt64) hardcap = State<UInt64>();
-    @state(UInt32) endTime = State<UInt32>();
-    @state(PublicKey) fungibleToken = State<PublicKey>();
+export interface FungibleTokenAdminDeployProps extends Exclude<DeployArgs, undefined> {
+    adminPublicKey: PublicKey
+}
 
-    static FungibleTokenContract: new (...args: any) => FungibleToken = FungibleToken;
+/** A contract that grants permissions for administrative actions on a token.
+ *
+ * We separate this out into a dedicated contract. That way, when issuing a token, a user can
+ * specify their own rules for administrative actions, without changing the token contract itself.
+ *
+ * The advantage is that third party applications that only use the token in a non-privileged way
+ * can integrate against the unchanged token contract.
+ */
+export class FungibleTokenAdmin extends SmartContract implements FungibleTokenAdminBase {
+    @state(PublicKey)
+    private adminPublicKey = State<PublicKey>()
 
-    async deploy(props: CrowdfundingDeployProps) {
-        await super.deploy(props);
-        this.hardcap.set(props.hardcap);
-        this.endTime.set(props.endTime);
-
+    async deploy(props: FungibleTokenAdminDeployProps) {
+        await super.deploy(props)
+        this.adminPublicKey.set(props.adminPublicKey)
         this.account.permissions.set({
             ...Permissions.default(),
             setVerificationKey: Permissions.VerificationKey.impossibleDuringCurrentVersion(),
             setPermissions: Permissions.impossible(),
-            access: Permissions.proof(),
         })
     }
 
-    /**
-     * 部署FungibleToken合约之后执行该方法
-     * @param fungibleToken 把FungibleToken合约的地址传进来
+    /** Update the verification key.
+     * Note that because we have set the permissions for setting the verification key to `impossibleDuringCurrentVersion()`, this will only be possible in case of a protocol update that requires an update.
      */
-    @method async initialize(fungibleToken: PublicKey) {
-        this.fungibleToken.set(fungibleToken);
+    @method
+    async updateVerificationKey(vk: VerificationKey) {
+        this.account.verificationKey.set(vk)
     }
 
-    /**
-     * buy fungible token 1:1 ratio
-     * @param amount 
-     */
-    @method async buyFungiableToken(seller: PublicKey, buyer: PublicKey, amount: UInt64) {
-        this.validate(seller, buyer, amount);
-
-        const fungibleTokenContract = await this.getFungibleToken();
-        await fungibleTokenContract.transfer(seller, buyer, amount);
-        // buyer支付给 seller MINA
-        const senderUpdate = AccountUpdate.createSigned(buyer);
-        senderUpdate.send({ to: seller, amount })
-    }
-
-    private async validate(from: PublicKey, to: PublicKey, amount: UInt64) {
-        // first，validate whether the crowdfunding has ended or not
-        const endTime = this.endTime.getAndRequireEquals();
-        const currentTime = this.network.blockchainLength.getAndRequireEquals();
-        currentTime.assertGreaterThan(endTime, "Crowdfunding has not started yet");
-        // second，validate the balance of to is enough to pay MINA token
-        // const recipientBalance = Mina.getBalance(to);
-        // recipientBalance.assertGreaterThanOrEqual(amount, "Not enough balance to buy fungible token");
-        // third,validate the balance of fungible token is enough to buy
-        const fungibleTokenContract = await this.getFungibleToken();
-        const fromBalance = await fungibleTokenContract.getBalanceOf(from);
-        fromBalance.assertGreaterThanOrEqual(amount, "Not enough balance to sell fungible token");
-        from.equals(to).assertFalse(
-            'from equals to'
-        );
-        // amount not greater than hardcap
-        amount.assertLessThanOrEqual(this.hardcap.getAndRequireEquals());
-    }
-
-    public async getFungibleToken(): Promise<FungibleToken> {
-        const _fungibleToken = await Provable.witnessAsync(PublicKey, async () => {
-            let pk = await this.fungibleToken.fetch()
-            assert(pk !== undefined, "fungible token not found")
+    private async ensureAdminSignature() {
+        const admin = await Provable.witnessAsync(PublicKey, async () => {
+            let pk = await this.adminPublicKey.fetch()
+            assert(pk !== undefined, "could not fetch admin public key")
             return pk
-        });
-        this.fungibleToken.requireEquals(_fungibleToken);
-        return (new Crowdfunding.FungibleTokenContract(_fungibleToken));
+        })
+        this.adminPublicKey.requireEquals(admin)
+        return AccountUpdate.createSigned(admin)
+    }
+
+    @method.returns(Bool)
+    public async canMint(_accountUpdate: AccountUpdate) {
+        await this.ensureAdminSignature()
+        return Bool(true)
+    }
+
+    @method.returns(Bool)
+    public async canChangeAdmin(_admin: PublicKey) {
+        await this.ensureAdminSignature()
+        return Bool(true)
+    }
+
+    @method.returns(Bool)
+    public async canPause(): Promise<Bool> {
+        await this.ensureAdminSignature()
+        return Bool(true)
+    }
+
+    @method.returns(Bool)
+    public async canResume(): Promise<Bool> {
+        await this.ensureAdminSignature()
+        return Bool(true)
     }
 }

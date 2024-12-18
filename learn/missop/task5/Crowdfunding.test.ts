@@ -70,9 +70,12 @@ const mintTx = await Mina.transaction({
     AccountUpdate.fundNewAccount(operator, 1)
     await tokenContract.mint(alexa, new UInt64(50e9))
 })
-await mintTx.prove()
-mintTx.sign([operator.key, adminContractKey.privateKey])
 
+mintTx.sign([operator.key, adminContractKey.privateKey])
+await mintTx.prove()
+await mintTx.send()
+
+console.log("alexa balance:", (await tokenContract.getBalanceOf(alexa)).toString(), '\n')
 describe('Crowdfunding test', () => {
     it('should prevent calling `initialize()` a second time', async () => {
         const tx = await Mina.transaction({
