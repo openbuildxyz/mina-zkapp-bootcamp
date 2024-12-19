@@ -30,7 +30,14 @@ export class CrowdfundingContract extends SmartContract {
     this.fundraisingGoal.set(args.fundraisingGoal);
     this.endTime.set(args.endTime);
     this.creator.set(args.creator);
-    this.account.permissions.set({ ...Permissions.default(), editState: Permissions.proofOrSignature() });
+    this.totalFunded.set(new UInt64(0));
+    this.account.permissions.set({
+      ...Permissions.default(),
+      send: Permissions.proof(),
+      setVerificationKey: Permissions.VerificationKey.impossibleDuringCurrentVersion(),
+      setPermissions: Permissions.impossible(),
+      editState: Permissions.proofOrSignature(),
+    });
   }
 
   //投资
@@ -58,27 +65,6 @@ export class CrowdfundingContract extends SmartContract {
 
   // 项目发起人提款
   @method async withdraw() {
-    // 检查提款时间在众筹结束后
-    const endTime = this.endTime.getAndRequireEquals();
-    const currentTime = this.network.blockchainLength.getAndRequireEquals();
-    currentTime.assertGreaterThanOrEqual(endTime);
-
-    // 检查已筹集金额达到目标
-    const total = this.totalFunded.getAndRequireEquals();
-    const goal = this.fundraisingGoal.getAndRequireEquals();
-    total.assertGreaterThanOrEqual(goal);
-
-    // 检查调用者是否是项目发起人
-    const creator = this.creator.getAndRequireEquals();
-    const sender = this.sender.getAndRequireSignature();
-    creator.assertEquals(sender);
-
-    // 提款
-    const totalFunded = this.totalFunded.getAndRequireEquals();
-    this.send({ to: creator, amount: totalFunded });
-  }
-
-  @method async claim() {
     // 创建者检测
     const creator = this.creator.getAndRequireEquals();
     const sender = this.sender.getAndRequireSignature();
@@ -95,19 +81,18 @@ export class CrowdfundingContract extends SmartContract {
     totalFunded.assertGreaterThanOrEqual(goal, "众筹金额未达到目标！");
 
     // 转账
-    const creatorUpdate = AccountUpdate.createSigned(creator);
+    const accountUpdate = AccountUpdate.createSigned(creator);
 
-    const pel = totalFunded.div(10);
-
-    this.send({ to: creatorUpdate, amount: totalFunded });
+    this.send({ to: accountUpdate, amount: totalFunded });
 
     // 设置提取条件
-    creatorUpdate.account.timing.set({
-      initialMinimumBalance: totalFunded,
-      cliffTime: new UInt32(0),
-      cliffAmount: pel.mul(2),
-      vestingPeriod: new UInt32(200),
-      vestingIncrement: pel,
+    accountUpdate.account.timing.set({
+      initialMinimumBalance: totalFunded,  // 初始锁定全部资金
+      cliffTime: UInt32.from(0),           // 没有悬崖期
+      cliffAmount: totalFunded.mul(2).div(10),         // 起始解锁为20%
+      vestingPeriod: UInt32.from(200),     // 每200个slot解锁
+      vestingIncrement: totalFunded.div(10)  // 每期解锁10%
     });
+
   }
 }
