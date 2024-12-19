@@ -1,0 +1,5 @@
+token地址: B62qqXVG6ZFcUaNzHThNz9oTZ6xBGvTEFuaQRKF27CQ3ERCLxLDJPQ7
+
+tokenTxHash: 5JuhPCGgFjCKHPieFrGNoZUeeseqxZEojVWjhGcrijz3FbXgLKjz
+
+合约Hash: 5JvDduTB5xgRUh5dW6jtPGs1iZTvMef6gyYAcNbRrdBozvXLGqcG
