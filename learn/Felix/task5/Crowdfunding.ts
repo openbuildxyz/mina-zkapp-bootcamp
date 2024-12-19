@@ -15,27 +15,6 @@ import {
   AccountUpdate,
 } from "o1js";
 
-/* 
-众筹合约:
-可设置众筹目标和截止事件
-通过计算最佳数额, 确保不会超额众筹
-众筹成功, 项目方可提款
-众筹失败, 可以退款
-
-退款功能:
-链上状态有限, 尝试不使用Merkle Tree实现众筹失败后退款
-设计了一个方法,思路源于递归.
-重新计算哈希并验证,fundHash回退为oldHash
-
-不限制调用者身份, 需要publicKey验证, 只向publicKey转账
-Dapp可以代为执行
-
-所需信息,通过事件获取
-
-更新: 优化了两个state
-补充: num状态也能优化, 为了event信息更详细, 保留了下来
-*/
-
 export class DeployEvent extends Struct({
   owner: PublicKey,
   endTime: UInt32,
@@ -186,7 +165,17 @@ export class Crowdfunding extends SmartContract {
     const targetAmounts = this.targetAmounts.getAndRequireEquals();
     balance.equals(targetAmounts).assertTrue("合约余额异常, 不等于目标金额");
 
+    // 设置vesting计划
+    const senderUpdate = AccountUpdate.createSigned(sender);
     this.send({ to: sender, amount: balance });
+
+    senderUpdate.account.timing.set({
+      initialMinimumBalance: balance,
+      cliffTime: UInt32.from(0),
+      cliffAmount: balance.div(10).mul(2),
+      vestingPeriod: UInt32.from(200),
+      vestingIncrement: balance.div(10),
+    });
 
     // 广播
     this.emitEvent(
