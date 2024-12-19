@@ -48,16 +48,14 @@ export class CrowdFundingTiming extends SmartContract {
 	private sendTiming(curBalance: UInt64, acc: PublicKey) {
 		const accUpdate = AccountUpdate.createSigned(acc);
 
-		const linearAmount = curBalance.div(10);
-
 		const t = curBalance.div(5);
-		this.send({ to: accUpdate, amount: t })
+		this.send({ to: accUpdate, amount: curBalance })
 		accUpdate.account.timing.set({
-			initialMinimumBalance: curBalance.sub(t),
+			initialMinimumBalance: curBalance,
 			cliffTime: UInt32.from(0),
-			cliffAmount: UInt64.from(0),
+			cliffAmount: curBalance.div(5),
 			vestingPeriod: UInt32.from(SlotsRequired),
-			vestingIncrement: linearAmount,
+			vestingIncrement: curBalance.div(10),
 		})
 	}
 
