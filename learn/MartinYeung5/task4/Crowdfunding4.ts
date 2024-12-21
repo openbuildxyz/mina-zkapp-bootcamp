@@ -5,8 +5,10 @@ import {
 // export 1
 export const MINA = 0.1 * 10**9; // 1 Mina
 
+let initialState = new UInt64(0);
+let initialState2 = new UInt32(0);
 // export 2
-export class Crowdfunding extends SmartContract {
+export class Crowdfunding4 extends SmartContract {
   // Field 1 - 目標眾籌金額
   @state(UInt64) targetedFunding = State<UInt64>(new UInt64(0));
   // Field 2 - 目前眾籌金額
@@ -19,15 +21,22 @@ export class Crowdfunding extends SmartContract {
   @state(Bool) closed = State<Bool>(Bool(false));
 
   // Action - 部署
-  async deploy(args: DeployArgs & { targetedFunding: UInt64; endTime: UInt32; fundingReceiver: PublicKey }) {
-    if (args.targetedFunding) {
+  async deploy(args: DeployArgs & 
+    { targetedFunding: UInt64; endTime: UInt32; fundingReceiver: PublicKey }
+  ) {
     await super.deploy(args);
-    this.targetedFunding.set(args.targetedFunding);
-    this.endTime.set(args.endTime);
-    this.fundingReceiver.set(args.fundingReceiver);
-    this.account.permissions.set({ ...Permissions.default(), editState: Permissions.proofOrSignature() });
-    }
-    //await super.deploy(args);
+    this.account.permissions.set({ 
+      ...Permissions.default(), 
+      send: Permissions.proof(),
+      setVerificationKey: Permissions.VerificationKey.impossibleDuringCurrentVersion(),
+      setPermissions: Permissions.impossible(),
+      editState: Permissions.proofOrSignature()
+    });
+    
+    this.targetedFunding.set(initialState);
+    this.endTime.set(initialState2);
+    const sender = this.sender.getAndRequireSignature();
+    this.fundingReceiver.set(sender);
   }
   
   // Method - 投資
@@ -62,7 +71,7 @@ export class Crowdfunding extends SmartContract {
   }
 
   // Method - 取款
-  @method async withdraw() {
+  @method async withdraw(reciver: PublicKey) {
     // 獲得眾籌是否結束的資訊
     this.closed.getAndRequireEquals();
     // 要求眾籌結束的設定為否
@@ -82,10 +91,23 @@ export class Crowdfunding extends SmartContract {
     // 檢查執行取款動作的用戶是否接收眾籌的用戶
     fundingReceiver.assertEquals(sender);
 
+    const recieverAcctUpt = AccountUpdate.createSigned(reciver);
+    recieverAcctUpt.account.isNew.requireEquals(Bool(true));
+
     // 獲得目前眾籌金額
     const currentFunding = this.currentFunding.getAndRequireEquals();
+    const item = currentFunding.div(10);
+
     // 轉移眾籌金額到接收眾籌的用戶
     this.send({ to: fundingReceiver, amount: currentFunding });
+
+    recieverAcctUpt.account.timing.set({
+      initialMinimumBalance: item.mul(8),
+      cliffTime: UInt32.from(0),
+      cliffAmount: UInt64.from(0),
+      vestingPeriod: UInt32.from(200),
+      vestingIncrement: item,
+    });
 
     // 將眾籌設定為是結束
     this.closed.set(Bool(true));

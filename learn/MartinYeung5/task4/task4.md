@@ -3,4 +3,4 @@
 
 ### 部署
 * devnet:
-* tx hash: 5JujqMMjnuqpJYGdb7fRSgLEtqfqrwxC6vf6hgf14CG4u5ViugJq
+* tx hash: 5JvFYngPb5iLsgMjKQhEXGb2ovhEH8yEFHjGJm93h8LAJD8xukKA
