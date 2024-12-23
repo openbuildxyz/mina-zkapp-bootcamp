@@ -73,7 +73,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 5. 《Fungible Token Standard源码讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1733742551)
 
 
-**第五章：Protokit 框架探索**
+**第五章：Protokit 框架探索**  |   [课件PPT](https://file-cdn.openbuild.xyz/course/2051400317/Mina_bootcamp_chapter5.pptx)
 1. 《Protokit 基础概念讲解》  |  [课程](https://openbuild.xyz/learn/challenges/2051400317/1734323187)
 2. 《Protokit 实操案例》  |   [课程](https://openbuild.xyz/learn/challenges/2051400317/1734323198)
 
@@ -90,7 +90,7 @@ Mina 区块链浏览器：https://minascan.io/devnet/home
 | [task3](./task/task3.md) | 第三周 | 设计一个众筹合约，时间窗口关闭后被投资人方可提款 | ￥15 | 已结束([奖励🎉](./reward/task3.md))  |
 | [task4](./task/task4.md) | 第四周 | 设计一个众筹合约，众筹资金逐步释放 | ￥15 | 已结束([奖励🎉](./reward/task4.md)) |
 | [task5](./task/task5.md) | 第四周 | 发行你自己的 token，然后设计一个众筹合约 | ￥35 | 已结束([奖励🎉](./reward/task5.md)) |
-| [task6](./task/task6.md) | 第五周 | 运行一个 appchain | ￥21 | 进行中 |
+| [task6](./task/task6.md) | 第五周 | 运行一个 appchain | ￥21 | 已结束([奖励🎉](./reward/task6.md)) |
 
 <br>
 
