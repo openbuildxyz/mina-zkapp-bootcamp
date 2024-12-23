@@ -21,3 +21,12 @@
 | 16  | xfz1987            | [2.6 MINA](https://minascan.io/mainnet/tx/5Ju9f5yMQ8Q9NL1Hqc4UAZxV3FvBxScktEKW8CRPDMzMVxvGo3sC) | B62qpwbpFz5z1g8TCSDGVJ418v98ob7m4VE3vcgm1XtQrgLVGin28af | 
 | 17  | xiaxianlin         | [2.6 MINA](https://minascan.io/mainnet/tx/5Jun9U98vn6hkoT4WyeKR6rQHd2dTpWMCD3Bki4Kbse9WQ3AhXH2) | B62qjfF3coQjUEfjdrmXiHNzwQKTCXQgyeLNCBGHSSozV6ebLp9iBoB | 
 | 18  | zhangloveyan       | [2.6 MINA](https://minascan.io/mainnet/tx/5JtnzUMMoMAWVU4veZJxGVjeu7WH13YKcrfHNiyNDpXRnPxXDpcj) | B62qrikUxhe2quGz8ASKRs1tS9eTBVEwD6Wo4z4uRDSEET8NG7LBLu7 | 
+| 19  | Bystander2         | [2.6 MINA](https://minascan.io/mainnet/tx/5JtmHMFE1WnRiAf6pkBiDJ9VGQYTnyECegEztB73vtM9b4TA32mj) | B62qntCxnwWgmKoHV17UBaYeUZF7MeEkkiMq7gnXq9Xa9qXV93REN5Z |
+| 20  | Felix              | [2.6 MINA](https://minascan.io/mainnet/tx/5JvBtreSUkp2MZ4XZDaoWFHtj9tRQ6vqm86CWU6AL78PKrRkRgrc) | B62qnErkEsutRcUs3m4Jhtg2JxQEgpTHiYZsCy7i166YsQwf8wcsTJj |
+| 21  | StarCoderLn        | [2.6 MINA](https://minascan.io/mainnet/tx/5Juh9kZLMctD5CxTkDayCsWb5JVnfXaYYqjZrFE3T9JbEYb6HYX5) | B62qnSjG65Ei9V2Rw8NWXmyoMCqd3Y5SZzY7J3c9xJXvX51Qdej1GsD |
+| 22  | StarryDeserts      | [2.6 MINA](https://minascan.io/mainnet/tx/5JugcRdhoBxwEXud2j9Ak2WDm2vW4onAj6NWDizQpTjpp4j8xyBk) | B62qrdDJ8QuqQpxPinusDUWzfCjN6JE6qB6T1JcCT9HEoCZjj8EgVQn |
+| 23  | zilong-dai         | [2.6 MINA](https://minascan.io/mainnet/tx/5JufTdmyiDMZHxJLmtMRSnEPJ2e3msRP465iPqJrkuuajkZedeuH) | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt |
+
+
+
+
