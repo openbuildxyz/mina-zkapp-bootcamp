@@ -22,5 +22,6 @@
 | 17  | xtheing      | [4.7 MINA](https://minascan.io/mainnet/tx/5JuS1aVv5dAfvCLWSdhBquTgbDyRp6Hw6YxBYfsAVJnMS1fCsm5c)  | B62qnJxYihamx8Xf3xPnA38rqXFnimjyuqt7Li3Bi3xLKF3u125npdY |
 | 18  | zhangloveyan | [4.7 MINA](https://minascan.io/mainnet/tx/5Jv6JNmm14egLZbt4KoWCqe8EHfZjFVdCp9KpLSNdrxaExeMoEeh)  | B62qrikUxhe2quGz8ASKRs1tS9eTBVEwD6Wo4z4uRDSEET8NG7LBLu7 |
 | 19  | zilong-dai   | [4.7 MINA](https://minascan.io/mainnet/tx/5JucxXLKbhGNrqLHHqYNnqHA1to6Rur6EEVubBXbxqExEMLHaQJ2)  | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt |
+| 20  | justice010   | [4.7 MINA](https://minascan.io/mainnet/tx/5JuELm83dGxYazkgtYhZ1ZL4PtXcesZFnGhdR5dqMW1FpR8BG8gx)  | B62qrRRAxikVxuKXUrggkcmqvNnqNzz3RkYd8DLUAaD5yA5dSy2hvtU |
 
 
