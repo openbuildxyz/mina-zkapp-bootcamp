@@ -127,3 +127,6 @@
 | 122 | Tsuizen            | [3.7 MINA](https://minascan.io/mainnet/tx/5JtjMFJvymZdcGPRQxPf943VWxZMnK1tDzEQutuuTj3S6HcfHXBS) | B62qoVP6qNFigWb6erNPmEcDtvSnktDqMsXra8eKUBoFyeVK9iF6qta  |
 | 123 | amber              | [3.7 MINA](https://minascan.io/mainnet/tx/5JvCZopKVcFNGxsvXpaMJ1CRUBT6evohzrYptutJ9bteR7uGahkK) | B62qk2M6hHxFpbRE1JAcCS4sArJwYTXMoRBWZM9jPeKnrc6Ybh51jYg  |
 | 124 | LeonTing1010       | [3.7 MINA](https://minascan.io/mainnet/tx/5JvMjaxmtFCrAHndTugY5zW1Htiv19vykaSa128tqAHaNREZorjf) | B62qpc7dLZF5w4BTdBqL1MxQVN6BByemQouBevh9hCPc4jRKhLRQfrp  |
+| 125 | baidang201         | [3.7 MINA](https://minascan.io/mainnet/tx/5Juya4Dga1NZBA2V56NRKnUtqGSk8ShGC1YL9A1vnew33e6v6ege) | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB  |
+
+

@@ -5,7 +5,7 @@
 |-----|--------------|--------------------------------------------------------------------------------------------------|---------------------------------------------------------|
 | 1   | Bystander2   | [4.7 MINA](https://minascan.io/mainnet/tx/5Jv5ovbs8uT9Tr6oDs92CagTaHdEFxdTG4XMdDWUPByTP26xpLHA)  | B62qntCxnwWgmKoHV17UBaYeUZF7MeEkkiMq7gnXq9Xa9qXV93REN5Z |
 | 2   | Felix        | [4.7 MINA](https://minascan.io/mainnet/tx/5JuARHT1WAoCg1Rzs2C1G3yfGRaz3DHoyQEJPJD4oQed4eUnkFdX)  | B62qnErkEsutRcUs3m4Jhtg2JxQEgpTHiYZsCy7i166YsQwf8wcsTJj |
-| 3   | LiSmith      | [4.7 MINA](https://minascan.io/mainnet/tx/5Ju9WqScxBHM4X6TDGGa46rSN1HPAwCb6VX19aAqVHTU6TPFnpaq)  | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB |
+| 3   | baidang201   | [4.7 MINA](https://minascan.io/mainnet/tx/5Ju9WqScxBHM4X6TDGGa46rSN1HPAwCb6VX19aAqVHTU6TPFnpaq)  | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB |
 | 4   | MartinYeung5 | [4.7 MINA](https://minascan.io/mainnet/tx/5JvCoBKRztcrmmjjohgBKYavHGR9R9vyifwtXXtDxyXpxDnpzeAo)  | B62qrDKrcdXZuks4cccyCtw1b4CBbrcpYFoEQs85pLVmRVUqwAFcakx |
 | 5   | StarCoderLn  | [4.7 MINA](https://minascan.io/mainnet/tx/5JuMNcqMpmKj8jQ8on9GR4DuPuSmCYsQhzUBgMgAJxp7xTHueNPi)  | B62qnSjG65Ei9V2Rw8NWXmyoMCqd3Y5SZzY7J3c9xJXvX51Qdej1GsD |
 | 6   | alexmaxpro   | [4.7 MINA](https://minascan.io/mainnet/tx/5Jtt8z96rD7FE36jUJXB769HrUvM1NxYKAKY1XHN5GaBcuVpUyhu)  | B62qnj1qDmVVApYYEDeq5Wv6TAvgWZtnZhW9yEswD3h54umrrkrCheZ |
