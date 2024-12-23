@@ -6,6 +6,4 @@
 
 请提交测试执行脚本。
 
-**文件结构**
-- Vote.ts 合约代码文件（主要采用MerkleMap来实现成员鉴权）
-- Vote.test.ts 合约测试用例（测试了成员与非成员投赞成或反对和组合情况，以及测试了MerkleMap的Root的更新功能）
+![alt text](task2.png)

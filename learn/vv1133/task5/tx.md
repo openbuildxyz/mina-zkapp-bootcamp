@@ -1,0 +1,5 @@
+# Token ID
+wYexpEtQDMR26avgujTu2Bvij4gTk972wM7gyMUAjCZkQjtWCZ
+
+# 合约部署 Tx Hash
+B62qjoHhDHRfHMZdYG2UbY49APvCfKjPohHQjMoSZDr9TWRshg2xg9z
