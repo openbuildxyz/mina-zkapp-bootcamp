@@ -27,6 +27,7 @@
 | 22  | StarryDeserts      | [2.6 MINA](https://minascan.io/mainnet/tx/5JugcRdhoBxwEXud2j9Ak2WDm2vW4onAj6NWDizQpTjpp4j8xyBk) | B62qrdDJ8QuqQpxPinusDUWzfCjN6JE6qB6T1JcCT9HEoCZjj8EgVQn |
 | 23  | zilong-dai         | [2.6 MINA](https://minascan.io/mainnet/tx/5JufTdmyiDMZHxJLmtMRSnEPJ2e3msRP465iPqJrkuuajkZedeuH) | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt |
 | 24  | baidang201         | [2.6 MINA](https://minascan.io/mainnet/tx/5JtiQTi538VfL37V9xZ1P5a3EKu3sth9Y1XGBwDQkuyA3A7Kyftk) | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB |
+| 25  | xtheing            | [2.6 MINA](https://minascan.io/mainnet/tx/5JtyBdeDSiedozZ8F6u2o6RsTv3GjLAhD43mc4znx8tWBuGMPcy9) | B62qnJxYihamx8Xf3xPnA38rqXFnimjyuqt7Li3Bi3xLKF3u125npdY |
 
 
 

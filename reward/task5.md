@@ -20,7 +20,4 @@
 | 15  | serencc       | [6 MINA](https://minascan.io/mainnet/tx/5JtYJZ7BoMBexKXXvcqbwDJBieb4HHApsUSo4emC99i87S1MZGJP) | B62qkPycEPSNxVihvGgZrsSDr6Ur72BMCdMpKo9nYhA4oXCmRG4FsWv  |
 | 16  | zilong-dai    | [6 MINA](https://minascan.io/mainnet/tx/5JtxseV8kyiF6ELhkR9Rgpvy5svgjpmseHHhPQRgBB5YefBxRtG7) | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt  |
 | 17  | baidang201    | [6 MINA](https://minascan.io/mainnet/tx/5Jtmn4e9DY13jdGH71GKHUCDtGh9nu2N3DxMQdFGTzCbEgq2FRuH) | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB  |
-
-
-
-
+| 18  | xtheing       | [6 MINA](https://minascan.io/mainnet/tx/5JuNRctVZMD7Pinj9qyrw6yxPVAF8qc7h8Xqv3EQ8WHpwbDbFKaF) | B62qnJxYihamx8Xf3xPnA38rqXFnimjyuqt7Li3Bi3xLKF3u125npdY  |
