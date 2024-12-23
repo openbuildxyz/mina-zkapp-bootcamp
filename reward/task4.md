@@ -28,7 +28,7 @@
 | 23  | zilong-dai         | [2.6 MINA](https://minascan.io/mainnet/tx/5JufTdmyiDMZHxJLmtMRSnEPJ2e3msRP465iPqJrkuuajkZedeuH) | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt |
 | 24  | baidang201         | [2.6 MINA](https://minascan.io/mainnet/tx/5JtiQTi538VfL37V9xZ1P5a3EKu3sth9Y1XGBwDQkuyA3A7Kyftk) | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB |
 | 25  | xtheing            | [2.6 MINA](https://minascan.io/mainnet/tx/5JtyBdeDSiedozZ8F6u2o6RsTv3GjLAhD43mc4znx8tWBuGMPcy9) | B62qnJxYihamx8Xf3xPnA38rqXFnimjyuqt7Li3Bi3xLKF3u125npdY |
-
+| 26  | justice010         | [2.6 MINA](https://minascan.io/mainnet/tx/5JuAFQb817MSqcCFXkgA3WCJEYSEgWvcg5hUfvvGMZDpcp531cBx) | B62qrRRAxikVxuKXUrggkcmqvNnqNzz3RkYd8DLUAaD5yA5dSy2hvtU |
 
 
 
