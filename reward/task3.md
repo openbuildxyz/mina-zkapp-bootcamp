@@ -1,0 +1,51 @@
+## Task3 任务奖励统计
+
+| 序号| 用户             | 奖励                                                                                             | 钱包                                                     |
+|-----|------------------|--------------------------------------------------------------------------------------------------|----------------------------------------------------------|
+| 1   | 0xHoGan          | [2.5 MINA](https://minascan.io/mainnet/tx/5JuvCQ43tdqFSm5xs1v2uRjyCad8FdF6itG2oA7TkniCLKRiH3Tw)  | B62qmWgnatsvVwkL1iGHuE2BhNF8piikGz6zssM3espTZaaAKqnVvCU  |
+| 2   | Adam             | [2.5 MINA](https://minascan.io/mainnet/tx/5JtmV5WeYtYty7zji4FX1SD9VRukP4HwskcQsd3GrCXjmSxYF5tj)  | B62qkrx1iS5TtGZoGjFzepEbgkqnHwJ2KU8dFRKwqhDWaxYzp6Vf3Fu  |
+| 3   | Blossom          | [2.5 MINA](https://minascan.io/mainnet/tx/5JvJZ1iXQXW89fQwViWrCKr9cvbF5tKu19murUZ2vybFP5knJH8r)  | B62qmSE237TBemka9xTejuUdcW3VjdSLf1zeB3z6Dyc1h86C4H4DT2m  |
+| 4   | Bystander2       | [2.5 MINA](https://minascan.io/mainnet/tx/5JtzidPbhvtqzWHjFw6uRWvAwNMV4Y7waeWfB7SnBQrPcDhVXsZV)  | B62qntCxnwWgmKoHV17UBaYeUZF7MeEkkiMq7gnXq9Xa9qXV93REN5Z  |
+| 5   | CrafixLQR        | [2.5 MINA](https://minascan.io/mainnet/tx/5Jtdmv6V5oEAXH6jd7vGqSsJ9M65NFsZxbRuLYvE9dHHQ8ghVikW)  | B62qksgm2XT22cAcj1j6he2JfXSdj4N6U5EvYhTDhd4oh1Y5YYdhqR9  |
+| 6   | Draculabo        | [2.5 MINA](https://minascan.io/mainnet/tx/5Ju1Jbt8SkqmkMJswvVhJFgJmdPTVKvdAB77d9FLJy7iLEowTiBC)  | B62qqGEiK3JqTvQfvjxAaUP6LSYsqunJc8TQ9EcpxnW6cwVtcHHrYsP  |
+| 7   | Felix            | [2.5 MINA](https://minascan.io/mainnet/tx/5JuBKV1B6eJA2PQg5fWYUup48HErwrMqHVLd4bV134pdGbgqz4gX)  | B62qnErkEsutRcUs3m4Jhtg2JxQEgpTHiYZsCy7i166YsQwf8wcsTJj  |
+| 8   | Fortitude-lan    | [2.5 MINA](https://minascan.io/mainnet/tx/5JtdTtBBo9g3ugNBkaHVYty8HXpaHgkUenpLQojdCH9iVTo8CiEm)  | B62qkx3s217vf7pCWcGp9omvwBdfLuBLE9fB65MYhwxtZ6qgJAGvSR4  |
+| 9   | LeoLliu          | [2.5 MINA](https://minascan.io/mainnet/tx/5JuYM9Ymd4gvwyoDCVRrGuka62oUGYMfao5pZhevhThcPZoCMn6u)  | B62qkP1T7Z5mDWYc8ULNAwN1jdwsaioQvr4YNVmmf1TGPPK6ve3cG5s  |
+| 10  | Like-Ming        | [2.5 MINA](https://minascan.io/mainnet/tx/5JuJBjGk8tbuUt64fb2REquQJkeXAwLS8pn8xhR4oYTkdb9ujikX)  | B62qqS37347qSwXapnmWK4T5AwGU6vHuPGu8E38jdzUAZSjqnJFQbem  |
+| 11  | MartinYeung5     | [2.5 MINA](https://minascan.io/mainnet/tx/5Ju3cLaq3AusecEqbQ1pJrsFiSyHhRdkNZfhPBE4Yway1TUyWLT9)  | B62qrDKrcdXZuks4cccyCtw1b4CBbrcpYFoEQs85pLVmRVUqwAFcakx  |
+| 12  | Muyec            | [2.5 MINA](https://minascan.io/mainnet/tx/5JtdBTzrEKiGkgUNDbSjwpKSPM8BzhhXuCxsFAiPT7gBM5KfGQdJ)  | B62qpij3Di9spk6dtGEiXbAWZZSPa8aTcvMR6hQUCS5oMGXUJfov4V1  |
+| 13  | Ric.Li.C         | [2.5 MINA](https://minascan.io/mainnet/tx/5JtuoRWS293udqEN1me1jj8MCTx7enbAQu4g8YrjmSs6XUe6a5UE)  | B62qjJaXMmZgaNecUUrDZ384uDQGYAAoTRTX7CAQ1YrBT6yo3gbzCCJ  |
+| 14  | StarCoderLn      | [2.5 MINA](https://minascan.io/mainnet/tx/5JuCFQMkPoFKx2ySfshycspW9F9yYjLsS4XFdQ5KWj7KpKeDtc6p)  | B62qnSjG65Ei9V2Rw8NWXmyoMCqd3Y5SZzY7J3c9xJXvX51Qdej1GsD  |
+| 15  | StarryDeserts    | [2.5 MINA](https://minascan.io/mainnet/tx/5JvHF3a2DKTvr6hFLC9Nkc9tgxvMzdLjcs5xcV8bZERdEFspweRE)  | B62qrdDJ8QuqQpxPinusDUWzfCjN6JE6qB6T1JcCT9HEoCZjj8EgVQn  |
+| 16  | WenHaoHub        | [2.5 MINA](https://minascan.io/mainnet/tx/5JuLtx2R3p4hdAsy8YXSJuLWEDgdH1bKyj7icERPGyP6Nm8cB9mj)  | B62qpd7oZMK5DhboEoFzKvGuEg44sc1RwikugRepjzFwisc58TEPRNp  |
+| 17  | YiShengYouNi     | [2.5 MINA](https://minascan.io/mainnet/tx/5Ju2eSLHV2bC9XmypUMeoGmRkh7RzKCfS6KDTBAzQB4ctaSmnm5p)  | B62qp3rwxA64nsig9qDqZBaTgP8WmEqvZUh8wvKpjqUukGBy4n2GdQM  |
+| 18  | amber            | [2.5 MINA](https://minascan.io/mainnet/tx/5Ju6A3sGfphZho1QaC4ywMxgAjrSmuKS9rKZCguYr4kbbCEmvxkV)  | B62qk2M6hHxFpbRE1JAcCS4sArJwYTXMoRBWZM9jPeKnrc6Ybh51jYg  |
+| 19  | cdt3211          | [2.5 MINA](https://minascan.io/mainnet/tx/5JuTn5T9spS8FmSPnqPmBhy9bQ6UNHBPspimLHbBPTJZ3PLpejsU)  | B62qrYu6vakNxZQH6FeQxBoGNgME7u35Wswqh53YEFPUVr7HwNrhiQC  |
+| 20  | hello2jie        | [2.5 MINA](https://minascan.io/mainnet/tx/5JuiP9LjKuDDq8C6e7Ajg8DbNSyz7Gx4K7F8bVi34hF2yiaqmmCX)  | B62qp8a7zodRU4MsXQuXgV3ES3autYRRxeWEr8NC3JgRTSk9KE9Xruz  |
+| 21  | javagjChen       | [2.5 MINA](https://minascan.io/mainnet/tx/5JvLZrrjT3PRENbmvyXW3cSGYiXY2getehTCpvZzCZcuW13a7Dvs)  | B62qouwX3ShbVHbSQMWCUVBi9FiQgRMKExoh76mpzehsedde2kchsao  |
+| 22  | justice010       | [2.5 MINA](https://minascan.io/mainnet/tx/5JuA3CFEcxAEciSBkrRGu9QWcBNMrYjEysPT5uuLYLPs4mbUhAni)  | B62qrRRAxikVxuKXUrggkcmqvNnqNzz3RkYd8DLUAaD5yA5dSy2hvtU  |
+| 23  | liaobinbin       | [2.5 MINA](https://minascan.io/mainnet/tx/5Jtem3y69JAuVe4zatGWwDDFDNCq1TwFkY4qqmTeFN8K5LNc5uvM)  | B62qmnnAUpzXdwxyeaqLPWYo4VhUQMRNJSmBFN3f4h6yApA3Tg8ZgZJ  |
+| 24  | linpeng          | [2.5 MINA](https://minascan.io/mainnet/tx/5JvHsQWQFi4yzQvHW3XC2tGp7SugSjVqc1dmBjdKm3PGFGfbyGCh)  | B62qkSPFqtBn3MzmZsichFxWyZd1CCKbmAU27iriTDRzjRi5DhwDqn9  |
+| 25  | lispking         | [2.5 MINA](https://minascan.io/mainnet/tx/5Jv92PqrCzxyW478PfTa5Zh6fS9DwBLs5T9RTnVnkYS1vAgqaPC1)  | B62qmr9d5bUxBm3S4F9tzrGN1bNdnBEAkdqFhFvJiw5X3oeQZeZMZYP  |
+| 26  | longerd          | [2.5 MINA](https://minascan.io/mainnet/tx/5JtzwN7TdTHAjmzukUB9hr6gm5TqdfrEPVxbWUhPSfqCSqVDLAf5)  | B62qm2RP4RoVr3QQfMnqY6Ybz7EEddXAHyPAkettYXxnnSvR3L2cHde  |
+| 27  | longyu           | [2.5 MINA](https://minascan.io/mainnet/tx/5JtjehYWBQUW7GGrHYs92S3g9sBG8BPbo6aoMdbDjdaNu19avPXj)  | B62qkt24qwKeJa4AMYqkdnRz2Cc49DW6XrUk5eyFeyATR1QoykiMcbC  |
+| 28  | lvyuemeng        | [2.5 MINA](https://minascan.io/mainnet/tx/5Jv21QHyjbJdGUXSzZa7Gb5BeuhiAnAgRsCDHBPfBFgZE7SbjwZd)  | B62qnyUcvEMS8m18JLmHgR7g8qKuK7Bf1PgFAGyctQt4RpZcfaTaRNo  |
+| 29  | maxli111         | [2.5 MINA](https://minascan.io/mainnet/tx/5JvDLCDApFTn6a1qqYNM1F3M2ykKiaJyz16fLsqtLu6SNJ1ziNkm)  | B62qoSZypaaCHFydaKBYWAToU87iV7jRrUJ1TdHzwSx85GSfYo5CjY1  |
+| 30  | missop           | [2.5 MINA](https://minascan.io/mainnet/tx/5JtcGTbYNkeuKL93VciZ9bnvv5bvY7NHhieaD4FwqhQcqY25oq6B)  | B62qqtmDeMxz1e7kMNJUFXP4etvmSkEFyyaY1SMjSPjxVDivEy57ntj  |
+| 31  | moseyah          | [2.5 MINA](https://minascan.io/mainnet/tx/5Jtm491tcsAEry2aDaTRwwbr5BMRop6JUw2ZwmisWLmHo9ytRX4m)  | B62qmYFLwGSjQuWdnygPLw5TvrMENrLEFQmTow8RhSUw6MCm2sjQEn9  |
+| 32  | obiwan90         | [2.5 MINA](https://minascan.io/mainnet/tx/5Juf6cYNACvWUEhsjdoiKrhexCuJAZsr4dVDsf1RKSXmRzQ8Syia)  | B62qjJ3ahz6vcgnv76VxBhSdjJsmwJiV6Hgn5SuJDjeXYPzVm4Ur6PK  |
+| 33  | s550s            | [2.5 MINA](https://minascan.io/mainnet/tx/5JumVrzozKY1oK4MkZRgpRxsuyXp2ngL2JKRRgoSema1g4LN1gnz)  | B62qj8iELzyGLn9wc3xKB8Mi4dWYsekR3Gf4woCqvsZHUhFDdmP1bTp  |
+| 34  | serencc          | [2.5 MINA](https://minascan.io/mainnet/tx/5JuEA8cd4TyqG23fZsH8WWE911FyJB8XSHPc3HCJkPb4TVqKoauo)  | B62qkPycEPSNxVihvGgZrsSDr6Ur72BMCdMpKo9nYhA4oXCmRG4FsWv  |
+| 35  | swbwawa          | [2.5 MINA](https://minascan.io/mainnet/tx/5JuwFkcVJLcwoxSys7PsKRyczY6dieGeo1hptkBsLRbqC8Q14CMX)  | B62qkyjKHvgGfwAViNAr6knjPtw1ZHr1osgUQEcD94Z8dHw6uaep2NH  |
+| 36  | tokenlin         | [2.5 MINA](https://minascan.io/mainnet/tx/5JvJwx5UT1rGpe6RY6stUm25GYff8PmhfaihK2B1GVuigr4Eu5u6)  | B62qmJatLZaHhZUAYLdWbSLpQDuF3gRYJv1knDGruTRTubNbBJRSAVV  |
+| 37  | veithly          | [2.5 MINA](https://minascan.io/mainnet/tx/5Jv5WGyfsUxsiNNfx8NiT26wuypXvAp28Q8TnJgtdqs56oMk5vYH)  | B62qrndRUTcuUTjHaWfderP5WgPK4ET23W8LthoS9PE8HeNx3SxNDv1  |
+| 38  | vv1133           | [2.5 MINA](https://minascan.io/mainnet/tx/5JuKJWLyUePQyRXUqqacWF5dQkvjSNSBL6pSn8SD5KZNTdjErYpf)  | B62qjcEMjPp2w4ngRxHyzxEqumK58nXKVpjZpPk8HF9f2fLY5GvbEFS  |
+| 39  | wangyuanzcm      | [2.5 MINA](https://minascan.io/mainnet/tx/5JuMb3WPB6PUmLYiWUpfXkdzpvc1F6rnhY6c1gQN5CJs8UxdaUNt)  | B62qkX5rw8w46ChoHcxQZuHakANL47mCs3RMSKhyYKJWzDWefdLxwCD  |
+| 40  | weirdcola        | [2.5 MINA](https://minascan.io/mainnet/tx/5JuVFDsk3TKcxw52CuTFzkJZpa7dQJNyFzhmEG4sPQk13BzuR9Zk)  | B62qnJVQcj4gvfY1GBFryQZ4RJgfwqmVwCXB6umnH5cJQPFMLvotRL3  |
+| 41  | wokingGit        | [2.5 MINA](https://minascan.io/mainnet/tx/5JvNCY8LLAapP5d8fkKEgrqAUy9qFkQ9uvesfoBxwWYcqRxWDCpU)  | B62qmVkcEK4ooi916EN7RiX5HAH14UzhCAZMU26k3uw8Ez4CjcM8xa9  |
+| 42  | wrule            | [2.5 MINA](https://minascan.io/mainnet/tx/5JufXDWVhHMrAL8UvUeVAZsaunCg2sXm5B9JGW5xJ2SUhqQZsNe3)  | B62qioCPTurfdzWhcNoGdBHTjFPfPMe22iPHBRpwK8EDzpRjCLMTj8N  |
+| 43  | xfz1987          | [2.5 MINA](https://minascan.io/mainnet/tx/5JuEsS6F1LSMSYaQHQJg39udjvBh3pUbgEoYLLx7qc2uc8dKDUtV)  | B62qpwbpFz5z1g8TCSDGVJ418v98ob7m4VE3vcgm1XtQrgLVGin28af  |
+| 44  | xiaxianlin       | [2.5 MINA](https://minascan.io/mainnet/tx/5Ju8bCkNW8AQDdoiPfRzLjYfuWs6bxwgBDTLKcTJhPrhrteReWEu)  | B62qjfF3coQjUEfjdrmXiHNzwQKTCXQgyeLNCBGHSSozV6ebLp9iBoB  |
+| 45  | zhangloveyan     | [2.5 MINA](https://minascan.io/mainnet/tx/5JuEZELMwEY3PEHM2Gt9F6rPejxZZnrBdg5sqpQGFbWmrL6sGHKY)  | B62qrikUxhe2quGz8ASKRs1tS9eTBVEwD6Wo4z4uRDSEET8NG7LBLu7  |
+| 46  | zilong-dai       | [2.5 MINA](https://minascan.io/mainnet/tx/5JtWTxHsnBZWeCPf363EMfk2oBGrkiKxFptosHrbrr38MXrtiqbR)  | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt  |
+| 47  | baidang201       | [2.5 MINA](https://minascan.io/mainnet/tx/5Jug3ZDZR2onD7zVWjM6rMRWYUXBKg8BMYa4YvgDz718Mi435YmB)  | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB  |
