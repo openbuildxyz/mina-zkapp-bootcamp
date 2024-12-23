@@ -19,3 +19,5 @@
 | longerd       | 发表技术文章 | [Mina Learning - MerkleTree](https://learnblockchain.cn/article/10209)                      | [1.3 MINA](https://minascan.io/mainnet/tx/5Ju8h467UWyXh9hNRmSpTvisnF39t9HaPfyBCZvePzMnKXcsovS6)   |
 | longerd       | 发表技术文章 | [Mina Learning - Developers faq](https://learnblockchain.cn/article/10214)                  | [1.3 MINA](https://minascan.io/mainnet/tx/5JvDTSMyUzP9LjiLbiEegsyEJnAHwFueK7cx2UhpL1RnGqerFJyP)   |
 | YiShengYouNi  | 发表技术文章 | [Mina之账号初始化流程](https://learnblockchain.cn/article/10208)                            | [1.3 MINA](https://minascan.io/mainnet/tx/5Jv7qtySrwxnBCqigp3rdMJqZGmMoiBTFbFtGHaaEd1ccXrY1LSD)   |
+| lispking      | 发表技术文章 | [Protokit：快速入门](https://learnblockchain.cn/article/10262)                              | [1.3 MINA](https://minascan.io/mainnet/tx/5JvLWigHuG7PBNEqhJWchNMuN3BXU8JN6sQdV9n6pk8Qkij9xhrt)   |
+| lispking      | 发表技术文章 | [Protokit 是什么？](https://learnblockchain.cn/article/10263)                               | [1.3 MINA](https://minascan.io/mainnet/tx/5Jv6YZFP9z7coYXUvsusiUT32heY8aN5VxqbULBy37TouHvWpkuM)   |

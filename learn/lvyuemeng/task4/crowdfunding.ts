@@ -2,7 +2,7 @@ import { AccountUpdate, Bool, method, Permissions, Provable, PublicKey, SmartCon
 
 const SlotsRequired = 200;
 
-export class CrowdFunding extends SmartContract {
+export class CrowdFundingTiming extends SmartContract {
 	events = {
 		"payer": PublicKey,
 		"receiver": PublicKey,

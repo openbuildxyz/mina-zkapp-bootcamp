@@ -34,7 +34,6 @@ Dapp可以代为执行
 
 更新: 优化了两个state
 补充: num状态也能优化, 为了event信息更详细, 保留了下来
-
 */
 
 export class DeployEvent extends Struct({

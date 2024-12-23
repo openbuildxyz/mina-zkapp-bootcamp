@@ -1,5 +1,7 @@
 ## tx hash
 
+> 5JvRqibQzwmFjzG4VCafhHwYMBvPneGZPwRRCCdeM8x3oVRGLTyi
+
 Another bewilder bug.
 ```
 ✔ Build project
@@ -32,27 +34,18 @@ TypeError: Cannot read properties of undefined (reading 'x')
 
 A bewilder bug.
 ```
-# Unhandled error between tests
--------------------------------
-269 |     privateInputs = privateInputs.map((input) => input === SelfProof ? selfProof : input);
-270 |     // check if all arguments are provable
-271 |     let args = privateInputs.map((input, i) => {
-272 |         if (isProvable(input))
-273 |             return input;
-274 |         throw Error(`Argument ${i + 1} of method ${methodName} is not a provable type: ${input}`);
-                    ^
-error: Argument 1 of method approveBase is not a provable type: function Object() {
-    [native code]
-}
-      at E:\Project\JsProj\Zk\ZkSharp\node_modules\o1js\dist\node\lib\proof-system\zkprogram.js:274:15
-      at map (1:11)
-      at sortMethodArguments (E:\Project\JsProj\Zk\ZkSharp\node_modules\o1js\dist\node\lib\proof-system\zkprogram.js:271:30)
-      at method (E:\Project\JsProj\Zk\ZkSharp\node_modules\o1js\dist\node\lib\mina\zkapp.js:62:31)
-      at DecorateProperty (E:\Project\JsProj\Zk\ZkSharp\node_modules\reflect-metadata\Reflect.js:553:33)
-      at E:\Project\JsProj\Zk\ZkSharp\src\task5\token.ts:5:16
--------------------------------
-
-
- 0 pass
- 1 fail
+src\test\tokenfunding2.test.ts:
+seller:  100000000000n
+curBalance of ZkApp: 0
+✓ Add > deploy contracts and basic mint [5078.00ms]
+seller:  100000000000n
+After Transaction: 
+buyer:  10000000000n
+seller:  90000000000n
+✓ Add > correctly contribute on the `CrowdFunding` smart contract [1469.00ms]
+seller:  100000000000n
+After Transaction: 
+buyer:  10000000000n
+seller:  90000000000n
+✓ Add > After Block [1515.00ms]
 ```
