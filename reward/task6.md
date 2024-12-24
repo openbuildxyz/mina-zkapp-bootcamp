@@ -23,5 +23,6 @@
 | 18  | zhangloveyan | [4.7 MINA](https://minascan.io/mainnet/tx/5Jv6JNmm14egLZbt4KoWCqe8EHfZjFVdCp9KpLSNdrxaExeMoEeh)  | B62qrikUxhe2quGz8ASKRs1tS9eTBVEwD6Wo4z4uRDSEET8NG7LBLu7 |
 | 19  | zilong-dai   | [4.7 MINA](https://minascan.io/mainnet/tx/5JucxXLKbhGNrqLHHqYNnqHA1to6Rur6EEVubBXbxqExEMLHaQJ2)  | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt |
 | 20  | justice010   | [4.7 MINA](https://minascan.io/mainnet/tx/5JuELm83dGxYazkgtYhZ1ZL4PtXcesZFnGhdR5dqMW1FpR8BG8gx)  | B62qrRRAxikVxuKXUrggkcmqvNnqNzz3RkYd8DLUAaD5yA5dSy2hvtU |
+| 21  | lvyuemeng    | [4.7 MINA](https://minascan.io/mainnet/tx/5JvQY9skVdu11dsVcQm7QyKrXNEy14n4Y2xemFWxSq1xzxWWtqXX)  | B62qnyUcvEMS8m18JLmHgR7g8qKuK7Bf1PgFAGyctQt4RpZcfaTaRNo |
 
 
