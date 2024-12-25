@@ -23,6 +23,6 @@
 | lispking      | 发表技术文章 | [Protokit 是什么？](https://learnblockchain.cn/article/10263)                               | [1.3 MINA](https://minascan.io/mainnet/tx/5Jv6YZFP9z7coYXUvsusiUT32heY8aN5VxqbULBy37TouHvWpkuM)   |
 | longerd       | 发表技术文章 | [Mina Learning - Auro wallet](https://learnblockchain.cn/article/10321)                     | [1.6 MINA](https://minascan.io/mainnet/tx/5JuRVG7JWvAmR45b3d9QyjPmWyNPcTcQsMz1LCaEuZnQjzZBpQTa)   |
 | longerd       | 发表技术文章 | [Mina Learning - Smart Contracts](https://learnblockchain.cn/article/10276)                 | [1.6 MINA](https://minascan.io/mainnet/tx/5JueT3Tp23Vx7kZgULaENNLzb9qrkQaKiEhxp8GzfJr5BqDmVfsJ)   |
-
+| lispking      | 发表技术文章 | [Mina: 展望 2025 年](https://mp.weixin.qq.com/s/5EfCYjcBIh61ayQYek6SwQ)                     | [1.6 MINA](https://minascan.io/mainnet/tx/5Jtr7SzgFNyiCT22zStmdx5ujJcPUYn3zLTLXzFmMLGJMudEFaP6)   |
 
 
