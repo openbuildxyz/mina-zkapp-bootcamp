@@ -21,3 +21,14 @@
 | 16  | xfz1987            | [2.6 MINA](https://minascan.io/mainnet/tx/5Ju9f5yMQ8Q9NL1Hqc4UAZxV3FvBxScktEKW8CRPDMzMVxvGo3sC) | B62qpwbpFz5z1g8TCSDGVJ418v98ob7m4VE3vcgm1XtQrgLVGin28af | 
 | 17  | xiaxianlin         | [2.6 MINA](https://minascan.io/mainnet/tx/5Jun9U98vn6hkoT4WyeKR6rQHd2dTpWMCD3Bki4Kbse9WQ3AhXH2) | B62qjfF3coQjUEfjdrmXiHNzwQKTCXQgyeLNCBGHSSozV6ebLp9iBoB | 
 | 18  | zhangloveyan       | [2.6 MINA](https://minascan.io/mainnet/tx/5JtnzUMMoMAWVU4veZJxGVjeu7WH13YKcrfHNiyNDpXRnPxXDpcj) | B62qrikUxhe2quGz8ASKRs1tS9eTBVEwD6Wo4z4uRDSEET8NG7LBLu7 | 
+| 19  | Bystander2         | [2.6 MINA](https://minascan.io/mainnet/tx/5JtmHMFE1WnRiAf6pkBiDJ9VGQYTnyECegEztB73vtM9b4TA32mj) | B62qntCxnwWgmKoHV17UBaYeUZF7MeEkkiMq7gnXq9Xa9qXV93REN5Z |
+| 20  | Felix              | [2.6 MINA](https://minascan.io/mainnet/tx/5JvBtreSUkp2MZ4XZDaoWFHtj9tRQ6vqm86CWU6AL78PKrRkRgrc) | B62qnErkEsutRcUs3m4Jhtg2JxQEgpTHiYZsCy7i166YsQwf8wcsTJj |
+| 21  | StarCoderLn        | [2.6 MINA](https://minascan.io/mainnet/tx/5Juh9kZLMctD5CxTkDayCsWb5JVnfXaYYqjZrFE3T9JbEYb6HYX5) | B62qnSjG65Ei9V2Rw8NWXmyoMCqd3Y5SZzY7J3c9xJXvX51Qdej1GsD |
+| 22  | StarryDeserts      | [2.6 MINA](https://minascan.io/mainnet/tx/5JugcRdhoBxwEXud2j9Ak2WDm2vW4onAj6NWDizQpTjpp4j8xyBk) | B62qrdDJ8QuqQpxPinusDUWzfCjN6JE6qB6T1JcCT9HEoCZjj8EgVQn |
+| 23  | zilong-dai         | [2.6 MINA](https://minascan.io/mainnet/tx/5JufTdmyiDMZHxJLmtMRSnEPJ2e3msRP465iPqJrkuuajkZedeuH) | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt |
+| 24  | baidang201         | [2.6 MINA](https://minascan.io/mainnet/tx/5JtiQTi538VfL37V9xZ1P5a3EKu3sth9Y1XGBwDQkuyA3A7Kyftk) | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB |
+| 25  | xtheing            | [2.6 MINA](https://minascan.io/mainnet/tx/5JtyBdeDSiedozZ8F6u2o6RsTv3GjLAhD43mc4znx8tWBuGMPcy9) | B62qnJxYihamx8Xf3xPnA38rqXFnimjyuqt7Li3Bi3xLKF3u125npdY |
+| 26  | justice010         | [2.6 MINA](https://minascan.io/mainnet/tx/5JuAFQb817MSqcCFXkgA3WCJEYSEgWvcg5hUfvvGMZDpcp531cBx) | B62qrRRAxikVxuKXUrggkcmqvNnqNzz3RkYd8DLUAaD5yA5dSy2hvtU |
+
+
+

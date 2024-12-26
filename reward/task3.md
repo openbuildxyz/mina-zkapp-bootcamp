@@ -48,3 +48,4 @@
 | 44  | xiaxianlin       | [2.5 MINA](https://minascan.io/mainnet/tx/5Ju8bCkNW8AQDdoiPfRzLjYfuWs6bxwgBDTLKcTJhPrhrteReWEu)  | B62qjfF3coQjUEfjdrmXiHNzwQKTCXQgyeLNCBGHSSozV6ebLp9iBoB  |
 | 45  | zhangloveyan     | [2.5 MINA](https://minascan.io/mainnet/tx/5JuEZELMwEY3PEHM2Gt9F6rPejxZZnrBdg5sqpQGFbWmrL6sGHKY)  | B62qrikUxhe2quGz8ASKRs1tS9eTBVEwD6Wo4z4uRDSEET8NG7LBLu7  |
 | 46  | zilong-dai       | [2.5 MINA](https://minascan.io/mainnet/tx/5JtWTxHsnBZWeCPf363EMfk2oBGrkiKxFptosHrbrr38MXrtiqbR)  | B62qmHTej23nh2tTNXu6dpjiSwu3ofdjPd1p6mqLTyhic3QkiayTiAt  |
+| 47  | baidang201       | [2.5 MINA](https://minascan.io/mainnet/tx/5Jug3ZDZR2onD7zVWjM6rMRWYUXBKg8BMYa4YvgDz718Mi435YmB)  | B62qqScmNaatS9wACYyrBQHPuFzUki9GJgvkeddLpvmsWJxY7kqnJUB  |
