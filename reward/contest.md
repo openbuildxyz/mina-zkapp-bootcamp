@@ -24,5 +24,12 @@
 | longerd       | 发表技术文章 | [Mina Learning - Auro wallet](https://learnblockchain.cn/article/10321)                     | [1.6 MINA](https://minascan.io/mainnet/tx/5JuRVG7JWvAmR45b3d9QyjPmWyNPcTcQsMz1LCaEuZnQjzZBpQTa)   |
 | longerd       | 发表技术文章 | [Mina Learning - Smart Contracts](https://learnblockchain.cn/article/10276)                 | [1.6 MINA](https://minascan.io/mainnet/tx/5JueT3Tp23Vx7kZgULaENNLzb9qrkQaKiEhxp8GzfJr5BqDmVfsJ)   |
 | lispking      | 发表技术文章 | [Mina: 展望 2025 年](https://mp.weixin.qq.com/s/5EfCYjcBIh61ayQYek6SwQ)                     | [1.6 MINA](https://minascan.io/mainnet/tx/5Jtr7SzgFNyiCT22zStmdx5ujJcPUYn3zLTLXzFmMLGJMudEFaP6)   |
+| lispking      | 发表技术文章 | [隆重推出“httpz”：值得信赖的互联网](https://learnblockchain.cn/article/10375)               | [1.6 MINA](https://minascan.io/mainnet/tx/5JvQZQovWoYzTRkERDCF97xkzE9w9keig6r4xNXz6fBLU1tsLjWe)   |
+| lispking      | 发表技术文章 | [Open Mina 节点介绍](https://learnblockchain.cn/article/10392)                              | [1.6 MINA](https://minascan.io/mainnet/tx/5JvCtEMjFMrqhUyRxwh9Ba3vLkseQCJfYkeyJKWyyQaWAUwJj9Xd)   |
+| lispking      | 发表技术文章 | [OpenMina: 运行非出块和出块节点](https://learnblockchain.cn/article/10420)                  | [1.6 MINA](https://minascan.io/mainnet/tx/5JtheVGWzjWxwUREuHKfXVftvqS17JB9jbCFBVHzYFRPFyrXGAY1)   |
+| lispking      | 发表技术文章 | [OpenMina: 扫描状态](https://learnblockchain.cn/article/10421)                              | [1.6 MINA](https://minascan.io/mainnet/tx/5JtqCcxiyTFTAJ3pETEwnYrLtnPKmx3vPHrwMjYiNArEgfzmQEon)   |
+| lispking      | 发表技术文章 | [OpenMina: 提交和生成新的 SNARK](https://learnblockchain.cn/article/10422)                  | [1.6 MINA](https://minascan.io/mainnet/tx/5JvK2F5xyeR86oBsuxb5vD7jHvTgzVeoxtd9NGPaJz2fuYkzAjdF)   |
+| lispking      | 发表技术文章 | [OpenMina: 测试用例说明](https://learnblockchain.cn/article/10436)                          | [1.6 MINA](https://minascan.io/mainnet/tx/5JvJsMMaxXsatipeocwQpKaFYX8gvqyqryNNFb1RGdhscwvTvVs9)   |
+| lispking      | 发表技术文章 | [Mina的测试框架](https://learnblockchain.cn/article/10437)                                  | [1.6 MINA](https://minascan.io/mainnet/tx/5JtsqCRduyxMsCBvHSVhC6jrn1TaSpKJpd6dUN3xWRszGwQVCW4h)   |
 
 
